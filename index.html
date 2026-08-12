@@ -185,13 +185,13 @@ function enviar(){
 
 /* DATOS EDITABLES */
 const datos = {
-  "tiktok": 18k,
-  "facebook": 3K,
+  "tiktok": 18000,
+  "facebook": 3000,
   "youtube": 630,
   "instagram": 42
 };
 
-/* ANIMACIÓN */
+// animación
 for (let red in datos) {
   let el = document.getElementById(red);
   let valor = datos[red];
@@ -199,14 +199,25 @@ for (let red in datos) {
 
   let subir = setInterval(() => {
     count += valor / 50;
+
     if (count >= valor) {
       count = valor;
       clearInterval(subir);
     }
-    el.innerText = "+" + Math.floor(count);
+
+    el.innerText = "+" + formatear(Math.floor(count));
+
   }, 20);
 }
 
+// 👇 FUNCIÓN AQUÍ (afuera)
+function formatear(num) {
+  if (num >= 1000) {
+    return (num / 1000).toFixed(0) + "K";
+  }
+  return num;
+}
+  
 /* ABRIR LINKS */
 function abrir(url){
   window.open(url, "_blank");
