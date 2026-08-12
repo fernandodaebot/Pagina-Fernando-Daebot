@@ -178,6 +178,40 @@ body {
   font-size: 50px;
   color: red;
 }
+  .stats {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px;
+  background: #000;
+  flex-wrap: wrap;
+}
+
+.stat-box {
+  background: #2a2a2a;
+  padding: 30px;
+  border-radius: 15px;
+  width: 180px;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.stat-box:hover {
+  background: #3a3a3a;
+  transform: scale(1.05);
+}
+
+.num {
+  font-size: 40px;
+  color: red;
+  font-weight: bold;
+}
+
+.stat-box p {
+  margin-top: 10px;
+  font-weight: bold;
+}
 </style>
 </head>
 
@@ -213,25 +247,27 @@ body {
 
 <!-- REDES -->
 <section class="stats" id="redes">
-  <div class="stat">
-    <span class="num" data-target="120">0</span>K
+
+  <div class="stat-box" onclick="abrir('https://tiktok.com')">
+    <div class="num" id="tiktok">0</div>
     <p>TikTok</p>
   </div>
 
-  <div class="stat">
-    <span class="num" data-target="80">0</span>K
+  <div class="stat-box" onclick="abrir('https://facebook.com')">
+    <div class="num" id="facebook">0</div>
     <p>Facebook</p>
   </div>
 
-  <div class="stat">
-    <span class="num" data-target="30">0</span>K
+  <div class="stat-box" onclick="abrir('https://youtube.com')">
+    <div class="num" id="youtube">0</div>
     <p>YouTube</p>
   </div>
 
-  <div class="stat">
-    <span class="num" data-target="10">0</span>K
+  <div class="stat-box" onclick="abrir('https://instagram.com')">
+    <div class="num" id="instagram">0</div>
     <p>Instagram</p>
   </div>
+
 </section>
 
 <!-- PRODUCTOS -->
@@ -334,6 +370,44 @@ counters.forEach(counter => {
 
   update();
 });
+<script>
+/* 🔧 DATOS EDITABLES */
+const datos = {
+  "tiktok": 18000,
+  "facebook": 3000,
+  "youtube": 630,
+  "instagram": 42
+};
+
+/* 🔥 ANIMACIÓN */
+function animar(id, valor) {
+  let elemento = document.getElementById(id);
+  let contador = 0;
+
+  let subir = () => {
+    let incremento = valor / 100;
+
+    if (contador < valor) {
+      contador += incremento;
+      elemento.innerText = "+" + Math.floor(contador) + "K";
+      setTimeout(subir, 20);
+    } else {
+      elemento.innerText = "+" + valor + "K";
+    }
+  };
+
+  subir();
+}
+
+/* 🚀 INICIAR */
+for (let red in datos) {
+  animar(red, datos[red]);
+}
+
+/* 🔗 ABRIR LINKS */
+function abrir(url) {
+  window.open(url, "_blank");
+}
 </script>
 </body>
 </html>
