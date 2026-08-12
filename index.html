@@ -16,96 +16,60 @@ body {
 .nav {
   position: sticky;
   top: 0;
-  z-index: 1000;
   display: flex;
   justify-content: space-between;
   padding: 20px 60px;
   background: #000;
-  border-bottom: 1px solid #222;
 }
 
 .menu a {
   margin-left: 20px;
   text-decoration: none;
   color: white;
-  transition: 0.3s;
 }
 
 .menu a:hover {
   color: red;
 }
 
-.menu a.active {
-  color: red;
-  border-bottom: 2px solid red;
-}
-
 /* HERO */
 .hero {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  padding: 100px 60px;
+  padding: 80px;
 }
 
 .hero-text h1 {
-  font-size: 70px;
+  font-size: 60px;
 }
 
 .hero-text span {
   color: red;
 }
 
-.hero-text p {
-  color: #aaa;
-  font-size: 18px;
-  margin-top: 20px;
-}
-
-.buttons {
-  margin-top: 30px;
-}
-
-.buttons button {
-  padding: 14px 24px;
-  border-radius: 10px;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.btn-main {
-  background: red;
-  border: none;
-  color: white;
-}
-
-.btn-secondary {
-  background: transparent;
-  border: 1px solid #444;
-  color: white;
-}
-
-.hero-img {
-  width: 450px;
-  height: 280px;
-  background: #1a1a1a;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 /* REDES */
 .stats {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+  gap: 30px;
   padding: 60px;
-  background: #000;
-  text-align: center;
 }
 
-.stat {
-  font-size: 40px;
+.stat-box {
+  background: #2a2a2a;
+  padding: 30px;
+  border-radius: 15px;
+  width: 150px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.stat-box:hover {
+  background: #3a3a3a;
+}
+
+.num {
+  font-size: 35px;
   color: red;
   font-weight: bold;
 }
@@ -114,103 +78,19 @@ body {
 .productos {
   background: white;
   color: black;
-  padding: 80px 40px;
-}
-
-.productos h2 {
-  text-align: center;
-  font-size: 40px;
-}
-
-.grid {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
+  padding: 50px;
 }
 
 .card {
-  background: #f9f9f9;
-  padding: 25px;
-  border-radius: 20px;
-  width: 220px;
-  text-align: center;
-}
-
-.card button {
-  display: block;
-  width: 100%;
-  margin-top: 8px;
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background: #ff4fa3;
-  color: white;
-  cursor: pointer;
+  background: #eee;
+  padding: 20px;
+  margin: 10px;
+  display: inline-block;
 }
 
 /* CARRITO */
 .carrito {
-  padding: 60px;
-  background: #111;
-}
-
-.total {
-  margin-top: 20px;
-  font-size: 22px;
-}
-
-.whatsapp {
-  margin-top: 20px;
-  background: #25D366;
-  padding: 12px;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-  .stat p {
-  color: white;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-.num {
-  font-size: 50px;
-  color: red;
-}
-  .stats {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  padding: 60px;
-  background: #000;
-  flex-wrap: wrap;
-}
-
-.stat-box {
-  background: #2a2a2a;
-  padding: 30px;
-  border-radius: 15px;
-  width: 180px;
-  text-align: center;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-.stat-box:hover {
-  background: #3a3a3a;
-  transform: scale(1.05);
-}
-
-.num {
-  font-size: 40px;
-  color: red;
-  font-weight: bold;
-}
-
-.stat-box p {
-  margin-top: 10px;
-  font-weight: bold;
+  padding: 40px;
 }
 </style>
 </head>
@@ -221,10 +101,9 @@ body {
 <div class="nav">
   <h2>Daebot 🤖</h2>
   <div class="menu">
-    <a href="#inicio" class="active">Inicio</a>
+    <a href="#inicio">Inicio</a>
     <a href="#redes">Redes</a>
     <a href="#catalogo">Catálogo</a>
-    <a href="#carrito">Carrito</a>
   </div>
 </div>
 
@@ -232,28 +111,19 @@ body {
 <section class="hero" id="inicio">
   <div class="hero-text">
     <h1>Fernando <span>Daebot</span></h1>
-    <p>Creador de termoformas y proyectos creativos 🚀</p>
-
-    <div class="buttons">
-      <button class="btn-main">Ver catálogo</button>
-      <button class="btn-secondary">Ver proyectos</button>
-    </div>
-  </div>
-
-  <div class="hero-img">
-    Tu video o imagen aquí
+    <p>Creador de termoformas 🚀</p>
   </div>
 </section>
 
 <!-- REDES -->
 <section class="stats" id="redes">
 
-  <div class="stat-box" onclick="abrir('https://www.tiktok.com/@fernandodaebot?is_from_webapp=1&sender_device=pc')">
+  <div class="stat-box" onclick="abrir('https://www.tiktok.com/@fernandodaebot')">
     <div class="num" id="tiktok">0</div>
     <p>TikTok</p>
   </div>
 
-  <div class="stat-box" onclick="abrir('https://www.facebook.com/fernando.daebot/?locale=es_LA')">
+  <div class="stat-box" onclick="abrir('https://www.facebook.com/fernando.daebot')">
     <div class="num" id="facebook">0</div>
     <p>Facebook</p>
   </div>
@@ -272,106 +142,44 @@ body {
 
 <!-- PRODUCTOS -->
 <section class="productos" id="catalogo">
-  <h2>🎨 Catálogo</h2>
+  <h2>Catálogo</h2>
 
-  <div class="grid">
-
-    <div class="card">
-      <h3>🎭 Hombre</h3>
-      <button onclick="add('Hombre 5cm',15)">5 cm - 15 Bs</button>
-      <button onclick="add('Hombre 7cm',30)">7 cm - 30 Bs</button>
-      <button onclick="add('Hombre 8cm',40)">8 cm - 40 Bs</button>
-      <button onclick="add('Hombre 9cm',50)">9 cm - 50 Bs</button>
-    </div>
-
-    <div class="card">
-      <h3>👩 Mujer</h3>
-      <button onclick="add('Mujer 5cm',15)">5 cm - 15 Bs</button>
-      <button onclick="add('Mujer 7cm',30)">7 cm - 30 Bs</button>
-      <button onclick="add('Mujer 8cm',40)">8 cm - 40 Bs</button>
-      <button onclick="add('Mujer 9cm',50)">9 cm - 50 Bs</button>
-    </div>
-
+  <div class="card">
+    Hombre 5cm - 15 Bs
+    <button onclick="add('Hombre 5cm',15)">Agregar</button>
   </div>
+
+  <div class="card">
+    Mujer 5cm - 15 Bs
+    <button onclick="add('Mujer 5cm',15)">Agregar</button>
+  </div>
+
 </section>
 
 <!-- CARRITO -->
-<section class="carrito" id="carrito">
-  <h2>🛒 Tu pedido</h2>
+<section class="carrito">
+  <h2>Pedido</h2>
   <ul id="lista"></ul>
-  <div class="total" id="total">Total: 0 Bs</div>
-  <button class="whatsapp" onclick="enviar()">Enviar por WhatsApp</button>
+  <p id="total">Total: 0 Bs</p>
+  <button onclick="enviar()">Enviar WhatsApp</button>
 </section>
 
 <script>
 let total = 0;
 let texto = "";
 
-function add(nombre, precio) {
-  let lista = document.getElementById("lista");
-
-  let item = document.createElement("li");
-  item.textContent = nombre + " - " + precio + " Bs";
-
-  lista.appendChild(item);
-
+function add(nombre, precio){
   total += precio;
-  document.getElementById("total").textContent = "Total: " + total + " Bs";
-
   texto += nombre + " - " + precio + " Bs\n";
+  document.getElementById("total").innerText = "Total: " + total + " Bs";
 }
 
-function enviar() {
-  let mensaje = "Hola Fernando Daebot 🤖, quiero pedir:\n\n" + texto + "\nTotal: " + total + " Bs";
-  let url = "https://wa.me/59175404843?text=" + encodeURIComponent(mensaje);
+function enviar(){
+  let url = "https://wa.me/59175404843?text=" + encodeURIComponent(texto);
   window.open(url);
 }
 
-/* MENU ACTIVO */
-const sections = document.querySelectorAll("section");
-const navLinks = document.querySelectorAll(".menu a");
-
-window.addEventListener("scroll", () => {
-  let current = "";
-
-  sections.forEach(section => {
-    const sectionTop = section.offsetTop;
-    if (pageYOffset >= sectionTop - 100) {
-      current = section.getAttribute("id");
-    }
-  });
-
-  navLinks.forEach(a => {
-    a.classList.remove("active");
-    if (a.getAttribute("href") === "#" + current) {
-      a.classList.add("active");
-    }
-  });
-});
-</script>
-<script>
-const counters = document.querySelectorAll('.num');
-
-counters.forEach(counter => {
-  let target = +counter.getAttribute('data-target');
-  let count = 0;
-
-  let update = () => {
-    let increment = target / 100;
-
-    if (count < target) {
-      count += increment;
-      counter.innerText = Math.floor(count);
-      setTimeout(update, 20);
-    } else {
-      counter.innerText = target;
-    }
-  };
-
-  update();
-});
-<script>
-/* 🔧 DATOS EDITABLES */
+/* DATOS EDITABLES */
 const datos = {
   "tiktok": 18000,
   "facebook": 3000,
@@ -379,35 +187,27 @@ const datos = {
   "instagram": 42
 };
 
-/* 🔥 ANIMACIÓN */
-function animar(id, valor) {
-  let elemento = document.getElementById(id);
-  let contador = 0;
-
-  let subir = () => {
-    let incremento = valor / 100;
-
-    if (contador < valor) {
-      contador += incremento;
-      elemento.innerText = "+" + Math.floor(contador) + "K";
-      setTimeout(subir, 20);
-    } else {
-      elemento.innerText = "+" + valor + "K";
-    }
-  };
-
-  subir();
-}
-
-/* 🚀 INICIAR */
+/* ANIMACIÓN */
 for (let red in datos) {
-  animar(red, datos[red]);
+  let el = document.getElementById(red);
+  let valor = datos[red];
+  let count = 0;
+
+  let subir = setInterval(() => {
+    count += valor / 50;
+    if (count >= valor) {
+      count = valor;
+      clearInterval(subir);
+    }
+    el.innerText = "+" + Math.floor(count);
+  }, 20);
 }
 
-/* 🔗 ABRIR LINKS */
-function abrir(url) {
+/* ABRIR LINKS */
+function abrir(url){
   window.open(url, "_blank");
 }
 </script>
+
 </body>
 </html>
