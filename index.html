@@ -168,6 +168,16 @@ body {
   color: white;
   cursor: pointer;
 }
+  .stat p {
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.num {
+  font-size: 50px;
+  color: red;
+}
 </style>
 </head>
 
@@ -203,10 +213,25 @@ body {
 
 <!-- REDES -->
 <section class="stats" id="redes">
-  <div class="stat">TikTok</div>
-  <div class="stat">Facebook</div>
-  <div class="stat">YouTube</div>
-  <div class="stat">Instagram</div>
+  <div class="stat">
+    <span class="num" data-target="120">0</span>K
+    <p>TikTok</p>
+  </div>
+
+  <div class="stat">
+    <span class="num" data-target="80">0</span>K
+    <p>Facebook</p>
+  </div>
+
+  <div class="stat">
+    <span class="num" data-target="30">0</span>K
+    <p>YouTube</p>
+  </div>
+
+  <div class="stat">
+    <span class="num" data-target="10">0</span>K
+    <p>Instagram</p>
+  </div>
 </section>
 
 <!-- PRODUCTOS -->
@@ -288,6 +313,27 @@ window.addEventListener("scroll", () => {
   });
 });
 </script>
+<script>
+const counters = document.querySelectorAll('.num');
 
+counters.forEach(counter => {
+  let target = +counter.getAttribute('data-target');
+  let count = 0;
+
+  let update = () => {
+    let increment = target / 100;
+
+    if (count < target) {
+      count += increment;
+      counter.innerText = Math.floor(count);
+      setTimeout(update, 20);
+    } else {
+      counter.innerText = target;
+    }
+  };
+
+  update();
+});
+</script>
 </body>
 </html>
