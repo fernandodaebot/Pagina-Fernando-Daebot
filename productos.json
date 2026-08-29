@@ -14,7 +14,7 @@
     "categoria": "Kits",
     "imagen": "img/kit1.png",
     "opciones": [
-      { "nombre": "Kit completo", "precio": 120 }
+      {"nombre": "Kit completo", "precio": 120}
     ]
   }
 ]
