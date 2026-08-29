@@ -111,17 +111,16 @@ body{
 }
 
 .card{
+  background:#111;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
   transition:0.3s;
 }
 
 .card:hover{
   transform:scale(1.05);
   box-shadow:0 10px 30px rgba(0,0,0,0.5);
-}
-  background:#111;
-  border-radius:12px;
-  padding:15px;
-  text-align:center;
 }
 
 .card img{
@@ -217,7 +216,7 @@ body{
   /* 🔥 NUEVO FONDO MEJORADO */
   background:
   linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.15)),
-  url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/fondo.png");
+url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/fondo.png");
 
   background-size:cover;
   background-position:center;
@@ -509,9 +508,7 @@ function mostrarProductos(lista){
 
   lista.forEach((p,i)=>{
 
-    let opcionesHTML = "";
-
-  let opcionesBase = [
+let opcionesBase = [
   {nombre:"Alto 5 cm", precio:15},
   {nombre:"Alto 7 cm", precio:30},
   {nombre:"Alto 8 cm", precio:40},
@@ -522,7 +519,7 @@ function mostrarProductos(lista){
 let opciones = p.opciones || opcionesBase;
 
 let opcionesHTML = "";
-
+    
 opciones.forEach(op=>{
   opcionesHTML += `
     <div>
@@ -614,7 +611,6 @@ window.addEventListener("scroll", ()=>{
     }
   });
 });
----------------------
 /* 🔥 CONTADOR REDES */
 const datos = {
   tiktok: 18000,
@@ -632,8 +628,7 @@ function formatear(num){
 
 for(let red in datos){
   let el = document.getElementById(red);
-
-  if(!el) continue; // 🔥 evita errores
+  if(!el) continue;
 
   let valor = datos[red];
   let count = 0;
