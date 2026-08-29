@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Panel Admin - Daebot</title>
+
+<style>
+body{
+  font-family:sans-serif;
+  background:#111;
+  color:white;
+  padding:20px;
+}
+
+input, select{
+  width:100%;
+  margin:5px 0;
+  padding:8px;
+}
+
+button{
+  margin-top:10px;
+  padding:10px;
+  background:red;
+  border:none;
+  color:white;
+  cursor:pointer;
+}
+
+.box{
+  background:#1a1a1a;
+  padding:20px;
+  border-radius:10px;
+  max-width:400px;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🔒 Panel Secreto Daebot</h2>
+
+<div class="box">
+
+<input type="text" id="nombre" placeholder="Nombre del producto">
+
+<input type="text" id="categoria" placeholder="Categoría (Moldes, Kits...)">
+
+<input type="text" id="imagen" placeholder="URL de imagen">
+
+<h4>Opciones (medidas / kit)</h4>
+
+<input type="text" id="opcionNombre" placeholder="Ej: 5 cm">
+<input type="number" id="opcionPrecio" placeholder="Precio">
+
+<button onclick="agregarOpcion()">Agregar opción</button>
+
+<ul id="listaOpciones"></ul>
+
+<button onclick="guardarProducto()">Guardar Producto</button>
+
+</div>
+
+<script>
+let opciones = [];
+
+function agregarOpcion(){
+  let nombre = document.getElementById("opcionNombre").value;
+  let precio = document.getElementById("opcionPrecio").value;
+
+  opciones.push({nombre, precio});
+
+  document.getElementById("listaOpciones").innerHTML += 
+    `<li>${nombre} - ${precio} Bs</li>`;
+}
+
+function guardarProducto(){
+
+  let producto = {
+    nombre: document.getElementById("nombre").value,
+    categoria: document.getElementById("categoria").value,
+    imagen: document.getElementById("imagen").value,
+    opciones: opciones
+  };
+
+  let productos = JSON.parse(localStorage.getItem("productos")) || [];
+
+  productos.push(producto);
+
+  localStorage.setItem("productos", JSON.stringify(productos));
+
+  alert("✅ Producto guardado");
+
+  location.reload();
+}
+</script>
+
+</body>
+</html>
