@@ -1,13 +1,33 @@
 [
   {
-    "nombre": "Flor Básica",
+    "nombre": "Amapola Majestuosa",
     "categoria": "Flores",
-    "imagen": "jonson/img/flores/flor_basica.png"
+    "imagen": "jonson/img/flores/amapola_majestuosa.png"
   },
   {
-    "nombre": "Rosa",
+    "nombre": "Camelia Abultada",
     "categoria": "Flores",
-    "imagen": "jonson/img/flores/rosa.png"
+    "imagen": "jonson/img/flores/camelia_abultada.png"
+  },
+  {
+    "nombre": "Flor de Alicia",
+    "categoria": "Flores",
+    "imagen": "jonson/img/flores/flor_de_alicia.png"
+  },
+  {
+    "nombre": "Flor de Corazón",
+    "categoria": "Flores",
+    "imagen": "jonson/img/flores/flor_de_corazon.png"
+  },
+  {
+    "nombre": "Girasol",
+    "categoria": "Flores",
+    "imagen": "jonson/img/flores/girasol.png"
+  },
+  {
+    "nombre": "Girasol 2",
+    "categoria": "Flores",
+    "imagen": "jonson/img/flores/girasol_2.png"
   },
   {
     "nombre": "Margarita",
@@ -15,8 +35,13 @@
     "imagen": "jonson/img/flores/margarita.png"
   },
   {
-    "nombre": "Girasol",
+    "nombre": "Rosa Imperial",
     "categoria": "Flores",
-    "imagen": "jonson/img/flores/girasol.png"
+    "imagen": "jonson/img/flores/rosa_imperial.png"
+  },
+  {
+    "nombre": "Rosa Lara",
+    "categoria": "Flores",
+    "imagen": "jonson/img/flores/rosa_lara.png"
   }
 ]
