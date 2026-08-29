@@ -11,6 +11,47 @@ body{
   background:#0b0b0b;
   color:white;
 }
+  .categorias{
+  margin:20px 0;
+}
+
+.categorias button{
+  margin:5px;
+  padding:10px 15px;
+  border:none;
+  border-radius:8px;
+  background:#222;
+  color:white;
+  cursor:pointer;
+}
+
+.categorias button:hover{
+  background:red;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(250px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:#111;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+}
+
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+
+.detalles{
+  margin-top:10px;
+  font-size:14px;
+  color:#ccc;
+}
 .filtros{
   margin-bottom:20px;
   text-align:center;
@@ -327,6 +368,14 @@ section{
 <section class="productos" id="catalogo">
   <h2>🎨 Catálogo</h2>
 
+  <!-- BOTONES DE CATEGORÍAS -->
+  <div id="categorias" class="categorias"></div>
+
+  <!-- PRODUCTOS -->
+  <div id="lista-productos" class="grid"></div>
+</section>
+  <h2>🎨 Catálogo</h2>
+
   <!-- BOTONES -->
   <div class="filtros"></div>
 
@@ -335,7 +384,61 @@ section{
 </section>
 
 <script>
+let productos = [];
 
+fetch("productos.json")
+  .then(res => res.json())
+  .then(data => {
+    productos = data;
+    crearCategorias();
+    mostrarProductos("Todos");
+  });
+
+function crearCategorias(){
+  const cont = document.getElementById("categorias");
+
+  let cats = ["Todos", ...new Set(productos.map(p => p.categoria))];
+
+  cats.forEach(cat=>{
+    let btn = document.createElement("button");
+    btn.innerText = cat;
+
+    btn.onclick = ()=> mostrarProductos(cat);
+
+    cont.appendChild(btn);
+  });
+}
+
+function mostrarProductos(categoria){
+  const cont = document.getElementById("lista-productos");
+  cont.innerHTML = "";
+
+  let filtrados = categoria === "Todos"
+    ? productos
+    : productos.filter(p => p.categoria === categoria);
+
+  filtrados.forEach(p=>{
+    let div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <img src="${p.imagen}">
+      <h3>${p.nombre}</h3>
+
+      <div class="detalles">
+        <b>Medidas:</b><br>
+        ${p.medidas.map(m => `${m.size} - ${m.precio} Bs`).join("<br>")}
+
+        <br><br>
+
+        <b>Kits:</b><br>
+        ${p.kits.map(k => `${k.cantidad} kit(s) - ${k.precio} Bs`).join("<br>")}
+      </div>
+    `;
+
+    cont.appendChild(div);
+  });
+}
 /* SCROLL AL CATÁLOGO */
 function irCatalogo(){
   document.getElementById("catalogo").scrollIntoView({
