@@ -1,20 +1,31 @@
 [
-  {
-    "nombre": "Molde Princesa",
-    "categoria": "Moldes",
-    "imagen": "img/princesa.png"
-  },
-  {
-    "nombre": "Molde Policía",
-    "categoria": "Moldes",
-    "imagen": "img/policia.png"
-  },
-  {
-    "nombre": "Kit Fofuchas Básico",
-    "categoria": "Kits",
-    "imagen": "img/kit1.png",
-    "opciones": [
-      {"nombre": "Kit completo", "precio": 120}
-    ]
-  }
+{
+"nombre": "Molde Princesa",
+"categoria": "Moldes",
+"imagen": "jonson/img/princesa.png",
+"opciones": [
+{"nombre": "5 cm", "precio": 15},
+{"nombre": "7 cm", "precio": 30},
+{"nombre": "Kit completo", "precio": 130}
+]
+},
+
+{
+"nombre": "Molde Policía",
+"categoria": "Moldes",
+"imagen": "jonson/img/policia.png",
+"opciones": [
+{"nombre": "5 cm", "precio": 15},
+{"nombre": "8 cm", "precio": 40}
+]
+},
+
+{
+"nombre": "Kit Fofuchas Básico",
+"categoria": "Kits",
+"imagen": "jonson/img/kit1.png",
+"opciones": [
+{"nombre": "Kit completo", "precio": 120}
+]
+}
 ]
