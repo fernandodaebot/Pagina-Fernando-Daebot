@@ -2,7 +2,7 @@
 {
 "nombre": "Molde Princesa",
 "categoria": "Moldes",
-"imagen": "jonson/img/princesa.png",
+"imagen": "img/princesa.png"
 "opciones": [
 {"nombre": "5 cm", "precio": 15},
 {"nombre": "7 cm", "precio": 30},
