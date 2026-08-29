@@ -37,6 +37,7 @@ body{
   text-decoration:none;
   color:white;
   font-weight:bold;
+  padding-bottom:5px;
 }
 
 .menu a.active{
@@ -51,12 +52,17 @@ body{
   align-items:center;
   justify-content:space-between;
   padding:120px 80px;
+
+  /* 🔥 fondo tipo Erexit */
   background:
-    linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)),
+    linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.6)),
     url("https://images.unsplash.com/photo-1581090700227-1e8a0b2f5d4f");
+
   background-size:cover;
+  background-position:center;
 }
 
+/* TEXTO */
 .hero-text{
   max-width:50%;
 }
@@ -64,6 +70,7 @@ body{
 .hero-text h1{
   font-size:70px;
   margin:0;
+  line-height:1.1;
 }
 
 .hero-text .rojo{
@@ -76,6 +83,7 @@ body{
   font-size:18px;
 }
 
+/* BOTONES */
 .buttons{
   margin-top:30px;
 }
@@ -100,14 +108,12 @@ body{
 
 /* VIDEO */
 .video{
-  width:420px;
-  height:250px;
+  width:460px;
+  height:260px;
   background:#111;
-  border-radius:12px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
+  border-radius:16px;
   overflow:hidden;
+  box-shadow:0 10px 40px rgba(0,0,0,0.6);
 }
 
 .video iframe{
@@ -116,10 +122,10 @@ body{
   border:none;
 }
 
-/* REDES */
+/* SECCIÓN REDES (bloque separado) */
 .stats{
   background:#000;
-  padding:60px;
+  padding:80px 20px;
   display:flex;
   justify-content:center;
   gap:25px;
@@ -160,9 +166,40 @@ body{
   text-align:center;
 }
 
-/* SCROLL ACTIVO */
+/* SCROLL */
 section{
   scroll-margin-top:100px;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px){
+
+  .hero{
+    flex-direction:column;
+    text-align:center;
+    padding:120px 20px;
+  }
+
+  .hero-text{
+    max-width:100%;
+  }
+
+  .hero-text h1{
+    font-size:42px;
+  }
+
+  .video{
+    width:100%;
+    margin-top:30px;
+  }
+
+  .menu{
+    position:static;
+    transform:none;
+    text-align:center;
+    margin-top:10px;
+  }
+
 }
 </style>
 </head>
@@ -234,12 +271,12 @@ section{
 <!-- CATÁLOGO -->
 <section class="productos" id="catalogo">
   <h2>🎨 Catálogo</h2>
-  <p>Aquí irá tu tienda luego</p>
+  <p>Aquí irá tu tienda de termoformas 👀</p>
 </section>
 
 <script>
 
-/* DATOS EDITABLES */
+/* DATOS */
 const datos = {
   tiktok: 18000,
   facebook: 3000,
