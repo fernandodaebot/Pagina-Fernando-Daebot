@@ -551,12 +551,14 @@ window.onclick = function(e){
 }
 
 function comprarBtn(btn){
-  // Cambia color a rojo permanente
+  let count = btn.getAttribute("data-count") || 0;
+  count++;
+
+  btn.setAttribute("data-count", count);
+
   btn.style.background = "red";
   btn.style.color = "white";
-  btn.innerText = "Agregado";
-
-  // NO bloquea, puede seguir haciendo clic
+  btn.innerText = "Agregado (" + count + ")";
 }
 /* 🔗 REDES */
 function abrir(url){
