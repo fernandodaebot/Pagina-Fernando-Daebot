@@ -19,14 +19,42 @@ body{
   width:100%;
   display:flex;
   justify-content:space-between;
+  align-items:center;
   padding:12px 40px;
   background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(10px);
+}
+
+.menu{
+  position:absolute;
+  left:50%;
+  transform:translateX(-50%);
+  display:flex;
+  gap:25px;
 }
 
 .menu a{
-  margin:0 10px;
+  position:relative;
   color:white;
   text-decoration:none;
+  font-weight:800;
+}
+
+/* línea animada */
+.menu a::after{
+  content:"";
+  position:absolute;
+  bottom:-5px;
+  left:0;
+  width:0%;
+  height:3px;
+  background:red;
+  transition:0.3s;
+}
+
+.menu a:hover::after,
+.menu a.active::after{
+  width:100%;
 }
 
 /* HERO */
@@ -36,20 +64,32 @@ body{
   align-items:center;
   justify-content:space-between;
   padding:120px 80px;
-
   background:
   linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
   url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/fondo.png");
-
   background-size:cover;
+}
+
+.hero h1{
+  font-size:65px;
+  font-weight:900;
+  margin:0;
+}
+
+.hero p{
+  color:#ccc;
+  margin-top:20px;
+  font-size:18px;
 }
 
 .btn-main{
   background:red;
-  padding:12px 20px;
+  padding:14px 24px;
   border:none;
   color:white;
+  font-weight:bold;
   cursor:pointer;
+  margin-top:20px;
 }
 
 /* REDES */
@@ -67,11 +107,17 @@ body{
   border-radius:10px;
   cursor:pointer;
   text-align:center;
+  transition:0.3s;
+}
+
+.stat-box:hover{
+  transform:scale(1.05);
 }
 
 .num{
-  font-size:30px;
+  font-size:32px;
   color:red;
+  font-weight:bold;
 }
 
 /* CATALOGO */
@@ -90,6 +136,11 @@ body{
   background:#111;
   border-radius:10px;
   padding:10px;
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:translateY(-5px);
 }
 
 .card img{
@@ -98,6 +149,7 @@ body{
 
 .detalles{
   display:none;
+  margin-top:10px;
 }
 
 .carrito{
@@ -124,6 +176,8 @@ body{
 <section class="hero" id="inicio">
   <div>
     <h1>Moldes de <span style="color:red">Goma Eva</span></h1>
+    <p>Crea fofuchas, figuras y manualidades increíbles 🚀</p>
+
     <button class="btn-main" onclick="window.location.href='jonson/index.html'">
       Ver Catálogo
     </button>
@@ -178,29 +232,33 @@ function abrir(url){
   window.open(url, "_blank");
 }
 
-/* CONTADOR REDES */
-const datos = {
-  tiktok:18000,
-  facebook:3000,
-  youtube:630,
-  instagram:42
-};
+/* CONTADOR REDES (ARREGLADO) */
+window.addEventListener("load", ()=>{
+  const datos = {
+    tiktok:18000,
+    facebook:3000,
+    youtube:630,
+    instagram:42
+  };
 
-function formatear(n){
-  return n>=1000 ? (n/1000).toFixed(0)+"K" : n;
-}
+  function formatear(n){
+    return n>=1000 ? (n/1000).toFixed(0)+"K" : n;
+  }
 
-for(let red in datos){
-  let el = document.getElementById(red);
-  let val = datos[red];
-  let c=0;
+  for(let red in datos){
+    let el = document.getElementById(red);
+    if(!el) continue;
 
-  let i=setInterval(()=>{
-    c+=val/50;
-    if(c>=val){c=val;clearInterval(i);}
-    el.innerText="+"+formatear(Math.floor(c));
-  },20);
-}
+    let val = datos[red];
+    let c=0;
+
+    let i=setInterval(()=>{
+      c+=val/50;
+      if(c>=val){c=val;clearInterval(i);}
+      el.innerText="+"+formatear(Math.floor(c));
+    },20);
+  }
+});
 
 /* CATALOGO */
 let carrito=[];
