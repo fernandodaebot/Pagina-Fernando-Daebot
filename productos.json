@@ -1,20 +1,24 @@
 [
+  ---------------------
   {
-    "nombre": "Molde Cabeza Niña",
+    "nombre": "Molde Princesa",
     "categoria": "Moldes",
-    "imagen": "https://via.placeholder.com/300",
-    "opciones": [
-      {"nombre": "5 cm", "precio": 15},
-      {"nombre": "7 cm", "precio": 30},
-      {"nombre": "Kit completo", "precio": 130}
-    ]
+    "imagen": "img/princesa.png"
   },
+  ---------------------
   {
-    "nombre": "Kit Básico Fofuchas",
+    "nombre": "Molde Policía",
+    "categoria": "Moldes",
+    "imagen": "img/policia.png"
+  },
+  ---------------------
+  {
+    "nombre": "Kit Fofuchas Básico",
     "categoria": "Kits",
-    "imagen": "https://via.placeholder.com/300",
+    "imagen": "img/kit1.png",
     "opciones": [
-      {"nombre": "Kit", "precio": 120}
+      {"nombre": "Kit completo", "precio": 120}
     ]
   }
+  ---------------------
 ]
