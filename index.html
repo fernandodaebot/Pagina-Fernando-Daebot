@@ -500,6 +500,8 @@ function actualizarCarrito(){
 
   total.innerText = suma;
 }
+let cantidades = {};
+
 function abrirPopup(p){
   document.getElementById("popup").style.display = "flex";
   document.getElementById("popupImg").src = p.imagen;
@@ -509,34 +511,68 @@ function abrirPopup(p){
 
     <p class="titulo">Precio Por Suelto</p>
 
-    <div class="fila">8 cm - 35 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','8cm',35)">Comprar</button>
-    </div>
-
-    <div class="fila">6 cm - 23 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','6cm',23)">Comprar</button>
-    </div>
-
-    <div class="fila">4 cm - 13 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','4cm',13)">Comprar</button>
-    </div>
+    ${crearFila(p,"8cm",35)}
+    ${crearFila(p,"6cm",23)}
+    ${crearFila(p,"4cm",13)}
 
     <hr>
 
     <p class="titulo">Kit</p>
 
-    <div class="fila">1 Kit - 65 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit1',65)">Comprar</button>
-    </div>
+    ${crearFila(p,"Kit1",65)}
+    ${crearFila(p,"Kit3",60)}
+    ${crearFila(p,"Kit6",55)}
+  `;
+}
 
-    <div class="fila">3 Kits - 60 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit3',60)">Comprar</button>
-    </div>
+function crearFila(p, opcion, precio){
+  let key = p.nombre + "_" + opcion;
 
-    <div class="fila">6 Kits - 55 Bs 
-      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit6',55)">Comprar</button>
+  return `
+    <div class="fila">
+      ${opcion} - ${precio} Bs
+
+      <div style="display:flex;gap:5px;align-items:center;">
+        <button onclick="restar('${key}','${p.nombre}','${opcion}',${precio})">-</button>
+        
+        <span id="cant_${key}" style="min-width:20px;text-align:center;">0</span>
+        
+        <button onclick="sumar('${key}','${p.nombre}','${opcion}',${precio})">+</button>
+      </div>
     </div>
   `;
+}
+
+function sumar(key,nombre,opcion,precio){
+  if(!cantidades[key]) cantidades[key]=0;
+
+  cantidades[key]++;
+  agregar(nombre,opcion,precio);
+  actualizarCantidad(key);
+}
+
+function restar(key,nombre,opcion,precio){
+  if(!cantidades[key] || cantidades[key]<=0) return;
+
+  cantidades[key]--;
+
+  let index = carrito.findIndex(
+    x=>x.nombre===nombre && x.opcion===opcion
+  );
+
+  if(index>-1){
+    carrito.splice(index,1);
+  }
+
+  actualizarCarrito();
+  actualizarCantidad(key);
+}
+
+function actualizarCantidad(key){
+  let el = document.getElementById("cant_"+key);
+  if(el){
+    el.innerText = cantidades[key] || 0;
+  }
 }
 
 function cerrarPopup(){
