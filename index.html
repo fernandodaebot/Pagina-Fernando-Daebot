@@ -10,6 +10,91 @@ body{
   font-family:'Segoe UI',sans-serif;
   background:#0b0b0b;
   color:white;
+  /* 🔥 TITULO CATALOGO */
+.catalogo h2{
+  font-size:40px;
+  margin-bottom:10px;
+}
+
+.catalogo p{
+  color:#aaa;
+  margin-bottom:30px;
+}
+
+/* 🔥 BOTONES CATEGORIAS */
+#filtros{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-bottom:30px;
+}
+
+#filtros button{
+  background:#1f1f1f;
+  border:none;
+  padding:10px 18px;
+  border-radius:20px;
+  color:white;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+#filtros button:hover{
+  background:red;
+}
+
+#filtros button.active{
+  background:red;
+}
+
+/* 🔥 TARJETAS PRO */
+.card{
+  background:#111;
+  border-radius:15px;
+  padding:15px;
+  text-align:left;
+  transition:0.3s;
+  border:1px solid rgba(255,255,255,0.05);
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.6);
+}
+
+.card img{
+  height:160px;
+  object-fit:cover;
+  border-radius:10px;
+  margin-bottom:10px;
+}
+
+/* 🔥 TEXTO TARJETA */
+.card h4{
+  margin:5px 0;
+}
+
+.precio{
+  color:red;
+  font-weight:bold;
+  margin:10px 0;
+}
+
+/* 🔥 BOTON */
+.card button{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #333;
+  background:transparent;
+  color:white;
+  cursor:pointer;
+}
+
+.card button:hover{
+  border-color:red;
+}
 }
 
 /* NAV */
@@ -212,7 +297,8 @@ body{
 <!-- CATALOGO -->
 <section class="catalogo" id="catalogo">
 
-<h2>Catálogo</h2>
+<h2>Catálogo de Termoformas</h2>
+<p>Encuentra moldes, kits y accesorios para tus proyectos</p>
 
 <div id="filtros"></div>
 <div id="productos" class="grid"></div>
@@ -270,41 +356,51 @@ fetch("productos.json")
   let filtros=document.getElementById("filtros");
   let cats=["Todos",...new Set(data.map(p=>p.categoria))];
 
-  cats.forEach(c=>{
-    let b=document.createElement("button");
-    b.innerText=c;
-    b.onclick=()=>mostrar(c,data);
-    filtros.appendChild(b);
-  });
+ cats.forEach(c=>{
+  let b=document.createElement("button");
+  b.innerText=c;
 
-  mostrar("Todos",data);
+  b.onclick=()=>{
+    document.querySelectorAll("#filtros button")
+    .forEach(btn=>btn.classList.remove("active"));
+
+    b.classList.add("active");
+
+    mostrar(c,data);
+  };
+
+  filtros.appendChild(b);
 });
 
 function mostrar(cat,data){
   let cont=document.getElementById("productos");
   cont.innerHTML="";
 
-  data.filter(p=>cat==="Todos"||p.categoria===cat)
+  data
+  .filter(p=>cat==="Todos"||p.categoria===cat)
   .forEach((p,i)=>{
 
-    let opciones=p.opciones||[
-      {nombre:"5cm",precio:15},
-      {nombre:"7cm",precio:30},
-      {nombre:"Kit",precio:120}
-    ];
+    let precioBase = (p.opciones && p.opciones[0]) ? p.opciones[0].precio : 0;
 
-    let html="";
-    opciones.forEach(o=>{
-      html+=`<div>${o.nombre} - ${o.precio}Bs
-      <button onclick="add('${p.nombre}','${o.nombre}',${o.precio})">+</button></div>`;
-    });
-
-    cont.innerHTML+=`
+    cont.innerHTML += `
     <div class="card">
       <img src="${p.imagen}">
+      
       <h4>${p.nombre}</h4>
-      <button onclick="toggle(${i})">Ver</button>
-      <div class="detalles" id="d${i}">${html}</div>
+      <small>${p.categoria}</small>
+
+      <div class="precio">Bs. ${precioBase}</div>
+
+      <button onclick="toggle(${i})">Ver detalle</button>
+
+      <div class="detalles" id="d${i}">
+        ${ (p.opciones || []).map(o => `
+          <div>
+            ${o.nombre} - ${o.precio} Bs
+            <button onclick="add('${p.nombre}','${o.nombre}',${o.precio})">+</button>
+          </div>
+        `).join("") }
+      </div>
     </div>`;
   });
 }
