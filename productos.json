@@ -1,25 +1,22 @@
+---------------------
 [
-  // ----- PRODUCTO 1 -----
   {
     "nombre": "Molde Princesa",
     "categoria": "Moldes",
     "imagen": "img/princesa.png"
   },
-
-  // ----- PRODUCTO 2 -----
   {
     "nombre": "Molde Policía",
     "categoria": "Moldes",
     "imagen": "img/policia.png"
   },
-
-  // ----- PRODUCTO 3 -----
   {
     "nombre": "Kit Fofuchas Básico",
     "categoria": "Kits",
     "imagen": "img/kit1.png",
     "opciones": [
-      {"nombre": "Kit completo", "precio": 120}
+      { "nombre": "Kit completo", "precio": 120 }
     ]
   }
 ]
+---------------------
