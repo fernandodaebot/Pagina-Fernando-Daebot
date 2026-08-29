@@ -293,6 +293,44 @@ body{
   background:#222;
   padding:20px;
 }
+  /* POPUP */
+.popup{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.8);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+}
+
+.popup-contenido{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  display:flex;
+  gap:20px;
+  max-width:800px;
+  width:90%;
+  position:relative;
+}
+
+.popup img{
+  width:300px;
+  border-radius:10px;
+}
+
+.cerrar{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:25px;
+  cursor:pointer;
+  color:white;
+}
 </style>
 </head>
 
@@ -319,7 +357,13 @@ body{
     </button>
   </div>
 </section>
-
+<div class="popup" id="popup">
+  <div class="popup-contenido" id="popupContenido">
+    <span class="cerrar" onclick="cerrarPopup()">✖</span>
+    <img id="popupImg">
+    <div id="popupInfo"></div>
+  </div>
+</div>
 <!-- REDES -->
 <section class="stats" id="redes">
 
@@ -425,10 +469,7 @@ function mostrarProductos(lista){
       </div>
     `;
 
-  card.onclick = (e)=>{
-  e.stopPropagation();
-  abrirModal(p);
-};
+card.onclick = ()=>abrirPopup(p);
 
     contenedor.appendChild(card);
   });
@@ -459,7 +500,60 @@ function actualizarCarrito(){
 
   total.innerText = suma;
 }
+function abrirPopup(p){
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("popupImg").src = p.imagen;
 
+  document.getElementById("popupInfo").innerHTML = `
+    <h2>${p.nombre}</h2>
+
+    <p class="titulo">Precio Por Suelto</p>
+
+    <div class="fila">8 cm - 35 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','8cm',35)">Comprar</button>
+    </div>
+
+    <div class="fila">6 cm - 23 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','6cm',23)">Comprar</button>
+    </div>
+
+    <div class="fila">4 cm - 13 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','4cm',13)">Comprar</button>
+    </div>
+
+    <hr>
+
+    <p class="titulo">Kit</p>
+
+    <div class="fila">1 Kit - 65 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit1',65)">Comprar</button>
+    </div>
+
+    <div class="fila">3 Kits - 60 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit3',60)">Comprar</button>
+    </div>
+
+    <div class="fila">6 Kits - 55 Bs 
+      <button onclick="comprarBtn(this); agregar('${p.nombre}','Kit6',55)">Comprar</button>
+    </div>
+  `;
+}
+
+function cerrarPopup(){
+  document.getElementById("popup").style.display = "none";
+}
+
+window.onclick = function(e){
+  let popup = document.getElementById("popup");
+  if(e.target === popup){
+    cerrarPopup();
+  }
+}
+
+function comprarBtn(btn){
+  btn.style.background = "green";
+  btn.innerText = "✔";
+}
 /* 🔗 REDES */
 function abrir(url){
   window.open(url, "_blank");
@@ -566,6 +660,17 @@ width:90%;
 </div>
 
 </div>
+</div>
+  <div id="modal" class="modal" onclick="cerrarModal(event)">
+  <div class="modal-contenido" id="contenidoModal">
+    
+    <span class="cerrar" onclick="cerrarModal()">✖</span>
+
+    <img id="imgModal">
+
+    <div id="infoModal"></div>
+
+  </div>
 </div>
 </body>
 </html>
