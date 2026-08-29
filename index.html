@@ -61,6 +61,7 @@ body{
   font-family:'Segoe UI',sans-serif;
   background:#0b0b0b;
   color:white;
+}
   /* 🔥 TITULO CATALOGO */
 .catalogo h2{
   font-size:40px;
@@ -145,7 +146,6 @@ body{
 
 .card button:hover{
   border-color:red;
-}
 }
 
 /* NAV */
@@ -390,7 +390,7 @@ function mostrarProductos(lista){
 
         <div class="fila">
           Alto 8 cm a 35 Bs
-          <button onclick="agregar('${p.nombre}','8cm',35)">Comprar</button>
+          <button onclick="event.stopPropagation(); agregar('${p.nombre}','8cm',35)">Comprar</button>
         </div>
 
         <div class="fila">
