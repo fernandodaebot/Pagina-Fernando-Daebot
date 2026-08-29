@@ -551,8 +551,12 @@ window.onclick = function(e){
 }
 
 function comprarBtn(btn){
-  btn.style.background = "green";
-  btn.innerText = "✔";
+  // Cambia color a rojo permanente
+  btn.style.background = "red";
+  btn.style.color = "white";
+  btn.innerText = "Agregado";
+
+  // NO bloquea, puede seguir haciendo clic
 }
 /* 🔗 REDES */
 function abrir(url){
