@@ -2,21 +2,21 @@
   {
     "nombre": "Flor Básica",
     "categoria": "Flores",
-    "imagen": "jonson/img/1.png"
+    "imagen": "jonson/img/flores/1.png"
   },
   {
     "nombre": "Rosa",
     "categoria": "Flores",
-    "imagen": "jonson/img/2.png"
+    "imagen": "jonson/img/flores/2.png"
   },
   {
     "nombre": "Margarita",
     "categoria": "Flores",
-    "imagen": "jonson/img/3.png"
+    "imagen": "jonson/img/flores/3.png"
   },
   {
     "nombre": "Girasol",
     "categoria": "Flores",
-    "imagen": "jonson/img/4.png"
+    "imagen": "jonson/img/flores/4.png"
   }
 ]
