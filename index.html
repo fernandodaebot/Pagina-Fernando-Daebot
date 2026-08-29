@@ -57,20 +57,20 @@
 }
 
 .card button{
-  background:#222;
+  background:red;
   color:white;
-  border:none;
-  padding:8px;
-  border-radius:8px;
-  cursor:pointer;
+  font-weight:bold;
 }
 
 /* DETALLES */
-.detalles{
-  display:none;
-  padding:10px;
-  background:#111;
-  text-align:left;
+.detalles div{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:8px;
+  padding:8px;
+  background:#1f1f1f;
+  border-radius:8px;
 }
 
 /* CARRITO */
@@ -111,6 +111,13 @@ body{
 }
 
 .card{
+  transition:0.3s;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
   background:#111;
   border-radius:12px;
   padding:15px;
@@ -401,7 +408,9 @@ section{
     </p>
 
     <div class="buttons">
-      <button class="btn-main" onclick="irCatalogo()">Ver Catálogo</button>
+      <button class="btn-main" onclick="window.location.href='jonson/index.html'">
+  Ver Catálogo
+</button>
       <button class="btn-secondary">Ver más</button>
     </div>
   </div>
@@ -436,196 +445,42 @@ section{
     <div class="num" id="instagram">0</div>
     <p>Instagram</p>
   </div>
-
 </section>
-
+---------------------
 <!-- CATÁLOGO -->
 <section class="catalogo" id="catalogo">
 
-  <h2>Catálogo de Termoformas</h2>
+  <h2>🎨 Catálogo</h2>
 
-  <!-- FILTROS -->
-  <div class="filtros" id="filtros"></div>
+  <!-- BOTONES -->
+  <div id="filtros" class="filtros"></div>
 
   <!-- PRODUCTOS -->
-  <div class="grid" id="productos"></div>
+  <div id="productos" class="grid"></div>
 
   <!-- CARRITO -->
   <div class="carrito">
-    <h3>🛒 Pedido</h3>
+    <h3>🛒 Tu pedido</h3>
     <ul id="listaCarrito"></ul>
     <p>Total: <span id="total">0</span> Bs</p>
   </div>
 
 </section>
-  <h2>🎨 Catálogo</h2>
+---------------------
 
-  <!-- BOTONES DE CATEGORÍAS -->
-  <div id="categorias" class="categorias"></div>
-
-  <!-- PRODUCTOS -->
-  <div id="lista-productos" class="grid"></div>
-</section>
-  <h2>🎨 Catálogo</h2>
-
-  <!-- BOTONES -->
-  <div class="filtros"></div>
-
-  <!-- PRODUCTOS -->
-  <div id="grid-productos"></div>
-</section>
-
+---------------------
 <script>
-let productos = [];
 
-let data = JSON.parse(localStorage.getItem("productos")) || [];
-
-if(data.length === 0){
-  alert("No hay productos aún. Ve a /admin.html");
-}
-
-const contenedor = document.getElementById("productos");
-const filtros = document.getElementById("filtros");
-
-// categorías
-let categorias = ["Todos", ...new Set(data.map(p => p.categoria))];
-
-categorias.forEach(cat=>{
-  let btn = document.createElement("button");
-  btn.innerText = cat;
-  btn.onclick = ()=>filtrar(cat, data);
-  filtros.appendChild(btn);
-});
-
-mostrarProductos(data);
-    productos = data;
-    crearCategorias();
-    mostrarProductos("Todos");
-  });
-
-function crearCategorias(){
-  const cont = document.getElementById("categorias");
-
-  let cats = ["Todos", ...new Set(productos.map(p => p.categoria))];
-
-  cats.forEach(cat=>{
-    let btn = document.createElement("button");
-    btn.innerText = cat;
-
-    btn.onclick = ()=> mostrarProductos(cat);
-
-    cont.appendChild(btn);
-  });
-}
-
-function mostrarProductos(categoria){
-  const cont = document.getElementById("lista-productos");
-  cont.innerHTML = "";
-
-  let filtrados = categoria === "Todos"
-    ? productos
-    : productos.filter(p => p.categoria === categoria);
-
-  filtrados.forEach(p=>{
-    let div = document.createElement("div");
-    div.className = "card";
-
-    div.innerHTML = `
-      <img src="${p.imagen}">
-      <h3>${p.nombre}</h3>
-
-      <div class="detalles">
-        <b>Medidas:</b><br>
-        ${p.medidas.map(m => `${m.size} - ${m.precio} Bs`).join("<br>")}
-
-        <br><br>
-
-        <b>Kits:</b><br>
-        ${p.kits.map(k => `${k.cantidad} kit(s) - ${k.precio} Bs`).join("<br>")}
-      </div>
-    `;
-
-    cont.appendChild(div);
-  });
-}
-/* SCROLL AL CATÁLOGO */
-function irCatalogo(){
-  document.getElementById("catalogo").scrollIntoView({
-    behavior: "smooth"
-  });
-}
-
-/* DATOS REDES */
-const datos = {
-  tiktok: 18000,
-  facebook: 3000,
-  youtube: 630,
-  instagram: 42
-};
-
-/* FORMATO */
-function formatear(num){
-  if(num >= 1000){
-    return (num/1000).toFixed(0) + "K";
-  }
-  return num;
-}
-
-/* ANIMACIÓN */
-for(let red in datos){
-  let el = document.getElementById(red);
-  let valor = datos[red];
-  let count = 0;
-
-  let subir = setInterval(()=>{
-    count += valor / 50;
-
-    if(count >= valor){
-      count = valor;
-      clearInterval(subir);
-    }
-
-    el.innerText = "+" + formatear(Math.floor(count));
-  },20);
-}
-
-/* LINKS */
-function abrir(url){
-  window.open(url, "_blank");
-}
-
-/* MENU ACTIVO */
-const sections = document.querySelectorAll("section");
-const links = document.querySelectorAll(".menu a");
-
-window.addEventListener("scroll", ()=>{
-  let current = "";
-
-  sections.forEach(sec=>{
-    if(pageYOffset >= sec.offsetTop - 120){
-      current = sec.id;
-    }
-  });
-
-  links.forEach(a=>{
-    a.classList.remove("active");
-    if(a.getAttribute("href") == "#" + current){
-      a.classList.add("active");
-    }
-  });
-});
 let carrito = [];
 
-function cargarCatalogo(){
-
-fetch("productos.json")
+/* 🔥 CARGAR JSON */
+fetch("jonson/productos.json")
 .then(res => res.json())
 .then(data => {
 
   const contenedor = document.getElementById("productos");
   const filtros = document.getElementById("filtros");
 
-  // CATEGORÍAS
   let categorias = ["Todos", ...new Set(data.map(p => p.categoria))];
 
   categorias.forEach(cat=>{
@@ -637,24 +492,22 @@ fetch("productos.json")
 
   mostrarProductos(data);
 });
-}
 
+/* 🔍 FILTRO */
 function filtrar(cat, data){
   if(cat === "Todos"){
     mostrarProductos(data);
   }else{
-    mostrarProductos(data.filter(p=>p.categoria === cat));
+    mostrarProductos(data.filter(p => p.categoria === cat));
   }
 }
 
+/* 🧱 MOSTRAR PRODUCTOS */
 function mostrarProductos(lista){
   const contenedor = document.getElementById("productos");
   contenedor.innerHTML = "";
 
   lista.forEach((p,i)=>{
-
-    let card = document.createElement("div");
-    card.className = "card";
 
     let opcionesHTML = "";
 
@@ -666,6 +519,9 @@ function mostrarProductos(lista){
         </div>
       `;
     });
+
+    let card = document.createElement("div");
+    card.className = "card";
 
     card.innerHTML = `
       <img src="${p.imagen}">
@@ -681,16 +537,19 @@ function mostrarProductos(lista){
   });
 }
 
+/* 🔽 MOSTRAR DETALLES */
 function toggle(id){
   let d = document.getElementById("det"+id);
   d.style.display = d.style.display === "block" ? "none" : "block";
 }
 
+/* 🛒 AGREGAR */
 function agregar(nombre, opcion, precio){
   carrito.push({nombre, opcion, precio});
   actualizarCarrito();
 }
 
+/* 🛒 ACTUALIZAR */
 function actualizarCarrito(){
   let lista = document.getElementById("listaCarrito");
   let total = document.getElementById("total");
@@ -712,13 +571,72 @@ function actualizarCarrito(){
   total.innerText = suma;
 }
 
+/* ❌ ELIMINAR */
 function eliminar(i){
   carrito.splice(i,1);
   actualizarCarrito();
 }
 
-cargarCatalogo();
+/* 🔗 LINKS */
+function abrir(url){
+  window.open(url, "_blank");
+}
+---------------------
+/* MENU ACTIVO */
+const sections = document.querySelectorAll("section");
+const links = document.querySelectorAll(".menu a");
+
+window.addEventListener("scroll", ()=>{
+  let current = "";
+
+  sections.forEach(sec=>{
+    if(pageYOffset >= sec.offsetTop - 120){
+      current = sec.id;
+    }
+  });
+
+  links.forEach(a=>{
+    a.classList.remove("active");
+    if(a.getAttribute("href") == "#" + current){
+      a.classList.add("active");
+    }
+  });
+});
+---------------------
+  /* 🔥 CONTADOR REDES */
+const datos = {
+  tiktok: 18000,
+  facebook: 3000,
+  youtube: 630,
+  instagram: 42
+};
+
+function formatear(num){
+  if(num >= 1000){
+    return (num/1000).toFixed(0) + "K";
+  }
+  return num;
+}
+
+for(let red in datos){
+  let el = document.getElementById(red);
+  let valor = datos[red];
+  let count = 0;
+
+  let subir = setInterval(()=>{
+    count += valor / 50;
+
+    if(count >= valor){
+      count = valor;
+      clearInterval(subir);
+    }
+
+    el.innerText = "+" + formatear(Math.floor(count));
+  },20);
+}
 </script>
+  
+---------------------
 
 </body>
 </html>
