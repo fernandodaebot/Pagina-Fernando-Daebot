@@ -60,7 +60,10 @@ button{
 <button onclick="guardarProducto()">Guardar Producto</button>
 
 </div>
-
+let pass = prompt("Contraseña:");
+if(pass !== "daebot123"){
+  document.body.innerHTML = "Acceso denegado";
+}
 <script>
 let opciones = [];
 
