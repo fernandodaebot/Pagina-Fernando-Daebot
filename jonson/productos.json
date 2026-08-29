@@ -10,9 +10,9 @@
   { "nombre": "Hoja de Ficus", "categoria": "Flores", "imagen": "jonson/img/flores/hoja_de_ficus.png" },
   { "nombre": "Hoja Larga 2", "categoria": "Flores", "imagen": "jonson/img/flores/hoja_larga_2.png" },
   { "nombre": "Lirios", "categoria": "Flores", "imagen": "jonson/img/flores/lirios.png" },
-  { "nombre": "Margarita", "categoria": "Flores", "imagen": "jonson/img/flores/margarita.png" },
-  { "nombre": "Rosa Imperial", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_imperial.png" },
-  { "nombre": "Rosa Lara", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_lara.png" },
+  { "nombre": "Margarita", "categoria": "Flores", "imagen": "jonson/img/flores/margarita.jpg" },
+  { "nombre": "Rosa Imperial", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_imperial.jpg" },
+  { "nombre": "Rosa Lara", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_lara.jpg" },
   { "nombre": "Semillas de Girasol", "categoria": "Flores", "imagen": "jonson/img/flores/semillas_de_girasol.png" },
   { "nombre": "Suculenta", "categoria": "Flores", "imagen": "jonson/img/flores/suculenta.png" }
 ]
