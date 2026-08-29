@@ -53,10 +53,10 @@ body{
   justify-content:space-between;
   padding:120px 80px;
 
-  /* 🔥 fondo tipo Erexit */
   background:
-    linear-gradient(to right, rgba(0,0,0,0.95), rgba(0,0,0,0.6)),
-    url("https://images.unsplash.com/photo-1581090700227-1e8a0b2f5d4f");
+  linear-gradient(90deg, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0.3) 70%),
+  linear-gradient(180deg, rgba(0,0,0,0.6), rgba(0,0,0,0.95)),
+  url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/refs/heads/main/fondo.png");
 
   background-size:cover;
   background-position:center;
@@ -68,7 +68,7 @@ body{
 }
 
 .hero-text h1{
-  font-size:70px;
+  font-size:65px;
   margin:0;
   line-height:1.1;
 }
@@ -93,11 +93,17 @@ body{
   border-radius:10px;
   border:none;
   cursor:pointer;
+  transition:0.3s;
 }
 
 .btn-main{
   background:red;
   color:white;
+}
+
+.btn-main:hover{
+  background:#ff1a1a;
+  transform:scale(1.05);
 }
 
 .btn-secondary{
@@ -106,23 +112,32 @@ body{
   color:white;
 }
 
-/* VIDEO */
-.video{
+.btn-secondary:hover{
+  border-color:white;
+}
+
+/* VIDEO PLACEHOLDER */
+.video-placeholder{
   width:460px;
   height:260px;
-  background:#111;
-  border-radius:16px;
-  overflow:hidden;
-  box-shadow:0 10px 40px rgba(0,0,0,0.6);
+  border:2px dashed rgba(255,255,255,0.4);
+  border-radius:20px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  backdrop-filter:blur(6px);
+  background:rgba(0,0,0,0.3);
 }
 
-.video iframe{
-  width:100%;
-  height:100%;
-  border:none;
+.video-placeholder .play{
+  font-size:40px;
+  margin-bottom:10px;
+  opacity:0.8;
 }
 
-/* SECCIÓN REDES (bloque separado) */
+/* REDES */
 .stats{
   background:#000;
   padding:80px 20px;
@@ -185,10 +200,10 @@ section{
   }
 
   .hero-text h1{
-    font-size:42px;
+    font-size:40px;
   }
 
-  .video{
+  .video-placeholder{
     width:100%;
     margin-top:30px;
   }
@@ -196,7 +211,6 @@ section{
   .menu{
     position:static;
     transform:none;
-    text-align:center;
     margin-top:10px;
   }
 
@@ -208,7 +222,7 @@ section{
 
 <!-- NAV -->
 <div class="nav">
-  <h2>Fernando Daebot 🤖</h2>
+  <h2>Daebot 🤖</h2>
 
   <div class="menu">
     <a href="#inicio" class="active">Inicio</a>
@@ -222,23 +236,25 @@ section{
 
   <div class="hero-text">
     <h1>
-      Domina la <br>
-      <span class="rojo">Impresión 3D</span>
+      Moldes de <br>
+      <span class="rojo">Goma Eva Profesionales</span>
     </h1>
 
     <p>
-      Creador de termoformas y proyectos creativos 🚀
+      Crea fofuchas, figuras y manualidades increíbles con moldes listos para usar.
+      Diseño preciso, fácil y rápido 🚀
     </p>
 
     <div class="buttons">
-      <button class="btn-main">Comenzar</button>
+      <button class="btn-main" onclick="irCatalogo()">Ver Catálogo</button>
       <button class="btn-secondary">Ver más</button>
     </div>
   </div>
 
-  <!-- VIDEO -->
-  <div class="video">
-    <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ"></iframe>
+  <!-- VIDEO FUTURO -->
+  <div class="video-placeholder">
+    <div class="play">▶</div>
+    <p>Próximamente<br><strong>Video tutorial</strong></p>
   </div>
 
 </section>
@@ -276,7 +292,14 @@ section{
 
 <script>
 
-/* DATOS */
+/* SCROLL AL CATÁLOGO */
+function irCatalogo(){
+  document.getElementById("catalogo").scrollIntoView({
+    behavior: "smooth"
+  });
+}
+
+/* DATOS REDES */
 const datos = {
   tiktok: 18000,
   facebook: 3000,
@@ -284,7 +307,7 @@ const datos = {
   instagram: 42
 };
 
-/* FORMATO K */
+/* FORMATO */
 function formatear(num){
   if(num >= 1000){
     return (num/1000).toFixed(0) + "K";
@@ -304,7 +327,7 @@ for(let red in datos){
     if(count >= valor){
       count = valor;
       clearInterval(subir);
-    } 
+    }
 
     el.innerText = "+" + formatear(Math.floor(count));
   },20);
