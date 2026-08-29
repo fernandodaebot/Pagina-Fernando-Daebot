@@ -1,47 +1,18 @@
 [
-  {
-    "nombre": "Amapola Majestuosa",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/amapola_majestuosa.png"
-  },
-  {
-    "nombre": "Camelia Abultada",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/camelia_abultada.png"
-  },
-  {
-    "nombre": "Flor de Alicia",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/flor_de_alicia.png"
-  },
-  {
-    "nombre": "Flor de Corazón",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/flor_de_corazon.png"
-  },
-  {
-    "nombre": "Girasol",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/girasol.png"
-  },
-  {
-    "nombre": "Girasol 2",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/girasol_2.png"
-  },
-  {
-    "nombre": "Margarita",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/margarita.png"
-  },
-  {
-    "nombre": "Rosa Imperial",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/rosa_imperial.png"
-  },
-  {
-    "nombre": "Rosa Lara",
-    "categoria": "Flores",
-    "imagen": "jonson/img/flores/rosa_lara.png"
-  }
+  { "nombre": "Amapola Majestuosa", "categoria": "Flores", "imagen": "jonson/img/flores/amapola_majestuosa.png" },
+  { "nombre": "Camelia Abultada", "categoria": "Flores", "imagen": "jonson/img/flores/camelia_abultada.png" },
+  { "nombre": "Flor de Alicia", "categoria": "Flores", "imagen": "jonson/img/flores/flor_de_alicia.png" },
+  { "nombre": "Flor de Corazón", "categoria": "Flores", "imagen": "jonson/img/flores/flor_de_corazon.png" },
+  { "nombre": "Girasol", "categoria": "Flores", "imagen": "jonson/img/flores/girasol.png" },
+  { "nombre": "Girasol 2", "categoria": "Flores", "imagen": "jonson/img/flores/girasol_2.png" },
+  { "nombre": "Hoja", "categoria": "Flores", "imagen": "jonson/img/flores/hoja.png" },
+  { "nombre": "Hoja de Acebo", "categoria": "Flores", "imagen": "jonson/img/flores/hoja_de_acebo.png" },
+  { "nombre": "Hoja de Ficus", "categoria": "Flores", "imagen": "jonson/img/flores/hoja_de_ficus.png" },
+  { "nombre": "Hoja Larga 2", "categoria": "Flores", "imagen": "jonson/img/flores/hoja_larga_2.png" },
+  { "nombre": "Lirios", "categoria": "Flores", "imagen": "jonson/img/flores/lirios.png" },
+  { "nombre": "Margarita", "categoria": "Flores", "imagen": "jonson/img/flores/margarita.png" },
+  { "nombre": "Rosa Imperial", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_imperial.png" },
+  { "nombre": "Rosa Lara", "categoria": "Flores", "imagen": "jonson/img/flores/rosa_lara.png" },
+  { "nombre": "Semillas de Girasol", "categoria": "Flores", "imagen": "jonson/img/flores/semillas_de_girasol.png" },
+  { "nombre": "Suculenta", "categoria": "Flores", "imagen": "jonson/img/flores/suculenta.png" }
 ]
