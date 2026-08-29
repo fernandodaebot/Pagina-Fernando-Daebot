@@ -511,14 +511,26 @@ function mostrarProductos(lista){
 
     let opcionesHTML = "";
 
-    p.opciones.forEach(op=>{
-      opcionesHTML += `
-        <div>
-          ${op.nombre} - ${op.precio} Bs
-          <button onclick="agregar('${p.nombre}', '${op.nombre}', ${op.precio})">Añadir</button>
-        </div>
-      `;
-    });
+  let opcionesBase = [
+  {nombre:"Alto 5 cm", precio:15},
+  {nombre:"Alto 7 cm", precio:30},
+  {nombre:"Alto 8 cm", precio:40},
+  {nombre:"Alto 9 cm", precio:50},
+  {nombre:"Kit (5 tamaños)", precio:130}
+];
+
+let opciones = p.opciones || opcionesBase;
+
+let opcionesHTML = "";
+
+opciones.forEach(op=>{
+  opcionesHTML += `
+    <div>
+      ${op.nombre} - ${op.precio} Bs
+      <button onclick="agregar('${p.nombre}', '${op.nombre}', ${op.precio})">Añadir</button>
+    </div>
+  `;
+});
 
     let card = document.createElement("div");
     card.className = "card";
@@ -603,7 +615,7 @@ window.addEventListener("scroll", ()=>{
   });
 });
 ---------------------
-  /* 🔥 CONTADOR REDES */
+/* 🔥 CONTADOR REDES */
 const datos = {
   tiktok: 18000,
   facebook: 3000,
@@ -620,6 +632,9 @@ function formatear(num){
 
 for(let red in datos){
   let el = document.getElementById(red);
+
+  if(!el) continue; // 🔥 evita errores
+
   let valor = datos[red];
   let count = 0;
 
@@ -634,7 +649,7 @@ for(let red in datos){
     el.innerText = "+" + formatear(Math.floor(count));
   },20);
 }
-</script>
+---------------------
   
 ---------------------
 
