@@ -5,6 +5,57 @@
 <title>Fernando Daebot</title>
 
 <style>
+  .card{
+  background:#111;
+  border-radius:12px;
+  padding:15px;
+  text-align:center;
+  transition:0.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:scale(1.05);
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.card img{
+  width:100%;
+  border-radius:10px;
+}
+
+.card h3{
+  margin:10px 0;
+  font-weight:bold;
+}
+
+/* 🔥 EXPANSIÓN */
+.expandir{
+  display:none;
+  margin-top:10px;
+  text-align:left;
+}
+
+.fila{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:5px 0;
+}
+
+.fila button{
+  background:red;
+  border:none;
+  color:white;
+  padding:5px 10px;
+  border-radius:6px;
+  cursor:pointer;
+}
+
+.titulo{
+  color:red;
+  font-weight:bold;
+}
 body{
   margin:0;
   font-family:'Segoe UI',sans-serif;
@@ -313,50 +364,142 @@ body{
 
 <script>
 
-// 🔗 ABRIR LINKS
+let carrito = [];
+
+/* 🔥 CARGAR PRODUCTOS */
+fetch("jonson/productos.json")
+.then(res => res.json())
+.then(data => mostrarProductos(data));
+
+function mostrarProductos(lista){
+  const contenedor = document.getElementById("productos");
+  contenedor.innerHTML = "";
+
+  lista.forEach((p,i)=>{
+
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${p.imagen}">
+      <h3>${p.nombre}</h3>
+
+      <div class="expandir" id="det${i}">
+        
+        <p class="titulo">Precio Por Suelto 🌸</p>
+
+        <div class="fila">
+          Alto 8 cm a 35 Bs
+          <button onclick="agregar('${p.nombre}','8cm',35)">Comprar</button>
+        </div>
+
+        <div class="fila">
+          Alto 6 cm a 23 Bs
+          <button onclick="agregar('${p.nombre}','6cm',23)">Comprar</button>
+        </div>
+
+        <div class="fila">
+          Alto 4 cm a 13 Bs
+          <button onclick="agregar('${p.nombre}','4cm',13)">Comprar</button>
+        </div>
+
+        <hr>
+
+        <p class="titulo">Precio Kit (3 tamaños)</p>
+
+        <div class="fila">
+          1 Kit: 65 Bs
+          <button onclick="agregar('${p.nombre}','Kit 1',65)">Comprar</button>
+        </div>
+
+        <div class="fila">
+          3 Kits: 60 Bs
+          <button onclick="agregar('${p.nombre}','Kit x3',60)">Comprar</button>
+        </div>
+
+        <div class="fila">
+          6 Kits: 55 Bs
+          <button onclick="agregar('${p.nombre}','Kit x6',55)">Comprar</button>
+        </div>
+
+      </div>
+    `;
+
+    card.onclick = ()=>toggle(i);
+
+    contenedor.appendChild(card);
+  });
+}
+
+/* 🔽 EXPANDIR */
+function toggle(id){
+  let d = document.getElementById("det"+id);
+  d.style.display = d.style.display === "block" ? "none" : "block";
+}
+
+/* 🛒 CARRITO */
+function agregar(nombre, opcion, precio){
+  carrito.push({nombre, opcion, precio});
+  actualizarCarrito();
+}
+
+function actualizarCarrito(){
+  let lista = document.getElementById("listaCarrito");
+  let total = document.getElementById("total");
+
+  lista.innerHTML = "";
+  let suma = 0;
+
+  carrito.forEach((item, i)=>{
+    suma += item.precio;
+
+    lista.innerHTML += `
+      <li>
+        ${item.nombre} (${item.opcion}) - ${item.precio} Bs
+      </li>
+    `;
+  });
+
+  total.innerText = suma;
+}
+
+/* 🔗 REDES */
 function abrir(url){
   window.open(url, "_blank");
 }
 
-// 🔥 CONTADOR REDES
+/* 🔥 CONTADOR ANIMADO */
 const datos = {
-  tiktok: 18000,
-  facebook: 3000,
-  youtube: 630,
-  instagram: 42
+  tiktok:18000,
+  facebook:3000,
+  youtube:630,
+  instagram:42
 };
 
 function formatear(n){
-  if(n >= 1000){
-    return (n/1000).toFixed(0) + "K";
-  }
-  return n;
+  return n>=1000 ? (n/1000).toFixed(0)+"K" : n;
 }
 
-function animarContadores(){
+window.onload = ()=>{
   for(let red in datos){
-
     let el = document.getElementById(red);
     if(!el) continue;
 
-    let valor = datos[red];
-    let contador = 0;
+    let val = datos[red];
+    let c = 0;
 
-    let intervalo = setInterval(()=>{
-      contador += valor / 50;
+    let i = setInterval(()=>{
+      c += val/40;
 
-      if(contador >= valor){
-        contador = valor;
-        clearInterval(intervalo);
+      if(c >= val){
+        c = val;
+        clearInterval(i);
       }
 
-      el.innerText = "+" + formatear(Math.floor(contador));
-    }, 20);
+      el.innerText = "+" + formatear(Math.floor(c));
+    },20);
   }
-}
-
-// 🚀 cuando carga la página
-window.onload = animarContadores;
+};
 
 </script>
 
