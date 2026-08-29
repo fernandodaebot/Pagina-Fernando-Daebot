@@ -478,9 +478,26 @@ section{
 <script>
 let productos = [];
 
-fetch("productos.json")
-  .then(res => res.json())
-  .then(data => {
+let data = JSON.parse(localStorage.getItem("productos")) || [];
+
+if(data.length === 0){
+  alert("No hay productos aún. Ve a /admin.html");
+}
+
+const contenedor = document.getElementById("productos");
+const filtros = document.getElementById("filtros");
+
+// categorías
+let categorias = ["Todos", ...new Set(data.map(p => p.categoria))];
+
+categorias.forEach(cat=>{
+  let btn = document.createElement("button");
+  btn.innerText = cat;
+  btn.onclick = ()=>filtrar(cat, data);
+  filtros.appendChild(btn);
+});
+
+mostrarProductos(data);
     productos = data;
     crearCategorias();
     mostrarProductos("Todos");
