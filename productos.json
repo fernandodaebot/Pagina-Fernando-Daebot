@@ -1,0 +1,11 @@
+[
+  {
+    "nombre": "Molde Cabeza",
+    "categoria": "moldes",
+    "imagen": "https://via.placeholder.com/300",
+    "descripcion": "Molde para fofuchas",
+    "medidas": "5,7,8,9",
+    "precios": "15,30,40,50",
+    "kit": "130,115,100"
+  }
+]
