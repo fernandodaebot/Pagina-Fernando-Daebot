@@ -1,11 +1,20 @@
 [
   {
-    "nombre": "Molde Cabeza",
-    "categoria": "moldes",
-    "imagen": "https://via.placeholder.com/300",
-    "descripcion": "Molde para fofuchas",
-    "medidas": "5,7,8,9",
-    "precios": "15,30,40,50",
-    "kit": "130,115,100"
+    "categoria": "Cabezas",
+    "nombre": "Molde Cabeza Básico",
+    "imagen": "https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/img/cabeza1.png",
+
+    "medidas": [
+      { "size": "5 cm", "precio": 15 },
+      { "size": "7 cm", "precio": 30 },
+      { "size": "8 cm", "precio": 40 },
+      { "size": "9 cm", "precio": 50 }
+    ],
+
+    "kits": [
+      { "cantidad": 1, "precio": 130 },
+      { "cantidad": 3, "precio": 115 },
+      { "cantidad": 6, "precio": 100 }
+    ]
   }
 ]
