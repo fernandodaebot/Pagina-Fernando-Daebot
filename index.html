@@ -810,93 +810,93 @@ TOTAL: <span>${suma} Bs</span>
 let cantidades = {};
 
 function abrirPopup(p){
-document.getElementById("popup").style.display = "flex";
-document.getElementById("popupImg").src = p.imagen;
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("popupImg").src = p.imagen;
 
-let contenido = `
-<div style="display:flex; align-items:center; gap:20px;">
-  <div>
-    <h2 style="font-size:32px;">${p.nombre}</h2>
-  </div>
+  let contenido = `<h2>${p.nombre}</h2>`;
 
-  ${p.categoria === "sombreros" ? `
-    <img src="jonson/img/sombreros/medidas_sombreros.png" style="width:200px; border-radius:10px;">
-  ` : ""}
-</div>
-`;
+  // 🔴 ALFABETOS
+  if(p.categoria === "alfabetos"){
 
-if(p.categoria === "alfabetos"){
-
-  contenido += `
-<p class="titulo">Tamaños de Kit</p>
-<p style="color:#aaa">${m.tamaños}</p>
-
-<p class="titulo">Precios</p>
-
-${crearFila(p,"1 Kit",m.unidad)}
-${crearFila(p,"3 Kits",m.pack3)}
-${crearFila(p,"6 Kits",m.pack6)}
-`;
-}else if(p.categoria === "mascaras"){
-  else if(p.categoria === "sombreros"){
-
-  contenido += `
-  <p class="titulo">Precio Por Suelto</p>
-
-  ${crearFila(p,"3 cm",15)}
-  ${crearFila(p,"4 cm",30)}
-  ${crearFila(p,"5 cm",40)}
-  ${crearFila(p,"6 cm",50)}
-
-  <hr>
-
-  <p class="titulo">Precio Kit (4 tamaños)</p>
-
-  ${crearFila(p,"1 Kit",130)}
-  ${crearFila(p,"3 Kits",115)}
-  ${crearFila(p,"6 Kits",100)}
-  `;
-}
-
-  let m = preciosMascaras[p.nombre];
-
-  if(m){
     contenido += `
-    <p class="titulo">Tamaños del Kit</p>
-    <p style="color:#aaa">${m.tamaños}</p>
-
     <p class="titulo">Precios</p>
 
-    ${crearFila(p,"1 Kit",m.unidad)}
-    ${crearFila(p,"3 Kits",m.pack3)}
-    ${crearFila(p,"6 Kits",m.pack6)}
+    ${crearFila(p,"Unidad",140)}
+    ${crearFila(p,"3 Diseños",120)}
+    ${crearFila(p,"6 Diseños",100)}
+
+    <p style="font-size:13px; color:#aaa;">
+    (Puede ser diseños diferentes)
+    </p>
     `;
-  }else{
-    contenido += `<p style="color:red;">Error: máscara sin configuración</p>`;
+
   }
 
-}else{
+  // 🔴 MÁSCARAS
+  else if(p.categoria === "mascaras"){
 
-  contenido += `
-  <p class="titulo">Precio Por Suelto</p>
+    let m = preciosMascaras[p.nombre];
 
-  ${crearFila(p,"8cm",35)}
-  ${crearFila(p,"6cm",23)}
-  ${crearFila(p,"4cm",13)}
+    if(m){
+      contenido += `
+      <p class="titulo">Tamaños de kit</p>
+      <p style="color:#aaa">${m.tamaños}</p>
 
-  <hr>
+      <p class="titulo">Precios</p>
 
-  <p class="titulo">Kit</p>
+      ${crearFila(p,"1 Kit",m.unidad)}
+      ${crearFila(p,"3 Kits",m.pack3)}
+      ${crearFila(p,"6 Kits",m.pack6)}
+      `;
+    }
 
-  ${crearFila(p,"1 Kit",65)}
-  ${crearFila(p,"3 Kit",60)}
-  ${crearFila(p,"6 Kit",55)}
-  `;
+  }
+
+  // 🔴 SOMBREROS
+  else if(p.categoria === "sombreros"){
+
+    contenido += `
+    <p class="titulo">Precio Por Suelto</p>
+
+    ${crearFila(p,"3 cm",15)}
+    ${crearFila(p,"4 cm",30)}
+    ${crearFila(p,"5 cm",40)}
+    ${crearFila(p,"6 cm",50)}
+
+    <hr>
+
+    <p class="titulo">Kit (Los 4 tamaños)</p>
+
+    ${crearFila(p,"1 Kit",130)}
+    ${crearFila(p,"3 Kits",115)}
+    ${crearFila(p,"6 Kits",100)}
+    `;
+
+  }
+
+  // 🔴 FLORES Y GALLETAS
+  else{
+
+    contenido += `
+    <p class="titulo">Precio Por Suelto</p>
+
+    ${crearFila(p,"8cm",35)}
+    ${crearFila(p,"6cm",23)}
+    ${crearFila(p,"4cm",13)}
+
+    <hr>
+
+    <p class="titulo">Kit</p>
+
+    ${crearFila(p,"1 Kit",65)}
+    ${crearFila(p,"3 Kit",60)}
+    ${crearFila(p,"6 Kit",55)}
+    `;
+  }
+
+  document.getElementById("popupInfo").innerHTML = contenido;
 }
-
-document.getElementById("popupInfo").innerHTML = contenido;
-}
-
+  
 function crearFila(p, opcion, precio){
 return `
 <div class="fila">
