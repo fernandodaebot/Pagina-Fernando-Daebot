@@ -573,7 +573,15 @@ margin-bottom:20px;
 </div>
 
 </section>
-
+const preciosMascaras = {
+  "Mascara de Oso": { unidad:200, pack3:180, pack6:165, tamaños:"11cm, 9cm, 7cm" },
+  "Mascara de Morenada": { unidad:170, pack3:155, pack6:135, tamaños:"11cm, 9cm, 7cm" },
+  "Mascara de Tobas": { unidad:170, pack3:150, pack6:130, tamaños:"8cm, 7cm, 6cm" },
+  "Mascara de Pepino": { unidad:170, pack3:155, pack6:135, tamaños:"9cm, 5cm, 6cm" },
+  "Mascara de Diablo": { unidad:230, pack3:215, pack6:200, tamaños:"12cm, 11cm, 9cm" },
+  "Mascara de Diabla": { unidad:200, pack3:180, pack6:165, tamaños:"11cm, 10cm, 7cm" }
+};
+  
 <script>
 
 let carrito = [];
@@ -769,7 +777,23 @@ let contenido = `<h2>${p.nombre}</h2>`;
 
 // 🔴 SI ES ALFABETO
 if(p.categoria === "alfabetos"){
+else if(p.categoria === "mascaras"){
 
+let m = preciosMascaras[p.nombre];
+
+contenido += `
+<p class="titulo">Tamaños</p>
+<p style="color:#aaa">${m.tamaños}</p>
+
+<p class="titulo">Precios</p>
+
+${crearFila(p,"Unidad",m.unidad)}
+${crearFila(p,"3 Kits",m.pack3)}
+${crearFila(p,"6 Kits",m.pack6)}
+`;
+
+}
+  
 contenido += `
 <p class="titulo">Precios</p>
 
