@@ -568,23 +568,18 @@ function abrirPopup(p){
 }
 
 function crearFila(p, opcion, precio){
-  let key = p.nombre + "_" + opcion;
-
   return `
     <div class="fila">
       ${opcion} - ${precio} Bs
+      
+      <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio})">Comprar</button>
 
-      <div style="display:flex;gap:5px;align-items:center;">
-        <button onclick="restar('${key}','${p.nombre}','${opcion}',${precio})">-</button>
-        
-        <span id="cant_${key}" style="min-width:20px;text-align:center;">0</span>
-        
-        <button onclick="sumar('${key}','${p.nombre}','${opcion}',${precio})">+</button>
-      </div>
+      <span class="contador" style="display:none;" data-cantidad="0"></span>
+
+      <button class="menos" style="display:none;" onclick="restar(this,'${p.nombre}','${opcion}',${precio})">-</button>
     </div>
   `;
 }
-
 function sumar(key,nombre,opcion,precio){
   if(!cantidades[key]) cantidades[key]=0;
 
@@ -607,17 +602,54 @@ function restar(key,nombre,opcion,precio){
   }
 
   actualizarCarrito();
-  function sumarItem(nombre, opcion, precio){
-  carrito.push({nombre, opcion, precio});
-  actualizarCarrito();
+  function sumar(btn, nombre, opcion, precio){
+  agregar(nombre, opcion, precio);
+
+  let fila = btn.parentElement;
+  let contador = fila.querySelector(".contador");
+  let menos = fila.querySelector(".menos");
+
+  let cantidad = parseInt(contador.dataset.cantidad || 0);
+  cantidad++;
+
+  contador.dataset.cantidad = cantidad;
+  contador.innerText = "Tienes " + cantidad;
+
+  contador.style.display = "inline";
+  menos.style.display = "inline";
 }
 
-function restarItem(nombre, opcion){
-  let index = carrito.findIndex(i => i.nombre === nombre && i.opcion === opcion);
+function restar(btn, nombre, opcion, precio){
+  let fila = btn.parentElement;
+  let contador = fila.querySelector(".contador");
+  let comprar = fila.querySelector("button");
 
-  if(index !== -1){
-    carrito.splice(index,1);
+  let cantidad = parseInt(contador.dataset.cantidad || 0);
+
+  if(cantidad > 0){
+    cantidad--;
+
+    // eliminar del carrito
+    for(let i=carrito.length-1;i>=0;i--){
+      if(carrito[i].nombre==nombre && carrito[i].opcion==opcion){
+        carrito.splice(i,1);
+        break;
+      }
+    }
+
+    actualizarCarrito();
   }
+
+  if(cantidad <= 0){
+    contador.style.display = "none";
+    btn.style.display = "none";
+    contador.dataset.cantidad = 0;
+    contador.innerText = "";
+  }else{
+    contador.dataset.cantidad = cantidad;
+    contador.innerText = "Tienes " + cantidad;
+  }
+}
 
   actualizarCarrito();
 }
