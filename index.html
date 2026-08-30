@@ -775,7 +775,6 @@ document.getElementById("popupImg").src = p.imagen;
 
 let contenido = `<h2>${p.nombre}</h2>`;
 
-// 🔴 SI ES ALFABETO
 if(p.categoria === "alfabetos"){
 
   contenido += `
@@ -826,38 +825,6 @@ if(p.categoria === "alfabetos"){
   ${crearFila(p,"3 Kit",60)}
   ${crearFila(p,"6 Kit",55)}
   `;
-}
-  
-contenido += `
-<p class="titulo">Precios</p>
-
-${crearFila(p,"Unidad",140)}
-${crearFila(p,"3 Diseños",120)}
-${crearFila(p,"6 Diseños",100)}
-
-<p style="font-size:13px; color:#aaa;">
-(Puede ser diseños diferentes)
-</p>
-`;
-
-}else{
-
-// 🔴 FLORES Y GALLETAS (normal)
-contenido += `
-<p class="titulo">Precio Por Suelto</p>
-
-${crearFila(p,"8cm",35)}
-${crearFila(p,"6cm",23)}
-${crearFila(p,"4cm",13)}
-
-<hr>
-
-<p class="titulo">Kit</p>
-
-${crearFila(p,"1 Kit",65)}
-${crearFila(p,"3 Kit",60)}
-${crearFila(p,"6 Kit",55)}
-`;
 }
 
 document.getElementById("popupInfo").innerHTML = contenido;
