@@ -580,29 +580,7 @@ function crearFila(p, opcion, precio){
     </div>
   `;
 }
-function sumar(key,nombre,opcion,precio){
-  if(!cantidades[key]) cantidades[key]=0;
-
-  cantidades[key]++;
-  agregar(nombre,opcion,precio);
-  actualizarCantidad(key);
-}
-
-function restar(key,nombre,opcion,precio){
-  if(!cantidades[key] || cantidades[key]<=0) return;
-
-  cantidades[key]--;
-
-  let index = carrito.findIndex(
-    x=>x.nombre===nombre && x.opcion===opcion
-  );
-
-  if(index>-1){
-    carrito.splice(index,1);
-  }
-
-  actualizarCarrito();
-  function sumar(btn, nombre, opcion, precio){
+function sumar(btn, nombre, opcion, precio){
   agregar(nombre, opcion, precio);
 
   let fila = btn.parentElement;
@@ -622,14 +600,12 @@ function restar(key,nombre,opcion,precio){
 function restar(btn, nombre, opcion, precio){
   let fila = btn.parentElement;
   let contador = fila.querySelector(".contador");
-  let comprar = fila.querySelector("button");
 
   let cantidad = parseInt(contador.dataset.cantidad || 0);
 
   if(cantidad > 0){
     cantidad--;
 
-    // eliminar del carrito
     for(let i=carrito.length-1;i>=0;i--){
       if(carrito[i].nombre==nombre && carrito[i].opcion==opcion){
         carrito.splice(i,1);
@@ -650,12 +626,6 @@ function restar(btn, nombre, opcion, precio){
     contador.innerText = "Tienes " + cantidad;
   }
 }
-
-  actualizarCarrito();
-}
-  actualizarCantidad(key);
-}
-
 function actualizarCantidad(key){
   let el = document.getElementById("cant_"+key);
   if(el){
