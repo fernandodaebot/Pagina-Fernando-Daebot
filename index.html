@@ -647,9 +647,9 @@ contenedor.appendChild(bloque);
 }
 }
 /* 🛒 CARRITO */
-function agregar(nombre, opcion, precio, imagen){
-carrito.push({nombre, opcion, precio, imagen});
-actualizarCarrito();
+function agregar(nombre, opcion, precio, imagen, categoria){
+  carrito.push({nombre, opcion, precio, imagen, categoria});
+  actualizarCarrito();
 }
 function sumarItem(nombre, opcion, precio){
 let item = carrito.find(x => x.nombre === nombre && x.opcion === opcion);
@@ -670,6 +670,7 @@ actualizarCarrito();
 let contador = {};
 
 function actualizarCarrito(){
+
 let lista = document.getElementById("listaCarrito");
 let total = document.getElementById("total");
 
@@ -677,17 +678,31 @@ lista.innerHTML = "";
 let suma = 0;
 contador = {};
 
+// 🔥 AQUÍ VA (correcto)
+let totalAlfabetos = 0;
+
 carrito.forEach((item)=>{
-let key = item.nombre + "-" + item.opcion;
+  let key = item.nombre + "-" + item.opcion;
 
-if(!contador[key]){
-  contador[key] = { ...item, cantidad: 0 };
-}
+  if(!contador[key]){
+    contador[key] = { ...item, cantidad: 0 };
+  }
 
-contador[key].cantidad++;
+  contador[key].cantidad++;
 
+  // 🔥 CONTAR ALFABETOS
+  if(item.categoria === "alfabetos"){
+    totalAlfabetos++;
+  }
 });
+let precioAlfabeto = 140;
 
+if(totalAlfabetos >= 6){
+  precioAlfabeto = 100;
+}else if(totalAlfabetos >= 3){
+  precioAlfabeto = 120;
+}
+  
 Object.values(contador).forEach(item => {
 
 let cantidadReal = item.cantidad;
@@ -698,7 +713,14 @@ let num = parseInt(item.opcion) || 1;
 cantidadReal = item.cantidad * num;
 }
 
-let subtotal = item.precio * cantidadReal;
+let precioFinal = item.precio;
+
+// 🔥 SI ES ALFABETO → usar precio dinámico
+if(item.categoria === "alfabetos"){
+  precioFinal = precioAlfabeto;
+}
+
+let subtotal = precioFinal * cantidadReal;
 suma += subtotal;
 
 lista.innerHTML += `
@@ -710,7 +732,12 @@ lista.innerHTML += `
     \<b>${item.nombre}\</b>\<br>
     ${item.opcion}\<br>
     \<small>Total unidades: ${cantidadReal}\</small>\<br>
-    \<b>${subtotal} Bs\</b>
+    <b>${subtotal} Bs</b><br>
+<small>
+${item.categoria === "alfabetos" 
+  ? `Precio aplicado: ${precioAlfabeto} Bs`
+  : ""}
+</small>
   \</div>
 
   \<div class="controles">
@@ -804,7 +831,7 @@ cantidad++;
 // ✅ AQUÍ ESTÁ LA SOLUCIÓN
 let img = document.getElementById("popupImg").src;
 
-agregar(nombre, opcion, precio, img);
+agregar(nombre, opcion, precio, img, p.categoria);
 
 contador.dataset.cantidad = cantidad;
 contador.innerText = "Tienes " + cantidad;
@@ -829,7 +856,6 @@ for(let i=carrito.length-1;i>=0;i--){
 }
 
 actualizarCarrito();
-
 }
 
 if(cantidad <= 0){
