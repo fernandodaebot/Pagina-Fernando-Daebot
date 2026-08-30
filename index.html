@@ -366,6 +366,79 @@ body{
   grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
   gap:20px;
 }
+  .carrito{
+  margin-top:30px;
+  background:#181818;
+  padding:30px;
+  border-radius:15px;
+  max-width:600px;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+/* cada producto */
+.item-carrito{
+  background:#222;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+/* info texto */
+.item-info{
+  font-size:16px;
+}
+
+.item-info b{
+  font-size:18px;
+}
+
+/* botones grandes */
+.controles{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.btn-cantidad{
+  background:red;
+  border:none;
+  color:white;
+  font-size:18px;
+  width:35px;
+  height:35px;
+  border-radius:8px;
+  cursor:pointer;
+  font-weight:bold;
+}
+
+.btn-cantidad.menos{
+  background:#444;
+}
+
+.cantidad-num{
+  font-size:18px;
+  font-weight:bold;
+  min-width:25px;
+  text-align:center;
+}
+
+/* total gigante */
+.total-final{
+  text-align:center;
+  margin-top:20px;
+  font-size:28px;
+  font-weight:900;
+}
+
+.total-final span{
+  color:red;
+  font-size:32px;
+}
+  
 </style>
 </head>
 
@@ -555,22 +628,34 @@ let subtotal = item.precio * cantidadReal;
     suma += subtotal;
 
     lista.innerHTML += `
-      <li style="margin-bottom:10px; font-size:16px;">
-        <b>${item.nombre}</b> (${item.opcion})
-<br>
-Total unidades: ${cantidadReal}  
-        <br>
+  <div class="item-carrito">
 
-        <button onclick="restarItem('${item.nombre}','${item.opcion}')" style="margin-right:5px;">➖</button>
-        <b>${item.cantidad}</b>
-        <button onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})" style="margin-left:5px;">➕</button>
+    <div class="item-info">
+      <b>${item.nombre}</b><br>
+      (${item.opcion})<br>
+      Total unidades: ${cantidadReal}<br>
+      = ${subtotal} Bs
+    </div>
 
-        = ${subtotal} Bs
-      </li>
-    `;
+    <div class="controles">
+      <button class="btn-cantidad menos"
+        onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
+
+      <div class="cantidad-num">${item.cantidad}</div>
+
+      <button class="btn-cantidad"
+        onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
+    </div>
+
+  </div>
+`;
   }
 
-  total.innerHTML = `<span style="font-size:22px; color:red; font-weight:bold;">${suma} Bs</span>`;
+  total.innerHTML = `
+  <div class="total-final">
+    TOTAL: <span>${suma} Bs</span>
+  </div>
+`;
 }
 let cantidades = {};
 
