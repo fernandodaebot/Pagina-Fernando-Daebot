@@ -438,9 +438,13 @@ function mostrarProductos(lista){
   const contenedor = document.getElementById("productos");
   contenedor.innerHTML = "";
 
-  // 🔥 AGRUPAR POR CATEGORIA
+  function mostrarProductos(lista){
+  const contenedor = document.getElementById("productos");
+  contenedor.innerHTML = "";
+
   let categorias = {};
 
+  // AGRUPAR
   lista.forEach(p=>{
     if(!categorias[p.categoria]){
       categorias[p.categoria] = [];
@@ -448,26 +452,31 @@ function mostrarProductos(lista){
     categorias[p.categoria].push(p);
   });
 
-  // 🔥 RECORRER CATEGORIAS
+  // RECORRER
   for(let cat in categorias){
 
-    // TITULO
-    contenedor.innerHTML += `
-      <h2 style="
-        width:100%;
-        text-align:left;
-        margin:40px 0 10px;
-        color:red;
-        border-bottom:2px solid #222;
-        padding-bottom:5px;
-      ">
-        ${cat.toUpperCase()}
-      </h2>
+    // 🔴 BLOQUE GENERAL
+    let bloque = document.createElement("div");
+    bloque.style.width = "100%";
+
+    // 🔴 TITULO GRANDE CENTRADO
+    let titulo = document.createElement("h2");
+    titulo.innerText = cat.toUpperCase();
+    titulo.style = `
+      text-align:center;
+      font-size:32px;
+      margin:50px 0 20px;
+      color:red;
+      font-weight:bold;
     `;
 
-    // PRODUCTOS
-    categorias[cat].forEach((p,i)=>{
+    bloque.appendChild(titulo);
 
+    // 🔴 GRID SOLO PARA PRODUCTOS
+    let grid = document.createElement("div");
+    grid.className = "grid";
+
+    categorias[cat].forEach(p=>{
       let card = document.createElement("div");
       card.className = "card";
 
@@ -478,9 +487,13 @@ function mostrarProductos(lista){
 
       card.onclick = ()=>abrirPopup(p);
 
-      contenedor.appendChild(card);
+      grid.appendChild(card);
     });
+
+    bloque.appendChild(grid);
+    contenedor.appendChild(bloque);
   }
+}
 }
 /* 🛒 CARRITO */
 function agregar(nombre, opcion, precio){
