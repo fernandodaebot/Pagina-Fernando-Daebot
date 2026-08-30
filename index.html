@@ -636,6 +636,7 @@ for(let cat in categorias){
 
       <img src="jonson/img/sombreros/medidas_sombreros.png"
      style="width:300px; border-radius:10px; cursor:pointer;"
+     onclick="abrirImagenMedidas('jonson/img/sombreros/medidas_sombreros.png')">
      onclick="abrirImagenMedidas(this.src)">
     `;
 
@@ -943,28 +944,35 @@ el.innerText = cantidades[key] || 0;
 }
 }
 
-function cerrarPopup(){
- function abrirImagenMedidas(src){
-  document.getElementById("popup").style.display = "flex";
-  document.getElementById("popupImg").src = src;
+// 🔥 ABRIR IMAGEN DE MEDIDAS
+function abrirImagenMedidas(src){
+  const popup = document.getElementById("popup");
+  const img = document.getElementById("popupImg");
+  const info = document.getElementById("popupInfo");
 
-  document.getElementById("popupInfo").innerHTML = `
-    <h2>Medidas de Sombreros</h2>
+  popup.style.display = "flex";
+  img.src = src;
+
+  info.innerHTML = `
+    <h2 style="color:red;">Medidas de Sombreros</h2>
     <p style="color:#aaa;">
-      El diámetro es la distancia de borde a borde del círculo
+      El diámetro es la distancia de borde a borde del círculo.
     </p>
   `;
 }
-document.getElementById("popup").style.display = "none";
+
+// 🔥 CERRAR POPUP
+function cerrarPopup(){
+  document.getElementById("popup").style.display = "none";
 }
 
+// 🔥 CLICK FUERA = CERRAR
 window.onclick = function(e){
-let popup = document.getElementById("popup");
-if(e.target === popup){
-cerrarPopup();
+  let popup = document.getElementById("popup");
+  if(e.target === popup){
+    cerrarPopup();
+  }
 }
-}
-
 function comprarBtn(btn){
 let count = btn.getAttribute("data-count") || 0;
 count++;
