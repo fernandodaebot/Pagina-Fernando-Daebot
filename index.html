@@ -810,7 +810,7 @@ return `
 <div class="fila">
   ${opcion} - ${precio} Bs
 
-  <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio})">Comprar</button>
+  <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio},'${p.categoria}')">Comprar</button>
 
   <span class="contador" style="display:none;" data-cantidad="0"></span>
 
@@ -818,7 +818,7 @@ return `
 </div>
 `;
 }
-function sumar(btn, nombre, opcion, precio){
+function sumar(btn, nombre, opcion, precio, categoria){
 let fila = btn.parentElement;
 
 let contador = fila.querySelector(".contador");
@@ -830,7 +830,7 @@ cantidad++;
 // ✅ AQUÍ ESTÁ LA SOLUCIÓN
 let img = document.getElementById("popupImg").src;
 
-agregar(nombre, opcion, precio, img, p.categoria);
+agregar(nombre, opcion, precio, img, categoria);
 
 contador.dataset.cantidad = cantidad;
 contador.innerText = "Tienes " + cantidad;
