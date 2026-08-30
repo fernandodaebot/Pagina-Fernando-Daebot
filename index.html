@@ -482,60 +482,6 @@ function mostrarProductos(lista){
     });
   }
 }
-    let card = document.createElement("div");
-    card.className = "card";
-
-    card.innerHTML = `
-      <img src="${p.imagen}">
-      <h3>${p.nombre}</h3>
-
-      <div class="expandir" id="det${i}">
-        
-        <p class="titulo">Precio Por Suelto 🌸</p>
-
-        <div class="fila">
-          Alto 8 cm a 35 Bs
-          <button onclick="event.stopPropagation(); agregar('${p.nombre}','8cm',35)">Comprar</button>
-        </div>
-
-        <div class="fila">
-          Alto 6 cm a 23 Bs
-          <button onclick="agregar('${p.nombre}','6cm',23)">Comprar</button>
-        </div>
-
-        <div class="fila">
-          Alto 4 cm a 13 Bs
-          <button onclick="agregar('${p.nombre}','4cm',13)">Comprar</button>
-        </div>
-
-        <hr>
-
-        <p class="titulo">Precio Kit (3 tamaños)</p>
-
-        <div class="fila">
-          1 Kit: 65 Bs
-          <button onclick="agregar('${p.nombre}','Kit 1',65)">Comprar</button>
-        </div>
-
-        <div class="fila">
-          3 Kits: 60 Bs
-          <button onclick="agregar('${p.nombre}','Kit x3',60)">Comprar</button>
-        </div>
-
-        <div class="fila">
-          6 Kits: 55 Bs
-          <button onclick="agregar('${p.nombre}','Kit x6',55)">Comprar</button>
-        </div>
-
-      </div>
-    `;
-
-card.onclick = ()=>abrirPopup(p);
-
-    contenedor.appendChild(card);
-  });
-}
-
 /* 🛒 CARRITO */
 function agregar(nombre, opcion, precio){
   carrito.push({nombre, opcion, precio});
