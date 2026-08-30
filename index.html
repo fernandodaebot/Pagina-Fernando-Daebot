@@ -778,17 +778,15 @@ let contenido = `<h2>${p.nombre}</h2>`;
 if(p.categoria === "alfabetos"){
 
   contenido += `
-  <p class="titulo">Precios</p>
+<p class="titulo">Tamaños de Kit</p>
+<p style="color:#aaa">${m.tamaños}</p>
 
-  ${crearFila(p,"Unidad",140)}
-  ${crearFila(p,"3 Diseños",120)}
-  ${crearFila(p,"6 Diseños",100)}
+<p class="titulo">Precios</p>
 
-  <p style="font-size:13px; color:#aaa;">
-  (Puede ser diseños diferentes)
-  </p>
-  `;
-
+${crearFila(p,"1 Kit",m.unidad)}
+${crearFila(p,"3 Kits",m.pack3)}
+${crearFila(p,"6 Kits",m.pack6)}
+`;
 }else if(p.categoria === "mascaras"){
 
   let m = preciosMascaras[p.nombre];
