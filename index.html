@@ -344,6 +344,28 @@ body{
   cursor:pointer;
   color:white;
 }
+  .categoria-bloque{
+  background:#1a1a1a; /* 🔥 fondo diferente */
+  border-radius:15px;
+  padding:25px;
+  margin:40px 0;
+  box-shadow:0 10px 30px rgba(0,0,0,0.5);
+}
+
+.categoria-titulo{
+  text-align:center;
+  font-size:38px;
+  color:red;
+  font-weight:900;
+  margin-bottom:20px;
+  letter-spacing:2px;
+}
+
+.categoria-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:20px;
+}
 </style>
 </head>
 
@@ -454,10 +476,12 @@ fetch("jonson/productos.json")
 
     // 🔴 BLOQUE
     let bloque = document.createElement("div");
+bloque.className = "categoria-bloque";
     bloque.style.width = "100%";
 
     // 🔴 TITULO GRANDE
-    let titulo = document.createElement("h2");
+   let titulo = document.createElement("h2");
+titulo.className = "categoria-titulo";
     titulo.innerText = cat.toUpperCase();
     titulo.style = `
       text-align:center;
@@ -470,8 +494,8 @@ fetch("jonson/productos.json")
     bloque.appendChild(titulo);
 
     // 🔴 GRID
-    let grid = document.createElement("div");
-    grid.className = "grid";
+   let grid = document.createElement("div");
+grid.className = "categoria-grid";
 
     categorias[cat].forEach(p=>{
       let card = document.createElement("div");
