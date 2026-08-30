@@ -600,101 +600,76 @@ let categorias = {};
 
 // AGRUPAR
 lista.forEach(p=>{
-if(!categorias[p.categoria]){
-categorias[p.categoria] = [];
-}
-categorias[p.categoria].push(p);
+  if(!categorias[p.categoria]){
+    categorias[p.categoria] = [];
+  }
+  categorias[p.categoria].push(p);
 });
 
 // RECORRER
 for(let cat in categorias){
 
-let bloque = document.createElement("div");
-bloque.className = "categoria-bloque";
-bloque.style.width = "100%";
+  let bloque = document.createElement("div");
+  bloque.className = "categoria-bloque";
 
-// 🔥 TITULO NORMAL O ESPECIAL
-let tituloContainer = document.createElement("div");
+  // 🔥 TITULO
+  let tituloContainer = document.createElement("div");
 
-if(cat === "sombreros"){
+  if(cat === "sombreros"){
 
-  tituloContainer.style.display = "flex";
-  tituloContainer.style.alignItems = "center";
-  tituloContainer.style.justifyContent = "space-between";
-  tituloContainer.style.gap = "20px";
-  tituloContainer.style.flexWrap = "wrap";
+    tituloContainer.style.display = "flex";
+    tituloContainer.style.alignItems = "center";
+    tituloContainer.style.justifyContent = "space-between";
+    tituloContainer.style.gap = "20px";
+    tituloContainer.style.flexWrap = "wrap";
 
-  tituloContainer.innerHTML = `
-    <div>
-      <h2 class="categoria-titulo" style="font-size:50px; margin:0;">
-        SOMBREROS
-      </h2>
-      <p style="color:#aaa; margin-top:10px;">
-        Crea accesorios únicos para tus fofuchas y proyectos
-      </p>
-    </div>
+    tituloContainer.innerHTML = `
+      <div>
+        <h2 class="categoria-titulo" style="font-size:50px; margin:0;">
+          SOMBREROS
+        </h2>
+        <p style="color:#aaa; margin-top:10px;">
+          Crea accesorios únicos para tus fofuchas y proyectos
+        </p>
+      </div>
 
-    <img src="jonson/img/sombreros/medidas_sombreros.png"
-         style="width:300px; border-radius:10px;">
-  `;
+      <img src="jonson/img/sombreros/medidas_sombreros.png"
+           style="width:300px; border-radius:10px;">
+    `;
 
-}else{
+  }else{
 
-  let titulo = document.createElement("h2");
-  titulo.className = "categoria-titulo";
-  titulo.innerText = cat.toUpperCase();
+    let titulo = document.createElement("h2");
+    titulo.className = "categoria-titulo";
+    titulo.innerText = cat.toUpperCase();
 
-  tituloContainer.appendChild(titulo);
+    tituloContainer.appendChild(titulo);
+  }
+
+  bloque.appendChild(tituloContainer);
+
+  // 🔥 GRID
+  let grid = document.createElement("div");
+  grid.className = "categoria-grid";
+
+  categorias[cat].forEach(p=>{
+    let card = document.createElement("div");
+    card.className = "card";
+
+    card.innerHTML = `
+      <img src="${p.imagen}">
+      <h3>${p.nombre}</h3>
+    `;
+
+    card.onclick = ()=>abrirPopup(p);
+
+    grid.appendChild(card);
+  });
+
+  bloque.appendChild(grid);
+  contenedor.appendChild(bloque);
 }
-
-bloque.appendChild(tituloContainer);
-
-// 🔴 BLOQUE
-let bloque = document.createElement("div");
-
-bloque.className = "categoria-bloque";
-bloque.style.width = "100%";
-
-// 🔴 TITULO GRANDE
-
-let titulo = document.createElement("h2");
-titulo.className = "categoria-titulo";
-titulo.innerText = cat.toUpperCase();
-titulo.style = `
-text-align:center;
-font-size:36px;
-margin:50px 0 20px;
-color:red;
-font-weight:bold;
-`;
-
-bloque.appendChild(titulo);
-
-// 🔴 GRID
-
-let grid = document.createElement("div");
-grid.className = "categoria-grid";
-
-categorias[cat].forEach(p=>{
-  let card = document.createElement("div");
-  card.className = "card";
-
-card.innerHTML = `
-    <img src="${p.imagen}">
-    <h3>${p.nombre}</h3>
-`;
-
-  card.onclick = ()=>abrirPopup(p);
-
-  grid.appendChild(card);
-});
-
-bloque.appendChild(grid);
-contenedor.appendChild(bloque);
-
-}
-}
-/* 🛒 CARRITO */
+}/* 🛒 CARRITO */
 function agregar(nombre, opcion, precio, imagen, categoria){
   carrito.push({nombre, opcion, precio, imagen, categoria});
   actualizarCarrito();
