@@ -343,6 +343,12 @@ body{
     <a href="#inicio">Inicio</a>
     <a href="#redes">Redes</a>
     <a href="#catalogo">Catálogo</a>
+    <a href="#pedido" style="
+  border:2px solid red;
+  padding:5px 12px;
+  border-radius:8px;
+  color:red;
+">🛒 Pedido</a>
   </div>
 </div>
 
@@ -398,10 +404,10 @@ body{
 <div id="filtros"></div>
 <div id="productos" class="grid"></div>
 
-<div class="carrito">
+<div class="carrito" id="pedido">
   <h3>Tu pedido</h3>
   <ul id="listaCarrito"></ul>
-  <p>Total: <span id="total">0</span> Bs</p>
+  <h2 style="margin-top:20px;">Total: <span id="total">0</span></h2>
 </div>
 
 </section>
@@ -481,24 +487,46 @@ function agregar(nombre, opcion, precio){
   actualizarCarrito();
 }
 
+let contador = {};
+
 function actualizarCarrito(){
   let lista = document.getElementById("listaCarrito");
   let total = document.getElementById("total");
 
   lista.innerHTML = "";
   let suma = 0;
+  contador = {};
 
-  carrito.forEach((item, i)=>{
-    suma += item.precio;
+  carrito.forEach((item)=>{
+    let key = item.nombre + "-" + item.opcion;
 
-    lista.innerHTML += `
-      <li>
-        ${item.nombre} (${item.opcion}) - ${item.precio} Bs
-      </li>
-    `;
+    if(!contador[key]){
+      contador[key] = { ...item, cantidad: 0 };
+    }
+
+    contador[key].cantidad++;
   });
 
-  total.innerText = suma;
+  for(let key in contador){
+    let item = contador[key];
+    let subtotal = item.precio * item.cantidad;
+    suma += subtotal;
+
+    lista.innerHTML += `
+      <li style="margin-bottom:10px; font-size:16px;">
+        <b>${item.nombre}</b> (${item.opcion})  
+        <br>
+
+        <button onclick="restarItem('${item.nombre}','${item.opcion}')" style="margin-right:5px;">➖</button>
+        <b>${item.cantidad}</b>
+        <button onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})" style="margin-left:5px;">➕</button>
+
+        = ${subtotal} Bs
+      </li>
+    `;
+  }
+
+  total.innerHTML = `<span style="font-size:22px; color:red; font-weight:bold;">${suma} Bs</span>`;
 }
 let cantidades = {};
 
@@ -565,6 +593,20 @@ function restar(key,nombre,opcion,precio){
   }
 
   actualizarCarrito();
+  function sumarItem(nombre, opcion, precio){
+  carrito.push({nombre, opcion, precio});
+  actualizarCarrito();
+}
+
+function restarItem(nombre, opcion){
+  let index = carrito.findIndex(i => i.nombre === nombre && i.opcion === opcion);
+
+  if(index !== -1){
+    carrito.splice(index,1);
+  }
+
+  actualizarCarrito();
+}
   actualizarCantidad(key);
 }
 
