@@ -438,6 +438,22 @@ body{
   color:red;
   font-size:32px;
 }
+  .img-carrito{
+  width:70px;
+  height:70px;
+  object-fit:cover;
+  border-radius:10px;
+}
+
+.item-carrito{
+  background:#222;
+  padding:15px;
+  border-radius:12px;
+  margin-bottom:15px;
+  display:flex;
+  align-items:center;
+  gap:15px;
+}
   
 </style>
 </head>
@@ -513,7 +529,14 @@ body{
 <div id="productos" class="grid"></div>
 
 <div class="carrito" id="pedido">
-  <h3>Tu pedido</h3>
+ <h2 style="
+  text-align:center;
+  font-size:28px;
+  font-weight:900;
+  margin-bottom:20px;
+">
+  🛒 Tu Pedido
+</h2>
   <ul id="listaCarrito"></ul>
   <h2 style="margin-top:20px;">Total: <span id="total">0</span></h2>
 </div>
@@ -589,8 +612,23 @@ grid.className = "categoria-grid";
   }
 }
 /* 🛒 CARRITO */
-function agregar(nombre, opcion, precio){
-  carrito.push({nombre, opcion, precio});
+function agregar(nombre, opcion, precio, imagen){
+  carrito.push({nombre, opcion, precio, imagen});
+  actualizarCarrito();
+}
+  function sumarItem(nombre, opcion, precio){
+  let item = carrito.find(x => x.nombre === nombre && x.opcion === opcion);
+  if(item){
+    carrito.push({...item});
+  }
+  actualizarCarrito();
+}
+
+function restarItem(nombre, opcion){
+  let index = carrito.findIndex(x => x.nombre === nombre && x.opcion === opcion);
+  if(index > -1){
+    carrito.splice(index,1);
+  }
   actualizarCarrito();
 }
 
@@ -627,25 +665,25 @@ if(item.opcion.includes("Kit")){
 let subtotal = item.precio * cantidadReal;
     suma += subtotal;
 
-    lista.innerHTML += `
+   lista.innerHTML += `
   <div class="item-carrito">
 
+    <img src="${item.imagen}" class="img-carrito">
+
     <div class="item-info">
-      <b>${item.nombre}</b><br>
-      (${item.opcion})<br>
-      Total unidades: ${cantidadReal}<br>
-      = ${subtotal} Bs
-    </div>
+  <b>${item.nombre}</b><br>
+  ${item.opcion}<br>
+  <small>Total unidades: ${cantidadReal}</small><br>
+  <b>${subtotal} Bs</b>
+</div>
 
-    <div class="controles">
-      <button class="btn-cantidad menos"
-        onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
+<div class="controles">
+  <button onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
 
-      <div class="cantidad-num">${item.cantidad}</div>
+  <span>${item.cantidad}</span>
 
-      <button class="btn-cantidad"
-        onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
-    </div>
+  <button onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
+</div>
 
   </div>
 `;
@@ -696,14 +734,18 @@ function crearFila(p, opcion, precio){
   `;
 }
 function sumar(btn, nombre, opcion, precio){
-  agregar(nombre, opcion, precio);
-
   let fila = btn.parentElement;
+
   let contador = fila.querySelector(".contador");
   let menos = fila.querySelector(".menos");
 
   let cantidad = parseInt(contador.dataset.cantidad || 0);
   cantidad++;
+
+  // 🔥 AQUÍ PASAMOS LA IMAGEN
+  let img = document.getElementById("popupImg").src;
+
+  agregar(nombre, opcion, precio, img);
 
   contador.dataset.cantidad = cantidad;
   contador.innerText = "Tienes " + cantidad;
