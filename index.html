@@ -808,15 +808,14 @@ document.getElementById("popupInfo").innerHTML = contenido;
 function crearFila(p, opcion, precio){
 return `
 <div class="fila">
-${opcion} - ${precio} Bs
+  ${opcion} - ${precio} Bs
 
-  \<button onclick="sumar(this,'${p.nombre}','${opcion}',${precio})">Comprar\</button>
+  <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio})">Comprar</button>
 
-  \<span class="contador" style="display\:none;" data-cantidad="0">\</span>
+  <span class="contador" style="display:none;" data-cantidad="0"></span>
 
-  \<button class="menos" style="display\:none;" onclick="restar(this,'${p.nombre}','${opcion}',${precio})">-\</button>
-\</div>
-
+  <button class="menos" style="display:none;" onclick="restar(this,'${p.nombre}','${opcion}',${precio})">-</button>
+</div>
 `;
 }
 function sumar(btn, nombre, opcion, precio){
