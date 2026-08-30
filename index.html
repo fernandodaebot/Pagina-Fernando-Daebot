@@ -777,21 +777,55 @@ let contenido = `<h2>${p.nombre}</h2>`;
 
 // 🔴 SI ES ALFABETO
 if(p.categoria === "alfabetos"){
-else if(p.categoria === "mascaras"){
 
-let m = preciosMascaras[p.nombre];
+  contenido += `
+  <p class="titulo">Precios</p>
 
-contenido += `
-<p class="titulo">Tamaños</p>
-<p style="color:#aaa">${m.tamaños}</p>
+  ${crearFila(p,"Unidad",140)}
+  ${crearFila(p,"3 Diseños",120)}
+  ${crearFila(p,"6 Diseños",100)}
 
-<p class="titulo">Precios</p>
+  <p style="font-size:13px; color:#aaa;">
+  (Puede ser diseños diferentes)
+  </p>
+  `;
 
-${crearFila(p,"Unidad",m.unidad)}
-${crearFila(p,"3 Kits",m.pack3)}
-${crearFila(p,"6 Kits",m.pack6)}
-`;
+}else if(p.categoria === "mascaras"){
 
+  let m = preciosMascaras[p.nombre];
+
+  if(m){
+    contenido += `
+    <p class="titulo">Tamaños</p>
+    <p style="color:#aaa">${m.tamaños}</p>
+
+    <p class="titulo">Precios</p>
+
+    ${crearFila(p,"Unidad",m.unidad)}
+    ${crearFila(p,"3 Kits",m.pack3)}
+    ${crearFila(p,"6 Kits",m.pack6)}
+    `;
+  }else{
+    contenido += `<p style="color:red;">Error: máscara sin configuración</p>`;
+  }
+
+}else{
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"8cm",35)}
+  ${crearFila(p,"6cm",23)}
+  ${crearFila(p,"4cm",13)}
+
+  <hr>
+
+  <p class="titulo">Kit</p>
+
+  ${crearFila(p,"1 Kit",65)}
+  ${crearFila(p,"3 Kit",60)}
+  ${crearFila(p,"6 Kit",55)}
+  `;
 }
   
 contenido += `
