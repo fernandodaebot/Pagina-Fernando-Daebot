@@ -23,7 +23,7 @@
   { "nombre": "Galleta con Chispas", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_con_chispas.png" },
   { "nombre": "Galleta Dona", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_dona.png" },
   { "nombre": "Galleta Mordida", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_mordida.png" },
-  { "nombre": "Pan con Listón", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_pan_con_liston.png" }
+  { "nombre": "Pan con Listón", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_pan_con_liston.png" },
 
 { "nombre": "Letras Bandera", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_bandera.png" },
 { "nombre": "Letras Barbie", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_barbie.png" },
