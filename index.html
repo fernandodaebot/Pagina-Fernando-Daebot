@@ -674,8 +674,8 @@ function actualizarCarrito(){
   let cantidadReal = item.cantidad;
 
   // si es kit (ej: "3 Kit")
-  if(item.opcion.includes("Kit")){
-    let num = parseInt(item.opcion);
+  if(item.opcion && item.opcion.includes("Kit")){
+    let num = parseInt(item.opcion) || 1;
     cantidadReal = item.cantidad * num;
   }
 
@@ -759,17 +759,17 @@ function sumar(btn, nombre, opcion, precio){
   let cantidad = parseInt(contador.dataset.cantidad || 0);
   cantidad++;
 
- // 🔥 agregar al carrito con imagen
+  // ✅ AQUÍ ESTÁ LA SOLUCIÓN
+  let img = document.getElementById("popupImg").src;
+
   agregar(nombre, opcion, precio, img);
 
-  // actualizar UI
   contador.dataset.cantidad = cantidad;
   contador.innerText = "Tienes " + cantidad;
 
   contador.style.display = "inline";
   menos.style.display = "inline";
 }
-
 function restar(btn, nombre, opcion, precio){
   let fila = btn.parentElement;
   let contador = fila.querySelector(".contador");
