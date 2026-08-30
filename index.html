@@ -522,12 +522,22 @@ function actualizarCarrito(){
 
   for(let key in contador){
     let item = contador[key];
-    let subtotal = item.precio * item.cantidad;
+   let cantidadReal = item.cantidad;
+
+// si es kit (ej: "3 Kit")
+if(item.opcion.includes("Kit")){
+  let num = parseInt(item.opcion);
+  cantidadReal = item.cantidad * num;
+}
+
+let subtotal = item.precio * cantidadReal;
     suma += subtotal;
 
     lista.innerHTML += `
       <li style="margin-bottom:10px; font-size:16px;">
-        <b>${item.nombre}</b> (${item.opcion})  
+        <b>${item.nombre}</b> (${item.opcion})
+<br>
+Total unidades: ${cantidadReal}  
         <br>
 
         <button onclick="restarItem('${item.nombre}','${item.opcion}')" style="margin-right:5px;">➖</button>
@@ -560,9 +570,9 @@ function abrirPopup(p){
 
     <p class="titulo">Kit</p>
 
-    ${crearFila(p,"Kit1",65)}
-    ${crearFila(p,"Kit3",60)}
-    ${crearFila(p,"Kit6",55)}
+${crearFila(p,"1 Kit",65)}
+${crearFila(p,"3 Kit",60)}
+${crearFila(p,"6 Kit",55)}
   `;
 }
 
