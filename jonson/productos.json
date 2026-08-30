@@ -35,5 +35,12 @@
   { "nombre": "Letras Graffiti", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_grafiti.png" },
   { "nombre": "Letras Mágicas", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_magicas.png" },
   { "nombre": "Letras Mario", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_mario.png" },
-  { "nombre": "Letras Arial", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_arial.png" }
+  { "nombre": "Letras Arial", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_arial.png" },
+  
+{ "nombre": "Mascara de Diablo", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_diablo.png" },
+{ "nombre": "Mascara de Diabla", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_diabla.png" },
+{ "nombre": "Mascara de Morenada", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_morenada.png" },
+{ "nombre": "Mascara de Oso", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_oso.png" },
+{ "nombre": "Mascara de Pepino", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_pepino.png" },
+{ "nombre": "Mascara de Tobas", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_tobas.png" }
 ]
