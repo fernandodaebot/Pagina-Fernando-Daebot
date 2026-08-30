@@ -669,54 +669,42 @@ function actualizarCarrito(){
     contador[key].cantidad++;
   });
 
-  Object.values(contador).forEach(item => {
-    let item = contador[key];
-   let cantidadReal = item.cantidad;
+ Object.values(contador).forEach(item => {
 
-// si es kit (ej: "3 Kit")
-if(item.opcion.includes("Kit")){
-  let num = parseInt(item.opcion);
-  cantidadReal = item.cantidad * num;
-}
+  let cantidadReal = item.cantidad;
 
-let subtotal = item.precio * cantidadReal;
-    suma += subtotal;
-
-   lista.innerHTML += `
-  <div class="item-carrito">
-
-    <img src="${item.imagen}" class="img-carrito">
-
-    <div class="item-info">
-  <b>${item.nombre}</b><br>
-  ${item.opcion}<br>
-  <small>Total unidades: ${cantidadReal}</small><br>
-  <b>${subtotal} Bs</b>
-</div>
-
-<div class="controles">
-  <button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
-
-<span style="font-size:18px; font-weight:bold; margin:0 10px;">
-  ${item.cantidad}
-</span>
-
-<button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
-
-  <span>${item.cantidad}</span>
-
- <button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
-
-<span style="font-size:18px; font-weight:bold; margin:0 10px;">
-  ${item.cantidad}
-</span>
-
-<button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
-</div>
-
-  </div>
-`;
+  // si es kit (ej: "3 Kit")
+  if(item.opcion.includes("Kit")){
+    let num = parseInt(item.opcion);
+    cantidadReal = item.cantidad * num;
   }
+
+  let subtotal = item.precio * cantidadReal;
+  suma += subtotal;
+
+  lista.innerHTML += `
+    <div class="item-carrito">
+
+      <img src="${item.imagen}" class="img-carrito">
+
+      <div class="item-info">
+        <b>${item.nombre}</b><br>
+        ${item.opcion}<br>
+        <small>Total unidades: ${cantidadReal}</small><br>
+        <b>${subtotal} Bs</b>
+      </div>
+
+      <div class="controles">
+        <button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
+
+        <span class="cantidad-num">${item.cantidad}</span>
+
+        <button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
+      </div>
+
+    </div>
+  `;
+});
 
   total.innerHTML = `
   <div class="total-final">
@@ -771,11 +759,10 @@ function sumar(btn, nombre, opcion, precio){
   let cantidad = parseInt(contador.dataset.cantidad || 0);
   cantidad++;
 
-  // 🔥 AQUÍ PASAMOS LA IMAGEN
-  let img = document.getElementById("popupImg").src;
-
+ // 🔥 agregar al carrito con imagen
   agregar(nombre, opcion, precio, img);
 
+  // actualizar UI
   contador.dataset.cantidad = cantidad;
   contador.innerText = "Tienes " + cantidad;
 
