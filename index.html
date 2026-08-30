@@ -616,29 +616,34 @@ for(let cat in categorias){
   // 🔥 TITULO
   let tituloContainer = document.createElement("div");
 
-  if(cat === "sombreros"){
+  if(cat === "sombreros" || cat === "cascos"){
+if(cat === "sombreros" || cat === "cascos"){
 
-    tituloContainer.style.display = "flex";
-    tituloContainer.style.alignItems = "center";
-    tituloContainer.style.justifyContent = "space-between";
-    tituloContainer.style.gap = "20px";
-    tituloContainer.style.flexWrap = "wrap";
+  tituloContainer.style.display = "flex";
+  tituloContainer.style.alignItems = "center";
+  tituloContainer.style.justifyContent = "space-between";
+  tituloContainer.style.gap = "20px";
+  tituloContainer.style.flexWrap = "wrap";
 
-    tituloContainer.innerHTML = `
-      <div>
-        <h2 class="categoria-titulo" style="font-size:50px; margin:0;">
-          SOMBREROS
-        </h2>
-        <p style="color:#aaa; margin-top:10px;">
-          Crea accesorios únicos para tus fofuchas y proyectos
-        </p>
-      </div>
+  let imgMedidas = cat === "sombreros"
+    ? "jonson/img/sombreros/medidas_sombreros.png"
+    : "jonson/img/cascos/medidas_cascos.png";
 
-     <img src="jonson/img/sombreros/medidas_sombreros.png"
-     style="width:300px; border-radius:10px; cursor:pointer;"
-     onclick="abrirImagenMedidas('jonson/img/sombreros/medidas_sombreros.png')">
-     `;
+  tituloContainer.innerHTML = `
+    <div>
+      <h2 class="categoria-titulo" style="font-size:50px; margin:0;">
+        ${cat.toUpperCase()}
+      </h2>
+      <p style="color:#aaa; margin-top:10px;">
+        Crea accesorios únicos para tus fofuchas y proyectos
+      </p>
+    </div>
 
+    <img src="${imgMedidas}"
+         style="width:300px; border-radius:10px; cursor:pointer;"
+         onclick="abrirImagenMedidas('${imgMedidas}')">
+  `;
+}
   }else{
 
     let titulo = document.createElement("h2");
@@ -831,6 +836,25 @@ function abrirPopup(p){
 
   // 🔴 SOMBREROS
   else if(p.categoria === "sombreros"){
+   else if(p.categoria === "cascos"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"4 cm",20)}
+  ${crearFila(p,"5 cm",30)}
+  ${crearFila(p,"6 cm",40)}
+  ${crearFila(p,"7 cm",50)}
+
+  <hr>
+
+  <p class="titulo">Kit (Los 4 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",140)}
+  ${crearFila(p,"3 Kits",130)}
+  ${crearFila(p,"6 Kits",120)}
+  `;
+}
 
     contenido += `
     <p class="titulo">Precio Por Suelto</p>
