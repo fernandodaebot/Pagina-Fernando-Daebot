@@ -350,8 +350,9 @@ position:relative;
 }
 
 .popup img{
-width:300px;
-border-radius:10px;
+  width:500px;
+  max-width:90%;
+  border-radius:10px;
 }
 
 .cerrar{
@@ -634,7 +635,8 @@ for(let cat in categorias){
       </div>
 
       <img src="jonson/img/sombreros/medidas_sombreros.png"
-           style="width:300px; border-radius:10px;">
+     style="width:300px; border-radius:10px; cursor:pointer;"
+     onclick="abrirImagenMedidas(this.src)">
     `;
 
   }else{
@@ -942,6 +944,17 @@ el.innerText = cantidades[key] || 0;
 }
 
 function cerrarPopup(){
+ function abrirImagenMedidas(src){
+  document.getElementById("popup").style.display = "flex";
+  document.getElementById("popupImg").src = src;
+
+  document.getElementById("popupInfo").innerHTML = `
+    <h2>Medidas de Sombreros</h2>
+    <p style="color:#aaa;">
+      El diámetro es la distancia de borde a borde del círculo
+    </p>
+  `;
+}
 document.getElementById("popup").style.display = "none";
 }
 
