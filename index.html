@@ -642,8 +642,15 @@ for(let cat in categorias){
          style="width:300px; border-radius:10px; cursor:pointer;"
          onclick="abrirImagenMedidas('${imgMedidas}')">
   `;
+
+}else{
+
+  let titulo = document.createElement("h2");
+  titulo.className = "categoria-titulo";
+  titulo.innerText = cat.toUpperCase();
+
+  tituloContainer.appendChild(titulo);
 }
-  }else{
 
     let titulo = document.createElement("h2");
     titulo.className = "categoria-titulo";
