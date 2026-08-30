@@ -25,17 +25,15 @@
   { "nombre": "Galleta Mordida", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_mordida.png" },
   { "nombre": "Pan con Listón", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_pan_con_liston.png" },
 
-{ "nombre": "Letras Bandera", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_bandera.png" },
-{ "nombre": "Letras Barbie", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_barbie.png" },
-{ "nombre": "Letras con Corazón", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_con_hueco_de_corazon.png" },
-{ "nombre": "Letras Curvas", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_curvas.png" },
-{ "nombre": "Letras de Corazón", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_de_corazon.png" },
-{ "nombre": "Letras de Osos", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_de_osos.png" },
-{ "nombre": "Letras Disney", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_disney.png" },
-{ "nombre": "Letras Graffiti", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_grafiti.png" },
-{ "nombre": "Letras Mágicas", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_magicas.png" },
-{ "nombre": "Letras Mario", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_mario.png" },
-{ "nombre": "Letras Arial", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_arial.png" }
-
-  
+  { "nombre": "Letras Bandera", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_bandera.png" },
+  { "nombre": "Letras Barbie", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_barbie.png" },
+  { "nombre": "Letras con Corazón", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_con_hueco_de_corazon.png" },
+  { "nombre": "Letras Curvas", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_curvas.png" },
+  { "nombre": "Letras de Corazón", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_de_corazon.png" },
+  { "nombre": "Letras de Osos", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_de_osos.png" },
+  { "nombre": "Letras Disney", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_disney.png" },
+  { "nombre": "Letras Graffiti", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_grafiti.png" },
+  { "nombre": "Letras Mágicas", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_magicas.png" },
+  { "nombre": "Letras Mario", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_mario.png" },
+  { "nombre": "Letras Arial", "categoria": "alfabetos", "imagen": "jonson/img/alfabetos/letras_arial.png" }
 ]
