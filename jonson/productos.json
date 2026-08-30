@@ -44,7 +44,7 @@
 { "nombre": "Mascara de Pepino", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_pepino.png" },
 { "nombre": "Mascara de Tobas", "categoria": "mascaras", "imagen": "jonson/img/mascaras/mascara_de_tobas.png" },
 
-  { "nombre": "Sombrero Vaquero", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_vaquero.png" },
+  { "nombre": "Sombrero Vaquero", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_baquero.png" },
 { "nombre": "Sombrero Bombín", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_bombin.png" },
 { "nombre": "Sombrero Cholita Copa Alta", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_cholita_copa_alta.png" },
 { "nombre": "Sombrero Cholita Copa Baja", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_cholita_copa_baja.png" },
