@@ -17,6 +17,8 @@
 .card:hover{
   transform:scale(1.05);
   box-shadow:0 10px 30px rgba(0,0,0,0.5);
+  z-index:1; /* 🔥 evita que suba demasiado */
+  position:relative;
 }
 
 .card img{
@@ -316,7 +318,7 @@ body{
   display:none;
   justify-content:center;
   align-items:center;
-  z-index:999;
+  z-index:10000;
 }
 
 .popup-contenido{
