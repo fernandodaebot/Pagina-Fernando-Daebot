@@ -434,10 +434,6 @@ fetch("jonson/productos.json")
 .then(res => res.json())
 .then(data => mostrarProductos(data));
 
-function mostrarProductos(lista){
-  const contenedor = document.getElementById("productos");
-  contenedor.innerHTML = "";
-
   function mostrarProductos(lista){
   const contenedor = document.getElementById("productos");
   contenedor.innerHTML = "";
