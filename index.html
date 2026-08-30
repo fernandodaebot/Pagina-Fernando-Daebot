@@ -617,7 +617,6 @@ for(let cat in categorias){
   let tituloContainer = document.createElement("div");
 
   if(cat === "sombreros" || cat === "cascos"){
-if(cat === "sombreros" || cat === "cascos"){
 
   tituloContainer.style.display = "flex";
   tituloContainer.style.alignItems = "center";
@@ -834,9 +833,29 @@ function abrirPopup(p){
 
   }
 
-  // 🔴 SOMBREROS
-  else if(p.categoria === "sombreros"){
-   else if(p.categoria === "cascos"){
+// 🔴 SOMBREROS
+else if(p.categoria === "sombreros"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"3 cm",15)}
+  ${crearFila(p,"4 cm",30)}
+  ${crearFila(p,"5 cm",40)}
+  ${crearFila(p,"6 cm",50)}
+
+  <hr>
+
+  <p class="titulo">Kit (Los 4 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",130)}
+  ${crearFila(p,"3 Kits",115)}
+  ${crearFila(p,"6 Kits",100)}
+  `;
+}
+
+// 🔴 CASCOS (SEPARADO CORRECTO)
+else if(p.categoria === "cascos"){
 
   contenido += `
   <p class="titulo">Precio Por Suelto</p>
@@ -855,25 +874,6 @@ function abrirPopup(p){
   ${crearFila(p,"6 Kits",120)}
   `;
 }
-
-    contenido += `
-    <p class="titulo">Precio Por Suelto</p>
-
-    ${crearFila(p,"3 cm",15)}
-    ${crearFila(p,"4 cm",30)}
-    ${crearFila(p,"5 cm",40)}
-    ${crearFila(p,"6 cm",50)}
-
-    <hr>
-
-    <p class="titulo">Kit (Los 4 tamaños)</p>
-
-    ${crearFila(p,"1 Kit",130)}
-    ${crearFila(p,"3 Kits",115)}
-    ${crearFila(p,"6 Kits",100)}
-    `;
-
-  }
 
   // 🔴 FLORES Y GALLETAS
   else{
