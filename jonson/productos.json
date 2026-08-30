@@ -48,5 +48,12 @@
 { "nombre": "Sombrero Bombín", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_bombin.png" },
 { "nombre": "Sombrero Cholita Copa Alta", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_cholita_copa_alta.png" },
 { "nombre": "Sombrero Cholita Copa Baja", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_cholita_copa_baja.png" },
-{ "nombre": "Sombrero Salay", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_salay.png" }
+{ "nombre": "Sombrero Salay", "categoria": "sombreros", "imagen": "jonson/img/sombreros/sombrero_salay.png" },
+
+  { "nombre": "Boina Militar", "categoria": "cascos", "imagen": "jonson/img/cascos/boina_militar.png" },
+{ "nombre": "Casco Bombero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_bombero.png" },
+{ "nombre": "Casco Ingeniero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_ingeniero.png" },
+{ "nombre": "Casco Minero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_minero.png" },
+{ "nombre": "Casco Soldado", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_soldado.png" },
+{ "nombre": "Gorra", "categoria": "cascos", "imagen": "jonson/img/cascos/gorra.png" }
 ]
