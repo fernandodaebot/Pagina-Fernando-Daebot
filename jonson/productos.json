@@ -14,14 +14,14 @@
   { "nombre": "Rosa Imperial", "categoria": "flores", "imagen": "jonson/img/flores/rosa_imperial.jpg" },
   { "nombre": "Rosa Lara", "categoria": "flores", "imagen": "jonson/img/flores/rosa_lara.jpg" },
   { "nombre": "Semillas de Girasol", "categoria": "flores", "imagen": "jonson/img/flores/semillas_de_girasol.png" },
-  { "nombre": "Suculenta", "categoria": "flores", "imagen": "jonson/img/flores/suculenta.png" }
+  { "nombre": "Suculenta", "categoria": "flores", "imagen": "jonson/img/flores/suculenta.png" },
+
+  { "nombre": "Galleta Clásica", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_1.png" },
+  { "nombre": "Galleta Rectangular", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_1_rectangular.png" },
+  { "nombre": "Galleta Doble", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_2.png" },
+  { "nombre": "Galleta Rectangular Doble", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_2_rectangular.png" },
+  { "nombre": "Galleta con Chispas", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_con_chispas.png" },
+  { "nombre": "Galleta Dona", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_dona.png" },
+  { "nombre": "Galleta Mordida", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_mordida.png" },
+  { "nombre": "Pan con Listón", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_pan_con_liston.png" }
 ]
-,
-{ "nombre": "Galleta Clásica", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_1.png" },
-{ "nombre": "Galleta Rectangular", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_1_rectangular.png" },
-{ "nombre": "Galleta Doble", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_2.png" },
-{ "nombre": "Galleta Rectangular Doble", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_2_rectangular.png" },
-{ "nombre": "Galleta con Chispas", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_con_chispas.png" },
-{ "nombre": "Galleta Dona", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_dona.png" },
-{ "nombre": "Galleta Mordida", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_mordida.png" },
-{ "nombre": "Pan con Listón", "categoria": "galletas", "imagen": "jonson/img/galletas/galleta_pan_con_liston.png" }
