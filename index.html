@@ -609,6 +609,46 @@ categorias[p.categoria].push(p);
 // RECORRER
 for(let cat in categorias){
 
+let bloque = document.createElement("div");
+bloque.className = "categoria-bloque";
+bloque.style.width = "100%";
+
+// 🔥 TITULO NORMAL O ESPECIAL
+let tituloContainer = document.createElement("div");
+
+if(cat === "sombreros"){
+
+  tituloContainer.style.display = "flex";
+  tituloContainer.style.alignItems = "center";
+  tituloContainer.style.justifyContent = "space-between";
+  tituloContainer.style.gap = "20px";
+  tituloContainer.style.flexWrap = "wrap";
+
+  tituloContainer.innerHTML = `
+    <div>
+      <h2 class="categoria-titulo" style="font-size:50px; margin:0;">
+        SOMBREROS
+      </h2>
+      <p style="color:#aaa; margin-top:10px;">
+        Crea accesorios únicos para tus fofuchas y proyectos
+      </p>
+    </div>
+
+    <img src="jonson/img/sombreros/medidas_sombreros.png"
+         style="width:300px; border-radius:10px;">
+  `;
+
+}else{
+
+  let titulo = document.createElement("h2");
+  titulo.className = "categoria-titulo";
+  titulo.innerText = cat.toUpperCase();
+
+  tituloContainer.appendChild(titulo);
+}
+
+bloque.appendChild(tituloContainer);
+
 // 🔴 BLOQUE
 let bloque = document.createElement("div");
 
@@ -773,7 +813,17 @@ function abrirPopup(p){
 document.getElementById("popup").style.display = "flex";
 document.getElementById("popupImg").src = p.imagen;
 
-let contenido = `<h2>${p.nombre}</h2>`;
+let contenido = `
+<div style="display:flex; align-items:center; gap:20px;">
+  <div>
+    <h2 style="font-size:32px;">${p.nombre}</h2>
+  </div>
+
+  ${p.categoria === "sombreros" ? `
+    <img src="jonson/img/sombreros/medidas_sombreros.png" style="width:200px; border-radius:10px;">
+  ` : ""}
+</div>
+`;
 
 if(p.categoria === "alfabetos"){
 
@@ -788,6 +838,25 @@ ${crearFila(p,"3 Kits",m.pack3)}
 ${crearFila(p,"6 Kits",m.pack6)}
 `;
 }else if(p.categoria === "mascaras"){
+  else if(p.categoria === "sombreros"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"3 cm",15)}
+  ${crearFila(p,"4 cm",30)}
+  ${crearFila(p,"5 cm",40)}
+  ${crearFila(p,"6 cm",50)}
+
+  <hr>
+
+  <p class="titulo">Precio Kit (4 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",130)}
+  ${crearFila(p,"3 Kits",115)}
+  ${crearFila(p,"6 Kits",100)}
+  `;
+}
 
   let m = preciosMascaras[p.nombre];
 
