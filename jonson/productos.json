@@ -75,5 +75,18 @@
 { "nombre": "Cara Triste", "categoria": "caras", "imagen": "jonson/img/caras/cara_triste.png" },
 { "nombre": "Cráneo Humano", "categoria": "caras", "imagen": "jonson/img/caras/craneo_humano.png" },
 { "nombre": "Cara Hombre", "categoria": "caras", "imagen": "jonson/img/caras/cara_hombre.png" },
-{ "nombre": "Cara Mujer", "categoria": "caras", "imagen": "jonson/img/caras/cara_mujer.png" }
+{ "nombre": "Cara Mujer", "categoria": "caras", "imagen": "jonson/img/caras/cara_mujer.png" },
+
+  { "nombre": "Bota", "categoria": "zapatos", "imagen": "jonson/img/zapatos/bota.png" },
+{ "nombre": "Tacon", "categoria": "zapatos", "imagen": "jonson/img/zapatos/tacon.png" },
+{ "nombre": "Tenis", "categoria": "zapatos", "imagen": "jonson/img/zapatos/tenis.png" },
+{ "nombre": "Zapatilla", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapatilla.png" },
+{ "nombre": "Zapato Cholita", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_cholita.png" },
+{ "nombre": "Zapato Gato", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_gato.png" },
+{ "nombre": "Zapato Izquierdo y Derecho", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_izquierdo_y_derecho.png" },
+{ "nombre": "Zapato Perrito", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_perrito.png" },
+
+  { "nombre": "Corazon", "categoria": "corazones", "imagen": "jonson/img/corazones/corazon.png" },
+  { "nombre": "Salteña", "categoria": "comida", "imagen": "jonson/img/comida/saltena.png" },
+{ "nombre": "Coca Cola", "categoria": "comida", "imagen": "jonson/img/comida/coca_cola.png" }
 ]
