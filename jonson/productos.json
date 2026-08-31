@@ -55,5 +55,25 @@
 { "nombre": "Casco Ingeniero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_ingeniero.png" },
 { "nombre": "Casco Minero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_minero.png" },
 { "nombre": "Casco Soldado", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_soldado.png" },
-{ "nombre": "Gorra", "categoria": "cascos", "imagen": "jonson/img/cascos/gorra.png" }
+{ "nombre": "Gorra", "categoria": "cascos", "imagen": "jonson/img/cascos/gorra.png" },
+
+  { "nombre": "Cara Bebé", "categoria": "caras", "imagen": "jonson/img/caras/cara_bebe.png" },
+{ "nombre": "Cara Enojada", "categoria": "caras", "imagen": "jonson/img/caras/cara_enojada.png" },
+{ "nombre": "Cara Mixta 1", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_1.png" },
+{ "nombre": "Cara Mixta 2", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_2.png" },
+{ "nombre": "Cara Mixta 3", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_3.png" },
+{ "nombre": "Cara Mixta 4", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_4.png" },
+{ "nombre": "Cara Mixta 5", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_5.png" },
+{ "nombre": "Cara Mixta 6", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_6.png" },
+{ "nombre": "Cara Mixta 7", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_7.png" },
+{ "nombre": "Cara Mixta 8", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_8.png" },
+{ "nombre": "Cara Muñeco 1", "categoria": "caras", "imagen": "jonson/img/caras/cara_muñeco_1.png" },
+{ "nombre": "Cara Muñeco 2", "categoria": "caras", "imagen": "jonson/img/caras/cara_muñeco_2.png" },
+{ "nombre": "Cara Muñeco 3", "categoria": "caras", "imagen": "jonson/img/caras/cara_muñeco_3.png" },
+{ "nombre": "Cara Muñeco 4", "categoria": "caras", "imagen": "jonson/img/caras/cara_muñeco_4.png" },
+{ "nombre": "Cara Muñeco 5", "categoria": "caras", "imagen": "jonson/img/caras/cara_muñeco_5.png" },
+{ "nombre": "Cara Triste", "categoria": "caras", "imagen": "jonson/img/caras/cara_triste.png" },
+{ "nombre": "Cráneo Humano", "categoria": "caras", "imagen": "jonson/img/caras/craneo_humano.png" },
+{ "nombre": "Cara Hombre", "categoria": "caras", "imagen": "jonson/img/caras/cara_hombre.png" },
+{ "nombre": "Cara Mujer", "categoria": "caras", "imagen": "jonson/img/caras/cara_mujer.png" }
 ]
