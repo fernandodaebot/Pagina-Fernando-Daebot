@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+  <link rel="preload" as="image" href="jonson/img/cascos/casco_bombero.png">
+<link rel="preload" as="image" href="jonson/img/sombreros/medidas_sombreros.png">
+ 
 <meta charset="UTF-8">
 <title>Fernando Daebot</title>
  
@@ -664,7 +668,7 @@ for(let cat in categorias){
     card.className = "card";
 
     card.innerHTML = `
-      <img src="${p.imagen}">
+      <img src="${p.imagen}" loading="lazy" width="300" height="160">
       <h3>${p.nombre}</h3>
     `;
 
@@ -728,19 +732,18 @@ carrito.forEach((item)=>{
   contador[key].cantidad++;
 
   // 🔥 CONTAR ALFABETOS
-  if(conteoCategorias[item.categoria] !== undefined){
- let cantidadReal = 1;
-
-// solo contar kits (evita errores con "Unidad", "3 Diseños", etc)
-if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-  cantidadReal = parseInt(item.opcion) || 1;
-}
-
 if(conteoCategorias[item.categoria] !== undefined){
+
+  let cantidadReal = 1;
+
+  // solo contar kits
+  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+    cantidadReal = parseInt(item.opcion) || 1;
+  }
+
   conteoCategorias[item.categoria] += cantidadReal;
 }
-   
-});
+ });
 function obtenerPrecioCategoria(cat, cantidad){
 
   // 🔴 ALFABETOS
