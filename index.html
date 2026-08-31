@@ -187,7 +187,7 @@ border-color:red;
   width:100%;
   display:flex;
   align-items:center;
-  padding:12px 40px;
+   padding:12px 60px 12px 40px;
   background:rgba(0,0,0,0.6);
   backdrop-filter:blur(10px);
   z-index:9999;
@@ -244,9 +244,19 @@ background-size:cover;
 }
 
 .hero h1{
-font-size:65px;
-font-weight:900;
-margin:0;
+  font-size:80px; /* 🔥 más grande */
+  font-weight:900;
+  margin:0;
+  line-height:1.1;
+  text-shadow:0 5px 20px rgba(0,0,0,0.7); /* 🔥 efecto pro */
+}
+
+ .subtexto{
+  color:#ddd;
+  margin-top:20px;
+  font-size:22px;
+  line-height:1.6;
+  text-shadow:0 2px 10px rgba(0,0,0,0.7);
 }
 
 .hero p{
@@ -608,12 +618,14 @@ background:#ff2a2a;
 <!-- HERO -->
 <section class="hero" id="inicio">
 <div>
-<h1>Moldes de <span style="color:red">Goma Eva</span></h1>
-<p>Crea fofuchas, figuras y manualidades increíbles 🚀</p>
+<h1>
+  Moldes de <span style="color:red">Goma Eva</span> ✂️🔥
+</h1>
 
-<button class="btn-main" onclick="window.location.href='jonson/index.html'">
-  Ver Catálogo
-\</button>
+<p class="subtexto">
+  🎨 Diseños únicos para fofuchas, manualidades y más<br>
+  🚀 Inventados por el influencer <b style="color:red;">Fernando Daebot</b>
+</p>
 
 </div>
 </section>
