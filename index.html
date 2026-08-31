@@ -239,7 +239,6 @@ background:
 linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
 url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/fondo.png");
 background-size:cover;
-background-position:center;
 }
 
 .hero h1{
@@ -520,6 +519,23 @@ background:#ff2a2a;
   transform:scale(1.05);
 }
 
+ /* 📱 AJUSTES SOLO CELULAR */
+@media (max-width: 768px){
+
+  /* HERO más pequeño */
+  .hero{
+    height:60vh;
+    padding:80px 20px;
+    text-align:center;
+  }
+
+  .hero h1{
+    font-size:35px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
 
   /* BOTONES DE CATEGORÍAS más grandes */
   .filtros-categorias button{
@@ -558,55 +574,19 @@ background:#ff2a2a;
     font-size:16px;
   }
 }
-/* 📱 AJUSTES CELULAR SIN ROMPER DISEÑO */
-@media (max-width: 768px){
+ @media (max-width: 768px){
 
-  /* HERO más controlado */
   .hero{
-    height: auto;
-    min-height: 70vh;
+    height: auto; /* 🔥 clave */
+    min-height: 60vh;
     padding: 80px 20px;
-    background-size: cover; /* 🔥 volvemos a cover */
-    background-position: center;
-  }
 
-  .hero h1{
-    font-size: 35px;
-  }
-
-  .hero p{
-    font-size: 14px;
-  }
-
-  /* 🔥 POPUP (mantener horizontal) */
-  .popup-contenido{
-    flex-direction: row; /* 🔥 CLAVE */
-    align-items: flex-start;
-    gap: 10px;
-  }
-
-  /* 🔥 IMAGEN más pequeña en celular */
-  .popup img{
-    width: 55%;
-    max-height: 250px;
-    object-fit: cover;
-  }
-
-  /* 🔥 TEXTO al lado */
-  #popupInfo{
-    width: 45%;
-    text-align: left;
-    font-size: 14px;
-  }
-
-  /* 🔥 BOTONES un poco más grandes */
-  .fila button{
-    padding: 10px;
-    font-size: 14px;
+    background-size: contain; /* 🔥 muestra imagen completa */
+    background-position: center top;
+    background-repeat: no-repeat;
   }
 
 }
- 
 </style>
 </head>
 
