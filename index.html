@@ -719,7 +719,11 @@ let conteoCategorias = {
   cascos: 0,
   sombreros: 0,
   zapatos: 0,
-  comida: 0
+  comida: 0,
+  cuerpos_planos: 0,
+  tantawawas_12: 0,
+  tantawawas_9: 0,
+  frases: 0
 };
 
 carrito.forEach((item)=>{
@@ -732,7 +736,27 @@ carrito.forEach((item)=>{
   contador[key].cantidad++;
 
   // 🔥 CONTAR ALFABETOS
-if(conteoCategorias[item.categoria] !== undefined){
+let categoriaContar = item.categoria;
+
+// 🔥 separar tantawawas por tamaño
+if(item.categoria === "tantawawas"){
+  if(item.opcion.includes("12")){
+    categoriaContar = "tantawawas_12";
+  }else if(item.opcion.includes("9")){
+    categoriaContar = "tantawawas_9";
+  }
+}
+
+if(conteoCategorias[categoriaContar] !== undefined){
+
+  let cantidadReal = 1;
+
+  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+    cantidadReal = parseInt(item.opcion) || 1;
+  }
+
+  conteoCategorias[categoriaContar] += cantidadReal;
+}
 
   let cantidadReal = 1;
 
@@ -745,7 +769,33 @@ if(conteoCategorias[item.categoria] !== undefined){
 }
  });
 function obtenerPrecioCategoria(cat, cantidad){
+// 🔴 CUERPOS PLANOS
+if(cat === "cuerpos_planos"){
+  if(cantidad >= 6) return 35;
+  if(cantidad >= 3) return 40;
+  return 50;
+}
 
+// 🔴 TANTAWAWAS 12cm
+if(cat === "tantawawas_12"){
+  if(cantidad >= 6) return 45;
+  if(cantidad >= 3) return 60;
+  return 70;
+}
+
+// 🔴 TANTAWAWAS 9cm
+if(cat === "tantawawas_9"){
+  if(cantidad >= 6) return 35;
+  if(cantidad >= 3) return 50;
+  return 60;
+}
+
+// 🔴 FRASES
+if(cat === "frases"){
+  if(cantidad >= 6) return 40;
+  if(cantidad >= 3) return 45;
+  return 55;
+}
   // 🔴 ALFABETOS
   if(cat === "alfabetos"){
     if(cantidad >= 6) return 100;
@@ -988,7 +1038,58 @@ else if(p.categoria === "zapatos"){
     ${crearFila(p,"9 cm",35)}
     ${crearFila(p,"6 cm",15)}
     `;
+}
+  else if(p.categoria === "cuerpos_planos"){
 
+  contenido += `
+  <p class="titulo">Medida aprox 12 cm</p>
+
+  ${crearFila(p,"Unidad",50)}
+  ${crearFila(p,"3 Unidades",40)}
+  ${crearFila(p,"6 Unidades",35)}
+
+  <p style="font-size:13px; color:#aaa;">
+  (Puede combinar diseños de la misma categoría)
+  </p>
+  `;
+}
+else if(p.categoria === "tantawawas"){
+
+  contenido += `
+  <p class="titulo">Tamaño 12 cm</p>
+
+  ${crearFila(p,"12 cm",70)}
+  ${crearFila(p,"3 Unidades 12 cm",60)}
+  ${crearFila(p,"6 Unidades 12 cm",45)}
+
+  <hr>
+
+  <p class="titulo">Tamaño 9 cm</p>
+
+  ${crearFila(p,"9 cm",60)}
+  ${crearFila(p,"3 Unidades 9 cm",50)}
+  ${crearFila(p,"6 Unidades 9 cm",35)}
+
+  <p style="font-size:13px; color:#aaa;">
+  (Se suman por separado según tamaño)
+  </p>
+  `;
+}
+    else if(p.categoria === "frases"){
+
+  contenido += `
+  <p class="titulo">Medida aprox 12 cm</p>
+
+  ${crearFila(p,"Unidad",55)}
+  ${crearFila(p,"3 Unidades",45)}
+  ${crearFila(p,"6 Unidades",40)}
+
+  <p style="font-size:13px; color:#aaa;">
+  (Puede combinar diferentes diseños)
+  </p>
+  `;
+}
+    
   }else if(p.nombre.toLowerCase().includes("coca")){
 
     contenido += `
