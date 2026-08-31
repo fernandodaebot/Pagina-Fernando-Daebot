@@ -518,6 +518,62 @@ background:#ff2a2a;
   background:red;
   transform:scale(1.05);
 }
+
+ /* 📱 AJUSTES SOLO CELULAR */
+@media (max-width: 768px){
+
+  /* HERO más pequeño */
+  .hero{
+    height:60vh;
+    padding:80px 20px;
+    text-align:center;
+  }
+
+  .hero h1{
+    font-size:35px;
+  }
+
+  .hero p{
+    font-size:14px;
+  }
+
+  /* BOTONES DE CATEGORÍAS más grandes */
+  .filtros-categorias button{
+    padding:14px 18px;
+    font-size:14px;
+  }
+
+  /* POPUP en columna */
+  .popup-contenido{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  /* IMAGEN más grande */
+  .popup img{
+    width:100%;
+    max-width:100%;
+  }
+
+  /* TEXTO más legible */
+  #popupInfo{
+    width:100%;
+    text-align:center;
+  }
+
+  /* BOTONES más grandes */
+  .fila{
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+
+  .fila button{
+    width:80%;
+    padding:12px;
+    font-size:16px;
+  }
+}
  
 </style>
 </head>
