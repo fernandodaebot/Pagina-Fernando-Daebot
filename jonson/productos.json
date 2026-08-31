@@ -109,14 +109,12 @@
   { "nombre": "Oso 3", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/oso_3.png" },
   { "nombre": "Oso 4", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/oso_4.png" },
 
-  // 🍞 TANTAWAWAS
   { "nombre": "Tantawawa Caballo", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_caballo.png" },
   { "nombre": "Tantawawa Cruz", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_cruz.png" },
   { "nombre": "Tantawawa Escalera", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_escalera.png" },
   { "nombre": "Tantawawa Hombre", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_hombre.png" },
   { "nombre": "Tantawawa Mujer", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_mujer.png" },
 
-  // 📝 FRASES
   { "nombre": "Chocolate Mamá", "categoria": "frases", "imagen": "jonson/img/frases/chocolate_mama.png" },
   { "nombre": "Chocolate Mordido Mamá", "categoria": "frases", "imagen": "jonson/img/frases/chocolate_mordido_mama.png" },
   { "nombre": "Corazón Mamá Te Amo", "categoria": "frases", "imagen": "jonson/img/frases/corazon_mama_te_amo.png" },
