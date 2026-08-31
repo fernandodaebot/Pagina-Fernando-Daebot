@@ -705,7 +705,8 @@ const preciosMascaras = {
   "Mascara de Diabla": { unidad:200, pack3:180, pack6:165, tamaños:"11cm, 10cm, 7cm" }
 };
   
-let carrito = [];
+let carrito = []; 
+ let resumenFinal = [];
 
 /* 🔥 CARGAR PRODUCTOS */
 fetch("jonson/productos.json")
@@ -848,9 +849,11 @@ let total = document.getElementById("total");
 lista.innerHTML = "";
 let suma = 0;
 contador = {};
+ resumenFinal = []; // 🔥 resetear resumen real
 
 // 🔥 AQUÍ VA (correcto)
 let conteoCategorias = {
+ 
   alfabetos: 0,
   caras: 0,
   cascos: 0,
@@ -860,7 +863,9 @@ let conteoCategorias = {
   cuerpos_planos: 0,
   tantawawas_12: 0,
   tantawawas_9: 0,
-  frases: 0
+  frases: 0,
+ flores: 0,
+galletas: 0
 };
 
 carrito.forEach((item)=>{
@@ -898,7 +903,7 @@ if(
   let cantidadItem = 1;
 
   // si dice "3 Kit" o "6 Kit"
-  let num = parseInt(item.opcion) || 1;
+let num = extraerCantidad(item.opcion);
 
   cantidadItem = num;
 
@@ -976,7 +981,7 @@ let cantidadReal = item.cantidad;
 
 // si es kit (ej: "3 Kit")
 if(item.opcion && item.opcion.includes("Kit")){
-let num = parseInt(item.opcion) || 1;
+let num = extraerCantidad(item.opcion);
 cantidadReal = item.cantidad * num;
 }
 
@@ -1011,7 +1016,14 @@ if(esKit){
 }
 let subtotal = precioFinal * cantidadReal;
 suma += subtotal;
+resumenFinal.push({
+  nombre: item.nombre,
+  opcion: item.opcion,
+  cantidad: cantidadReal,
+  subtotal: subtotal
+});
 
+ 
 lista.innerHTML += `
 <div class="item-carrito">
 
@@ -1450,99 +1462,22 @@ let i = setInterval(()=>{
 
 function enviarWhatsApp(){
 
-  if(carrito.length === 0){
+  if(resumenFinal.length === 0){
     alert("Tu pedido está vacío");
     return;
   }
 
   let mensaje = "🛒 *PEDIDO DAEBOT*%0A%0A";
-
-  let resumen = {};
-
-  carrito.forEach(item=>{
-    let key = item.nombre + " - " + item.opcion;
-
-    if(!resumen[key]){
-      resumen[key] = 0;
-    }
-    resumen[key]++;
-  });
-
   let total = 0;
 
-// 🔥 recalcular conteo por categoría (igual que carrito)
-let conteoCategorias = {
-  alfabetos: 0,
-  caras: 0,
-  cascos: 0,
-  sombreros: 0,
-  zapatos: 0,
-  comida: 0,
-  cuerpos_planos: 0,
-  tantawawas_12: 0,
-  tantawawas_9: 0,
-  frases: 0,
-  flores: 0,
-  galletas: 0
-};
-
-carrito.forEach(item=>{
-  let cat = item.categoria;
-
-  if(!conteoCategorias[cat]){
-    conteoCategorias[cat] = 0;
-  }
-
-  let cantidadReal = 1;
-
-  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-    cantidadReal = parseInt(item.opcion) || 1;
-  }
-
-  conteoCategorias[cat] += cantidadReal;
-});
-
-for(let key in resumen){
-
-  let item = carrito.find(p => (p.nombre + " - " + p.opcion) === key);
-  let cantidad = resumen[key];
-
-  let cantidadReal = cantidad;
-
-  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-    let num = parseInt(item.opcion) || 1;
-    cantidadReal = cantidad * num;
-  }
-
-  let precioFinal = item.precio;
-
-  let esKit = item.opcion && item.opcion.toLowerCase().includes("kit");
-
-  let aplicaKit = [
-  "flores","galletas","sombreros","cascos","caras",
-  "zapatos","cuerpos_planos","frases","tantawawas"
-];
-  if(esKit && aplicaKit.includes(item.categoria)){
-    let precioCategoria = obtenerPrecioCategoria(
-      item.categoria,
-      conteoCategorias[item.categoria]
-    );
-
-    if(precioCategoria !== null){
-      precioFinal = precioCategoria;
-    }
-  }
-
-  let subtotal = cantidadReal * precioFinal;
-  total += subtotal;
-
-  mensaje += `• ${key} x${cantidadReal} = ${subtotal} Bs%0A`;
-}
+  resumenFinal.forEach(item => {
+    mensaje += `• ${item.nombre} - ${item.opcion} x${item.cantidad} = ${item.subtotal} Bs%0A`;
+    total += item.subtotal;
+  });
 
   mensaje += `%0A💰 *TOTAL: ${total} Bs*`;
 
   let numero = "59175404843";
-
   let url = `https://wa.me/${numero}?text=${mensaje}`;
 
   window.open(url, "_blank");
