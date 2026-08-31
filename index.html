@@ -613,8 +613,8 @@ for(let cat in categorias){
   let bloque = document.createElement("div");
   bloque.className = "categoria-bloque";
 
-  // 🔥 TITULO
-  let tituloContainer = document.createElement("div");
+// 🔥 TITULO
+let tituloContainer = document.createElement("div");
 
 if(cat === "sombreros" || cat === "cascos"){
 
@@ -650,6 +650,10 @@ if(cat === "sombreros" || cat === "cascos"){
   titulo.innerText = cat.toUpperCase();
 
   tituloContainer.appendChild(titulo);
+}
+
+// 🔥 ESTA LINEA ES CLAVE (NO LA OLVIDES)
+bloque.appendChild(tituloContainer);
 }  // 🔥 GRID
   let grid = document.createElement("div");
   grid.className = "categoria-grid";
