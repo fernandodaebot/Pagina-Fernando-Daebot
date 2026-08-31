@@ -574,7 +574,19 @@ background:#ff2a2a;
     font-size:16px;
   }
 }
- 
+ @media (max-width: 768px){
+
+  .hero{
+    height: auto; /* 🔥 clave */
+    min-height: 60vh;
+    padding: 80px 20px;
+
+    background-size: contain; /* 🔥 muestra imagen completa */
+    background-position: center top;
+    background-repeat: no-repeat;
+  }
+
+}
 </style>
 </head>
 
