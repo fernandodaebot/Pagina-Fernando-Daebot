@@ -616,7 +616,7 @@ for(let cat in categorias){
   // 🔥 TITULO
   let tituloContainer = document.createElement("div");
 
-  if(cat === "sombreros" || cat === "cascos"){
+if(cat === "sombreros" || cat === "cascos"){
 
   tituloContainer.style.display = "flex";
   tituloContainer.style.alignItems = "center";
@@ -650,18 +650,7 @@ for(let cat in categorias){
   titulo.innerText = cat.toUpperCase();
 
   tituloContainer.appendChild(titulo);
-}
-
-    let titulo = document.createElement("h2");
-    titulo.className = "categoria-titulo";
-    titulo.innerText = cat.toUpperCase();
-
-    tituloContainer.appendChild(titulo);
-  }
-
-  bloque.appendChild(tituloContainer);
-
-  // 🔥 GRID
+}  // 🔥 GRID
   let grid = document.createElement("div");
   grid.className = "categoria-grid";
 
