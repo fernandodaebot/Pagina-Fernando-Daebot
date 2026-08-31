@@ -817,6 +817,25 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
   bloque.appendChild(grid);
   contenedor.appendChild(bloque);
 }
+
+ function calcularPrecio(item) {
+  let cantidad = item.cantidad;
+  let precios = item.precios;
+
+  // 🔥 si NO tiene precios por kit → solo unidad
+  if (!precios[3] && !precios[6]) {
+    return cantidad * precios[1];
+  }
+
+  // 🔥 lógica de kits
+  if (cantidad >= 6 && precios[6]) {
+    return cantidad * precios[6];
+  } else if (cantidad >= 3 && precios[3]) {
+    return cantidad * precios[3];
+  } else {
+    return cantidad * precios[1];
+  }
+ }
 }/* 🛒 CARRITO */
 function agregar(nombre, opcion, precio, imagen, categoria){
   carrito.push({nombre, opcion, precio, imagen, categoria});
@@ -840,51 +859,7 @@ actualizarCarrito();
 
 let contador = {};
 
-function actualizarCarrito(){
-
-let lista = document.getElementById("listaCarrito");
-let total = document.getElementById("total");
-
-lista.innerHTML = "";
-let suma = 0;
-contador = {};
-
-// 🔥 AQUÍ VA (correcto)
-let conteoCategorias = {
-  alfabetos: 0,
-  caras: 0,
-  cascos: 0,
-  sombreros: 0,
-  zapatos: 0,
-  comida: 0,
-  cuerpos_planos: 0,
-  tantawawas_12: 0,
-  tantawawas_9: 0,
-  frases: 0
-};
-
-carrito.forEach((item)=>{
-  let key = item.nombre + "-" + item.opcion;
-
-  if(!contador[key]){
-    contador[key] = { ...item, cantidad: 0 };
-  }
-
-  contador[key].cantidad++;
-
-  // 🔥 CONTAR ALFABETOS
-// 🔥 CONTAR CATEGORÍAS CORRECTAMENTE
-let categoriaContar = item.categoria;
-
-// separar tantawawas por tamaño
-if(item.categoria === "tantawawas"){
-  if(item.opcion.includes("12")){
-    categoriaContar = "tantawawas_12";
-  } else if(item.opcion.includes("9")){
-    categoriaContar = "tantawawas_9";
-  }
-}
-
+p.nombre
 // calcular cantidad real
 let cantidadReal = 1;
 
