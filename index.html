@@ -616,7 +616,7 @@ for(let cat in categorias){
 // 🔥 TITULO
 let tituloContainer = document.createElement("div");
 
-if(cat === "sombreros" || cat === "cascos"){
+if(cat === "sombreros" || cat === "cascos" || cat === "caras"){
 
   tituloContainer.style.display = "flex";
   tituloContainer.style.alignItems = "center";
@@ -624,9 +624,12 @@ if(cat === "sombreros" || cat === "cascos"){
   tituloContainer.style.gap = "20px";
   tituloContainer.style.flexWrap = "wrap";
 
-  let imgMedidas = cat === "sombreros"
+ let imgMedidas =
+  cat === "sombreros"
     ? "jonson/img/sombreros/medidas_sombreros.png"
-    : "jonson/img/cascos/medidas_cascos.png";
+    : cat === "cascos"
+    ? "jonson/img/cascos/medidas_cascos.png"
+    : "jonson/img/caras/medidas_caras.png";
 
   tituloContainer.innerHTML = `
     <div>
@@ -856,6 +859,26 @@ else if(p.categoria === "sombreros"){
 
 // 🔴 CASCOS (SEPARADO CORRECTO)
 else if(p.categoria === "cascos"){
+ // 🔴 CARAS
+else if(p.categoria === "caras"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"Alto 5 cm",15)}
+  ${crearFila(p,"Alto 7 cm",30)}
+  ${crearFila(p,"Alto 8 cm",40)}
+  ${crearFila(p,"Alto 9 cm",50)}
+
+  <hr>
+
+  <p class="titulo">Kit (Los 4 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",130)}
+  ${crearFila(p,"3 Kits",115)}
+  ${crearFila(p,"6 Kits",100)}
+  `;
+}
 
   contenido += `
   <p class="titulo">Precio Por Suelto</p>
