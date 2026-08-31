@@ -729,8 +729,17 @@ carrito.forEach((item)=>{
 
   // 🔥 CONTAR ALFABETOS
   if(conteoCategorias[item.categoria] !== undefined){
-  conteoCategorias[item.categoria]++;
+ let cantidadReal = 1;
+
+// solo contar kits (evita errores con "Unidad", "3 Diseños", etc)
+if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+  cantidadReal = parseInt(item.opcion) || 1;
 }
+
+if(conteoCategorias[item.categoria] !== undefined){
+  conteoCategorias[item.categoria] += cantidadReal;
+}
+   
 });
 function obtenerPrecioCategoria(cat, cantidad){
 
