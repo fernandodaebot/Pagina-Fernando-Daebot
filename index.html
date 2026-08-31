@@ -575,6 +575,9 @@ margin-bottom:20px;
 </h2>
 <ul id="listaCarrito"></ul>
 <h2 style="margin-top:20px;">Total: <span id="total">0</span></h2>
+ <button onclick="enviarWhatsApp()" class="btn-pedido" style="margin-top:20px; width:100%;">
+📲 Enviar Pedido por WhatsApp
+</button>
 </div>
 
 </section>
@@ -594,7 +597,10 @@ let carrito = [];
 /* 🔥 CARGAR PRODUCTOS */
 fetch("jonson/productos.json")
 .then(res => res.json())
-.then(data => mostrarProductos(data));
+.then(data => {
+  mostrarProductos(data);
+  activarLazyLoad(); // 🔥 AQUI
+});
 
 function mostrarProductos(lista){
 
@@ -667,10 +673,10 @@ for(let cat in categorias){
     let card = document.createElement("div");
     card.className = "card";
 
-    card.innerHTML = `
-      <img src="${p.imagen}" loading="lazy" width="300" height="160">
-      <h3>${p.nombre}</h3>
-    `;
+   card.innerHTML = `
+  <img data-src="${p.imagen}" class="lazy-img" width="300" height="160">
+  <h3>${p.nombre}</h3>
+`;
 
     card.onclick = ()=>abrirPopup(p);
 
@@ -1284,6 +1290,70 @@ let i = setInterval(()=>{
 
 }
 };
+
+function enviarWhatsApp(){
+
+  if(carrito.length === 0){
+    alert("Tu pedido está vacío");
+    return;
+  }
+
+  let mensaje = "🛒 *PEDIDO DAEBOT*%0A%0A";
+
+  let resumen = {};
+
+  carrito.forEach(item=>{
+    let key = item.nombre + " - " + item.opcion;
+
+    if(!resumen[key]){
+      resumen[key] = 0;
+    }
+    resumen[key]++;
+  });
+
+  let total = 0;
+
+  for(let key in resumen){
+    let item = carrito.find(p => (p.nombre + " - " + p.opcion) === key);
+    let cantidad = resumen[key];
+    let subtotal = cantidad * item.precio;
+    total += subtotal;
+
+    mensaje += `• ${key} x${cantidad} = ${subtotal} Bs%0A`;
+  }
+
+  mensaje += `%0A💰 *TOTAL: ${total} Bs*`;
+
+  let numero = "59175404843";
+
+  let url = `https://wa.me/${numero}?text=${mensaje}`;
+
+  window.open(url, "_blank");
+}
+ function activarLazyLoad(){
+  const lazyImages = document.querySelectorAll(".lazy-img");
+
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const img = entry.target;
+        img.src = img.dataset.src;
+
+        // 🔥 si falla imagen
+        img.onerror = () => {
+          img.src = "jonson/img/default.png";
+        };
+
+        observer.unobserve(img);
+      }
+    });
+  });
+
+  lazyImages.forEach(img=>{
+    observer.observe(img);
+  });
+}
 </script>
+ 
 </body>
 </html>
