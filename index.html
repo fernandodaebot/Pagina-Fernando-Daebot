@@ -239,6 +239,7 @@ background:
 linear-gradient(to right, rgba(0,0,0,0.6), rgba(0,0,0,0.2)),
 url("https://raw.githubusercontent.com/fernandodaebot/Pagina-Fernando-Daebot/main/fondo.png");
 background-size:cover;
+background-position:center;
 }
 
 .hero h1{
@@ -519,23 +520,6 @@ background:#ff2a2a;
   transform:scale(1.05);
 }
 
- /* 📱 AJUSTES SOLO CELULAR */
-@media (max-width: 768px){
-
-  /* HERO más pequeño */
-  .hero{
-    height:60vh;
-    padding:80px 20px;
-    text-align:center;
-  }
-
-  .hero h1{
-    font-size:35px;
-  }
-
-  .hero p{
-    font-size:14px;
-  }
 
   /* BOTONES DE CATEGORÍAS más grandes */
   .filtros-categorias button{
@@ -574,23 +558,36 @@ background:#ff2a2a;
     font-size:16px;
   }
 }
- @media (max-width: 768px){
+/* 📱 MODO CELULAR OPTIMIZADO */
+@media (max-width: 768px){
 
+  /* HERO (imagen completa, no cortada) */
   .hero{
-    height: auto; /* 🔥 clave */
+    height: auto;
     min-height: 60vh;
     padding: 80px 20px;
+    text-align: center;
 
-    background-size: contain; /* 🔥 muestra imagen completa */
+    background-size: contain;
     background-position: center top;
     background-repeat: no-repeat;
   }
 
-}
+  .hero h1{
+    font-size: 32px;
+  }
 
- @media (max-width: 768px){
+  .hero p{
+    font-size: 14px;
+  }
 
-  /* 🔥 contenedor en vertical */
+  /* BOTONES DE CATEGORÍAS */
+  .filtros-categorias button{
+    padding: 14px 18px;
+    font-size: 14px;
+  }
+
+  /* POPUP EN VERTICAL */
   .popup-contenido{
     flex-direction: column;
     align-items: center;
@@ -598,29 +595,28 @@ background:#ff2a2a;
     overflow-y: auto;
   }
 
-  /* 🔥 imagen grande arriba */
+  /* IMAGEN ARRIBA */
   .popup img{
     width: 100%;
     height: auto;
-    max-height: 300px;
+    max-height: 280px;
     object-fit: contain;
   }
 
-  /* 🔥 texto ocupa todo el ancho */
+  /* TEXTO ABAJO */
   #popupInfo{
     width: 100%;
     padding: 10px;
     text-align: center;
   }
 
-  /* 🔥 filas (botones) en columna */
+  /* BOTONES GRANDES */
   .fila{
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
   }
 
-  /* 🔥 botones GRANDES tipo app */
   .fila button{
     width: 90%;
     padding: 14px;
@@ -628,7 +624,6 @@ background:#ff2a2a;
     border-radius: 10px;
   }
 
-  /* 🔥 textos más grandes */
   #popupInfo h2{
     font-size: 22px;
   }
