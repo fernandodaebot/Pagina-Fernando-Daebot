@@ -587,6 +587,58 @@ background:#ff2a2a;
   }
 
 }
+
+ @media (max-width: 768px){
+
+  /* 🔥 contenedor en vertical */
+  .popup-contenido{
+    flex-direction: column;
+    align-items: center;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  /* 🔥 imagen grande arriba */
+  .popup img{
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: contain;
+  }
+
+  /* 🔥 texto ocupa todo el ancho */
+  #popupInfo{
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+  }
+
+  /* 🔥 filas (botones) en columna */
+  .fila{
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* 🔥 botones GRANDES tipo app */
+  .fila button{
+    width: 90%;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 10px;
+  }
+
+  /* 🔥 textos más grandes */
+  #popupInfo h2{
+    font-size: 22px;
+  }
+
+  #popupInfo p{
+    font-size: 15px;
+  }
+
+}
+ 
 </style>
 </head>
 
