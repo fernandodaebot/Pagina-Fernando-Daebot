@@ -494,7 +494,31 @@ transition:0.2s;
 transform:scale(1.1);
 background:#ff2a2a;
 }
+/* 🎨 BOTONES DE CATEGORIAS PRO */
+.filtros-categorias{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+  margin-bottom:40px;
+}
 
+.filtros-categorias button{
+  background:#1f1f1f;
+  border:none;
+  padding:12px 20px;
+  border-radius:25px;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.filtros-categorias button:hover{
+  background:red;
+  transform:scale(1.05);
+}
+ 
 </style>
 </head>
 
@@ -561,7 +585,7 @@ background:#ff2a2a;
 <h2>Catálogo de Termoformas</h2>
 <p>Encuentra moldes, kits y accesorios para tus proyectos</p>
 
-<div id="filtros"></div>
+<div id="filtros" class="filtros-categorias"></div>
 <div id="productos"></div>
 
 <div class="carrito" id="pedido">
@@ -617,11 +641,29 @@ lista.forEach(p=>{
   categorias[p.categoria].push(p);
 });
 
+ const filtros = document.getElementById("filtros");
+filtros.innerHTML = "";
+
+for(let cat in categorias){
+  let btn = document.createElement("button");
+
+  btn.innerText = cat.toUpperCase();
+
+  btn.onclick = () => {
+    document.getElementById("cat-" + cat).scrollIntoView({
+      behavior: "smooth"
+    });
+  };
+
+  filtros.appendChild(btn);
+}
+ 
 // RECORRER
 for(let cat in categorias){
 
-  let bloque = document.createElement("div");
-  bloque.className = "categoria-bloque";
+ let bloque = document.createElement("div");
+bloque.className = "categoria-bloque";
+bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
 
   // 🔥 TITULO
   let tituloContainer = document.createElement("div");
