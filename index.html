@@ -903,6 +903,12 @@ if(
 }
 });
 function obtenerPrecioCategoria(cat, cantidad){
+ // 🌸 FLORES Y GALLETAS (MISMA LÓGICA)
+if(cat === "flores" || cat === "galletas"){
+  if(cantidad >= 6) return 55;
+  if(cantidad >= 3) return 60;
+  return 65;
+}
 // 🔴 CUERPOS PLANOS
 if(cat === "cuerpos_planos"){
   if(cantidad >= 6) return 35;
@@ -973,10 +979,13 @@ cantidadReal = item.cantidad * num;
 
 let precioFinal = item.precio;
 
-// 🔥 SI ES ALFABETO → usar precio dinámico
+// 🔥 detectar si es kit
+let esKit = item.opcion && item.opcion.toLowerCase().includes("kit");
+
+// 🔥 categoría base
 let categoriaPrecio = item.categoria;
 
-// ajustar tantawawas
+// 🔥 ajustar tantawawas
 if(item.categoria === "tantawawas"){
   if(item.opcion.includes("12")){
     categoriaPrecio = "tantawawas_12";
@@ -985,21 +994,18 @@ if(item.categoria === "tantawawas"){
   }
 }
 
-let esKit = item.opcion.toLowerCase().includes("kit");
-
-let precioCategoria = null;
-
+// 🔥 aplicar descuento SOLO si es kit
 if(esKit){
-  precioCategoria = obtenerPrecioCategoria(
+
+  let precioCategoria = obtenerPrecioCategoria(
     categoriaPrecio,
     conteoCategorias[categoriaPrecio]
   );
-}
 
-if(precioCategoria !== null){
-  precioFinal = precioCategoria;
+  if(precioCategoria !== null){
+    precioFinal = precioCategoria;
+  }
 }
-
 let subtotal = precioFinal * cantidadReal;
 suma += subtotal;
 
@@ -1280,6 +1286,9 @@ else if(p.categoria === "tantawawas"){
 
     <p class="titulo">Kit</p>
     <p style="font-size:13px; color:#aaa;">
+(Puedes combinar diferentes modelos para formar 3 o 6 kits)
+</p>
+    <p style="font-size:13px; color:#aaa;">
 (Puede combinar diferentes modelos para formar 3 o 6 kits)
 </p>
 
@@ -1461,14 +1470,61 @@ function enviarWhatsApp(){
 
   let total = 0;
 
-  for(let key in resumen){
-    let item = carrito.find(p => (p.nombre + " - " + p.opcion) === key);
-    let cantidad = resumen[key];
-    let subtotal = cantidad * item.precio;
-    total += subtotal;
+// 🔥 recalcular conteo por categoría (igual que carrito)
+let conteoCategorias = {};
 
-    mensaje += `• ${key} x${cantidad} = ${subtotal} Bs%0A`;
+carrito.forEach(item=>{
+  let cat = item.categoria;
+
+  if(!conteoCategorias[cat]){
+    conteoCategorias[cat] = 0;
   }
+
+  let cantidadReal = 1;
+
+  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+    cantidadReal = parseInt(item.opcion) || 1;
+  }
+
+  conteoCategorias[cat] += cantidadReal;
+});
+
+for(let key in resumen){
+
+  let item = carrito.find(p => (p.nombre + " - " + p.opcion) === key);
+  let cantidad = resumen[key];
+
+  let cantidadReal = cantidad;
+
+  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+    let num = parseInt(item.opcion) || 1;
+    cantidadReal = cantidad * num;
+  }
+
+  let precioFinal = item.precio;
+
+  let esKit = item.opcion && item.opcion.toLowerCase().includes("kit");
+
+  let aplicaKit = [
+    "flores","galletas","sombreros","cascos","caras","zapatos"
+  ];
+
+  if(esKit && aplicaKit.includes(item.categoria)){
+    let precioCategoria = obtenerPrecioCategoria(
+      item.categoria,
+      conteoCategorias[item.categoria]
+    );
+
+    if(precioCategoria !== null){
+      precioFinal = precioCategoria;
+    }
+  }
+
+  let subtotal = cantidadReal * precioFinal;
+  total += subtotal;
+
+  mensaje += `• ${key} x${cantidadReal} = ${subtotal} Bs%0A`;
+}
 
   mensaje += `%0A💰 *TOTAL: ${total} Bs*`;
 
