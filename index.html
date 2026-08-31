@@ -736,38 +736,30 @@ carrito.forEach((item)=>{
   contador[key].cantidad++;
 
   // 🔥 CONTAR ALFABETOS
+// 🔥 CONTAR CATEGORÍAS CORRECTAMENTE
 let categoriaContar = item.categoria;
 
-// 🔥 separar tantawawas por tamaño
+// separar tantawawas por tamaño
 if(item.categoria === "tantawawas"){
   if(item.opcion.includes("12")){
     categoriaContar = "tantawawas_12";
-  }else if(item.opcion.includes("9")){
+  } else if(item.opcion.includes("9")){
     categoriaContar = "tantawawas_9";
   }
 }
 
+// calcular cantidad real
+let cantidadReal = 1;
+
+if(item.opcion && item.opcion.toLowerCase().includes("kit")){
+  cantidadReal = parseInt(item.opcion) || 1;
+}
+
+// sumar SOLO UNA VEZ
 if(conteoCategorias[categoriaContar] !== undefined){
-
-  let cantidadReal = 1;
-
-  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-    cantidadReal = parseInt(item.opcion) || 1;
-  }
-
   conteoCategorias[categoriaContar] += cantidadReal;
 }
-
-  let cantidadReal = 1;
-
-  // solo contar kits
-  if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-    cantidadReal = parseInt(item.opcion) || 1;
-  }
-
-  conteoCategorias[item.categoria] += cantidadReal;
-}
- });
+});
 function obtenerPrecioCategoria(cat, cantidad){
 // 🔴 CUERPOS PLANOS
 if(cat === "cuerpos_planos"){
@@ -840,9 +832,20 @@ cantidadReal = item.cantidad * num;
 let precioFinal = item.precio;
 
 // 🔥 SI ES ALFABETO → usar precio dinámico
+let categoriaPrecio = item.categoria;
+
+// ajustar tantawawas
+if(item.categoria === "tantawawas"){
+  if(item.opcion.includes("12")){
+    categoriaPrecio = "tantawawas_12";
+  } else if(item.opcion.includes("9")){
+    categoriaPrecio = "tantawawas_9";
+  }
+}
+
 let precioCategoria = obtenerPrecioCategoria(
-  item.categoria,
-  conteoCategorias[item.categoria]
+  categoriaPrecio,
+  conteoCategorias[categoriaPrecio]
 );
 
 if(precioCategoria !== null){
@@ -863,8 +866,8 @@ lista.innerHTML += `
     \<small>Total unidades: ${cantidadReal}\</small>\<br>
     <b>${subtotal} Bs</b><br>
 <small>
-${obtenerPrecioCategoria(item.categoria, conteoCategorias[item.categoria]) 
-  ? `Precio aplicado: ${obtenerPrecioCategoria(item.categoria, conteoCategorias[item.categoria])} Bs`
+${obtenerPrecioCategoria(categoriaPrecio, conteoCategorias[categoriaPrecio]) 
+  ? `Precio aplicado: ${obtenerPrecioCategoria(categoriaPrecio, conteoCategorias[categoriaPrecio])} Bs`
   : ""}
 </small>
   \</div>
