@@ -899,7 +899,14 @@ if(
   conteoCategorias[categoriaContar] !== undefined &&
   item.opcion.toLowerCase().includes("kit")
 ){
-  conteoCategorias[categoriaContar] += 1; // cada click = 1 kit
+  let cantidadItem = 1;
+
+  // si dice "3 Kit" o "6 Kit"
+  let num = parseInt(item.opcion) || 1;
+
+  cantidadItem = num;
+
+  conteoCategorias[categoriaContar] += cantidadItem;
 }
 });
 function obtenerPrecioCategoria(cat, cantidad){
@@ -1287,9 +1294,6 @@ else if(p.categoria === "tantawawas"){
     <p class="titulo">Kit</p>
     <p style="font-size:13px; color:#aaa;">
 (Puedes combinar diferentes modelos para formar 3 o 6 kits)
-</p>
-    <p style="font-size:13px; color:#aaa;">
-(Puede combinar diferentes modelos para formar 3 o 6 kits)
 </p>
 
     ${crearFila(p,"1 Kit",65)}
