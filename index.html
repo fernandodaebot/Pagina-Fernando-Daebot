@@ -888,13 +888,18 @@ if(item.categoria === "tantawawas"){
 // calcular cantidad real
 let cantidadReal = 1;
 
+// 🔥 SI ES KIT → siempre cuenta como 1 kit (no usar el número del texto)
 if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-  cantidadReal = parseInt(item.opcion) || 1;
+  cantidadReal = item.cantidad; 
 }
 
 // sumar SOLO UNA VEZ
-if(conteoCategorias[categoriaContar] !== undefined){
-  conteoCategorias[categoriaContar] += cantidadReal;
+// 🔥 SOLO CONTAR KITS (no sueltos)
+if(
+  conteoCategorias[categoriaContar] !== undefined &&
+  item.opcion.toLowerCase().includes("kit")
+){
+  conteoCategorias[categoriaContar] += 1; // cada click = 1 kit
 }
 });
 function obtenerPrecioCategoria(cat, cantidad){
@@ -980,10 +985,16 @@ if(item.categoria === "tantawawas"){
   }
 }
 
-let precioCategoria = obtenerPrecioCategoria(
-  categoriaPrecio,
-  conteoCategorias[categoriaPrecio]
-);
+let esKit = item.opcion.toLowerCase().includes("kit");
+
+let precioCategoria = null;
+
+if(esKit){
+  precioCategoria = obtenerPrecioCategoria(
+    categoriaPrecio,
+    conteoCategorias[categoriaPrecio]
+  );
+}
 
 if(precioCategoria !== null){
   precioFinal = precioCategoria;
@@ -1003,9 +1014,12 @@ lista.innerHTML += `
     \<small>Total unidades: ${cantidadReal}\</small>\<br>
     <b>${subtotal} Bs</b><br>
 <small>
-${obtenerPrecioCategoria(categoriaPrecio, conteoCategorias[categoriaPrecio]) 
-  ? `Precio aplicado: ${obtenerPrecioCategoria(categoriaPrecio, conteoCategorias[categoriaPrecio])} Bs`
-  : ""}
+${esKit && conteoCategorias[categoriaPrecio] >= 3
+  ? (conteoCategorias[categoriaPrecio] >= 6
+      ? `Descuento por 6 kits salido a: ${precioFinal} Bs`
+      : `Descuento por 3 kits salido a: ${precioFinal} Bs`)
+  : (esKit ? `Precio normal por kit: ${precioFinal} Bs` : "")
+}
 </small>
   \</div>
 
@@ -1265,6 +1279,9 @@ else if(p.categoria === "tantawawas"){
     <hr>
 
     <p class="titulo">Kit</p>
+    <p style="font-size:13px; color:#aaa;">
+(Puede combinar diferentes modelos para formar 3 o 6 kits)
+</p>
 
     ${crearFila(p,"1 Kit",65)}
     ${crearFila(p,"3 Kit",60)}
