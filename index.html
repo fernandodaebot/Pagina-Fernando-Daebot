@@ -1030,7 +1030,8 @@ else if(p.categoria === "zapatos"){
   ${crearFila(p,"Alto 3 cm",10)}
   `;
 }
-  else if(p.categoria === "comida"){
+ // 🔴 COMIDA
+else if(p.categoria === "comida"){
 
   if(p.nombre.toLowerCase().includes("salteña")){
 
@@ -1041,8 +1042,30 @@ else if(p.categoria === "zapatos"){
     ${crearFila(p,"9 cm",35)}
     ${crearFila(p,"6 cm",15)}
     `;
+
+  } else if(p.nombre.toLowerCase().includes("coca")){
+
+    contenido += `
+    <p class="titulo">Precio Coca Cola</p>
+
+    ${crearFila(p,"12 cm",30)}
+    ${crearFila(p,"9 cm",20)}
+    ${crearFila(p,"6 cm",15)}
+    `;
+  }
+
+  contenido += `
+  <hr>
+  <p class="titulo">Kit (Los 6 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",160)}
+  ${crearFila(p,"3 Kits",150)}
+  ${crearFila(p,"6 Kits",140)}
+  `;
 }
-  else if(p.categoria === "cuerpos_planos"){
+
+// 🔴 CUERPOS PLANOS (FUERA del bloque comida)
+else if(p.categoria === "cuerpos_planos"){
 
   contenido += `
   <p class="titulo">Medida aprox 12 cm</p>
