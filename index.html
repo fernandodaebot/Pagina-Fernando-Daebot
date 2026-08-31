@@ -888,17 +888,13 @@ if(item.categoria === "tantawawas"){
 // calcular cantidad real
 let cantidadReal = 1;
 
-// 🔥 SI ES KIT → siempre cuenta como 1 kit (no usar el número del texto)
-if(item.opcion && item.opcion.toLowerCase().includes("kit")){
-  cantidadReal = item.cantidad; 
-}
-
-// sumar SOLO UNA VEZ
 // 🔥 SOLO CONTAR KITS (no sueltos)
 if(
   conteoCategorias[categoriaContar] !== undefined &&
+  item.opcion &&
   item.opcion.toLowerCase().includes("kit")
 ){
+ 
   let cantidadItem = 1;
 
   // si dice "3 Kit" o "6 Kit"
@@ -1475,7 +1471,20 @@ function enviarWhatsApp(){
   let total = 0;
 
 // 🔥 recalcular conteo por categoría (igual que carrito)
-let conteoCategorias = {};
+let conteoCategorias = {
+  alfabetos: 0,
+  caras: 0,
+  cascos: 0,
+  sombreros: 0,
+  zapatos: 0,
+  comida: 0,
+  cuerpos_planos: 0,
+  tantawawas_12: 0,
+  tantawawas_9: 0,
+  frases: 0,
+  flores: 0,
+  galletas: 0
+};
 
 carrito.forEach(item=>{
   let cat = item.categoria;
@@ -1510,9 +1519,9 @@ for(let key in resumen){
   let esKit = item.opcion && item.opcion.toLowerCase().includes("kit");
 
   let aplicaKit = [
-    "flores","galletas","sombreros","cascos","caras","zapatos"
-  ];
-
+  "flores","galletas","sombreros","cascos","caras",
+  "zapatos","cuerpos_planos","frases","tantawawas"
+];
   if(esKit && aplicaKit.includes(item.categoria)){
     let precioCategoria = obtenerPrecioCategoria(
       item.categoria,
