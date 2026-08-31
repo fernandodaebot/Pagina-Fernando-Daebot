@@ -896,6 +896,72 @@ else if(p.categoria === "caras"){
   ${crearFila(p,"6 Kits",100)}
   `;
 }
+
+else if(p.categoria === "zapatos"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"Largo 5 cm",15)}
+  ${crearFila(p,"Largo 6 cm",20)}
+  ${crearFila(p,"Largo 7 cm",25)}
+
+  <hr>
+
+  <p class="titulo">Kit (Los 3 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",60)}
+  ${crearFila(p,"3 Kits",50)}
+  ${crearFila(p,"6 Kits",43)}
+  `;
+}
+ else if(p.categoria === "corazones"){
+
+  contenido += `
+  <p class="titulo">Precio Por Suelto</p>
+
+  ${crearFila(p,"Alto 10 cm",65)}
+  ${crearFila(p,"Alto 8 cm",40)}
+  ${crearFila(p,"Alto 6 cm",25)}
+  ${crearFila(p,"Alto 5 cm",20)}
+  ${crearFila(p,"Alto 4 cm",15)}
+  ${crearFila(p,"Alto 3 cm",10)}
+  `;
+}
+  else if(p.categoria === "comida"){
+
+  if(p.nombre.toLowerCase().includes("salteña")){
+
+    contenido += `
+    <p class="titulo">Precio Salteña</p>
+
+    ${crearFila(p,"12 cm",50)}
+    ${crearFila(p,"9 cm",35)}
+    ${crearFila(p,"6 cm",15)}
+    `;
+
+  }else if(p.nombre.toLowerCase().includes("coca")){
+
+    contenido += `
+    <p class="titulo">Precio Coca Cola</p>
+
+    ${crearFila(p,"12 cm",30)}
+    ${crearFila(p,"9 cm",20)}
+    ${crearFila(p,"6 cm",15)}
+    `;
+  }
+
+  contenido += `
+  <hr>
+
+  <p class="titulo">Kit (Los 6 tamaños)</p>
+
+  ${crearFila(p,"1 Kit",160)}
+  ${crearFila(p,"3 Kits",150)}
+  ${crearFila(p,"6 Kits",140)}
+  `;
+}
+ 
   // 🔴 FLORES Y GALLETAS
   else{
 
