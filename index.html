@@ -720,6 +720,52 @@ function extraerCantidad(texto){
   let num = texto.match(/\d+/);
   return num ? parseInt(num[0]) : 1;
 }
+ function obtenerPrecio(cat, cantidad){
+
+  if(cat === "flores" || cat === "galletas"){
+    if(cantidad >= 6) return 55;
+    if(cantidad >= 3) return 60;
+    return 65;
+  }
+
+  if(cat === "cuerpos_planos"){
+    if(cantidad >= 6) return 35;
+    if(cantidad >= 3) return 40;
+    return 50;
+  }
+
+  if(cat === "frases"){
+    if(cantidad >= 6) return 40;
+    if(cantidad >= 3) return 45;
+    return 55;
+  }
+
+  if(cat === "alfabetos"){
+    if(cantidad >= 6) return 100;
+    if(cantidad >= 3) return 120;
+    return 140;
+  }
+
+  if(cat === "caras" || cat === "sombreros"){
+    if(cantidad >= 6) return 100;
+    if(cantidad >= 3) return 115;
+    return 130;
+  }
+
+  if(cat === "cascos"){
+    if(cantidad >= 6) return 120;
+    if(cantidad >= 3) return 130;
+    return 140;
+  }
+
+  if(cat === "zapatos"){
+    if(cantidad >= 6) return 43;
+    if(cantidad >= 3) return 50;
+    return 60;
+  }
+
+  return null;
+}
  function esKit(opcion){
   return opcion && opcion.toLowerCase().includes("kit");
 }
@@ -870,6 +916,7 @@ let suma = 0;
 let itemsAgrupados = {};
 let conteoKits = {}; // 🔥 SOLO KITS
 let conteoTantawawas = {};
+ let totalUnidadesPorCategoria = {};
 resumenFinal = [];
 
 // 🔴 AGRUPAR ITEMS
@@ -921,52 +968,7 @@ if(esKitReal){
 
 
 // 🔴 FUNCIÓN PRECIO POR CATEGORÍA
-function obtenerPrecio(cat, cantidad){
 
-  if(cat === "flores" || cat === "galletas"){
-    if(cantidad >= 6) return 55;
-    if(cantidad >= 3) return 60;
-    return 65;
-  }
-
-  if(cat === "cuerpos_planos"){
-    if(cantidad >= 6) return 35;
-    if(cantidad >= 3) return 40;
-    return 50;
-  }
-
-  if(cat === "frases"){
-    if(cantidad >= 6) return 40;
-    if(cantidad >= 3) return 45;
-    return 55;
-  }
-
-  if(cat === "alfabetos"){
-    if(cantidad >= 6) return 100;
-    if(cantidad >= 3) return 120;
-    return 140;
-  }
-
-  if(cat === "caras" || cat === "sombreros"){
-    if(cantidad >= 6) return 100;
-    if(cantidad >= 3) return 115;
-    return 130;
-  }
-
-  if(cat === "cascos"){
-    if(cantidad >= 6) return 120;
-    if(cantidad >= 3) return 130;
-    return 140;
-  }
-
-  if(cat === "zapatos"){
-    if(cantidad >= 6) return 43;
-    if(cantidad >= 3) return 50;
-    return 60;
-  }
-
-  return null;
-}
 
 
 // 🔴 RENDER
@@ -1103,7 +1105,7 @@ if(item.categoria === "tantawawas"){
 
   });
  // 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
-let totalUnidadesPorCategoria = {};
+
 
 Object.values(itemsAgrupados).forEach(i => {
 
