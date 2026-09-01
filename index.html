@@ -866,300 +866,161 @@ let total = document.getElementById("total");
 
 lista.innerHTML = "";
 let suma = 0;
-contador = {};
- resumenFinal = []; // 🔥 resetear resumen real
 
-// 🔥 AQUÍ VA (correcto)
-let conteoCategorias = {
- 
-  alfabetos: 0,
-  caras: 0,
-  cascos: 0,
-  sombreros: 0,
-  zapatos: 0,
-  cuerpos_planos: 0,
-  tantawawas_12: 0,
-  tantawawas_9: 0,
-  frases: 0,
- flores: 0,
-galletas: 0
-};
-let conteoComida = {};
-carrito.forEach((item)=>{
- if(item.categoria === "comida"){
+let itemsAgrupados = {};
+let conteoKits = {}; // 🔥 SOLO KITS
 
-  let key = item.nombre;
+resumenFinal = [];
 
-  let cantidadItem = 1;
+// 🔴 AGRUPAR ITEMS
+carrito.forEach(item => {
 
-  if(item.opcion.includes("3")) cantidadItem = 3;
-  else if(item.opcion.includes("6")) cantidadItem = 6;
-
-  conteoComida[key] = (conteoComida[key] || 0) + cantidadItem;
-}
   let key = item.nombre + "-" + item.opcion;
 
-  if(!contador[key]){
-    contador[key] = { ...item, cantidad: 0 };
+  if(!itemsAgrupados[key]){
+    itemsAgrupados[key] = { ...item, cantidad: 0 };
   }
 
-  contador[key].cantidad++;
+  itemsAgrupados[key].cantidad++;
 
-  // 🔥 CONTAR ALFABETOS
-// 🔥 CONTAR CATEGORÍAS CORRECTAMENTE
-let categoriaContar = item.categoria;
+  // 🔥 CONTAR SOLO KITS
+  let texto = item.opcion.toLowerCase();
 
-// separar tantawawas por tamaño
-if(item.categoria === "tantawawas"){
-  if(item.opcion.includes("12")){
-    categoriaContar = "tantawawas_12";
-  } else if(item.opcion.includes("9")){
-    categoriaContar = "tantawawas_9";
-  }
-}
+  let esKitReal = (
+    texto.includes("kit")
+  );
 
-// calcular cantidad real
-let cantidadReal = 1;
+  if(esKitReal){
 
-let cantidadItem = 1;
+    let cantidad = extraerCantidad(texto); // 1, 3, 6
 
-// 🔥 SOLO si la categoría existe
-if(conteoCategorias.hasOwnProperty(categoriaContar)){
-
-  // 🔥 TANTAWAWAS (NO leer "12 cm" como 12 unidades)
-  if(item.categoria === "tantawawas"){
-
-    if(item.opcion.includes("3")){
-      cantidadItem = 3;
-    }
-    else if(item.opcion.includes("6")){
-      cantidadItem = 6;
-    }
-    else{
-      cantidadItem = 1;
+    if(!conteoKits[item.categoria]){
+      conteoKits[item.categoria] = 0;
     }
 
+    conteoKits[item.categoria] += cantidad;
   }
-
-  // 🔥 RESTO DE CATEGORÍAS
-  else{
-
-    let num = extraerCantidad(item.opcion);
-
-// 🚫 evitar que "12 cm" cuente como 12 unidades
-if(!item.opcion.includes("cm") && num > 1){
-  cantidadItem = num;
-}
-
-  }
-
-  // 🔥 SUMAR
-  conteoCategorias[categoriaContar] =
-    (conteoCategorias[categoriaContar] || 0) + cantidadItem;
-}
- 
 
 });
-function obtenerPrecioCategoria(cat, cantidad){
- // 🌸 FLORES Y GALLETAS (MISMA LÓGICA)
-if(cat === "flores" || cat === "galletas"){
-  if(cantidad >= 6) return 55;
-  if(cantidad >= 3) return 60;
-  return 65;
-}
-// 🔴 CUERPOS PLANOS
-if(cat === "cuerpos_planos"){
-  if(cantidad >= 6) return 35;
-  if(cantidad >= 3) return 40;
-  return 50;
-}
 
-// 🔴 TANTAWAWAS 12cm
-if(cat === "tantawawas_12"){
-  if(cantidad >= 6) return 45;
-  if(cantidad >= 3) return 60;
-  return 70;
-}
 
-// 🔴 TANTAWAWAS 9cm
-if(cat === "tantawawas_9"){
-  if(cantidad >= 6) return 35;
-  if(cantidad >= 3) return 50;
-  return 60;
-}
+// 🔴 FUNCIÓN PRECIO POR CATEGORÍA
+function obtenerPrecio(cat, cantidad){
 
-// 🔴 FRASES
-if(cat === "frases"){
-  if(cantidad >= 6) return 40;
-  if(cantidad >= 3) return 45;
-  return 55;
-}
-  // 🔴 ALFABETOS
+  if(cat === "flores" || cat === "galletas"){
+    if(cantidad >= 6) return 55;
+    if(cantidad >= 3) return 60;
+    return 65;
+  }
+
+  if(cat === "cuerpos_planos"){
+    if(cantidad >= 6) return 35;
+    if(cantidad >= 3) return 40;
+    return 50;
+  }
+
+  if(cat === "frases"){
+    if(cantidad >= 6) return 40;
+    if(cantidad >= 3) return 45;
+    return 55;
+  }
+
   if(cat === "alfabetos"){
     if(cantidad >= 6) return 100;
     if(cantidad >= 3) return 120;
     return 140;
   }
 
- // 🔴 CARAS Y SOMBREROS
-if(cat === "caras" || cat === "sombreros"){
-  if(cantidad >= 6) return 100;
-  if(cantidad >= 3) return 115;
-  return 130;
-}
+  if(cat === "caras" || cat === "sombreros"){
+    if(cantidad >= 6) return 100;
+    if(cantidad >= 3) return 115;
+    return 130;
+  }
 
-// 🔴 CASCOS (TIENE PRECIO DIFERENTE 🔥)
-if(cat === "cascos"){
-  if(cantidad >= 6) return 120;
-  if(cantidad >= 3) return 130;
-  return 140;
-}
+  if(cat === "cascos"){
+    if(cantidad >= 6) return 120;
+    if(cantidad >= 3) return 130;
+    return 140;
+  }
 
-  // 🔴 ZAPATOS
   if(cat === "zapatos"){
     if(cantidad >= 6) return 43;
     if(cantidad >= 3) return 50;
     return 60;
   }
 
-  // 🔴 COMIDA (SALTEÑA + COCA COLA)
-
-
   return null;
 }
-  
-Object.values(contador).forEach(item => {
 
-let cantidadReal = item.cantidad;
 
-// si es kit (ej: "3 Kit")
-if(esKit(item.opcion)){
-let num = extraerCantidad(item.opcion);
-cantidadReal = item.cantidad * num;
-}
+// 🔴 RENDER
+Object.values(itemsAgrupados).forEach(item => {
 
-let precioFinal = item.precio;
+  let cantidadReal = item.cantidad;
 
-// 🔥 detectar si es kit
-let esKitItem = esKit(item.opcion);
+  let texto = item.opcion.toLowerCase();
 
-// 🔥 categoría base
-let categoriaPrecio = item.categoria;
+  let esKitReal = texto.includes("kit");
 
-// 🔥 ajustar tantawawas
-if(item.categoria === "tantawawas"){
-  if(item.opcion.includes("12")){
-    categoriaPrecio = "tantawawas_12";
-  } else if(item.opcion.includes("9")){
-    categoriaPrecio = "tantawawas_9";
+  // 🔥 multiplicar kits
+  if(esKitReal){
+    cantidadReal = item.cantidad * extraerCantidad(texto);
   }
-}
 
-// 🔥 aplicar descuento SOLO si es kit
-// 🔥 aplicar descuento por categoría (kits o unidades)
-let cantidadCat = conteoCategorias[categoriaPrecio] || 0;
+  let precioFinal = item.precio;
+  let mensaje = "Precio normal";
 
-let precioCategoria = obtenerPrecioCategoria(
-  categoriaPrecio,
-  cantidadCat
-);
+  // 🔥 SOLO KITS TIENEN DESCUENTO
+  if(esKitReal){
 
-// 🔥 SOLO aplicar descuento si NO es medida suelta
-let esSuelto = (
-  item.opcion.includes("cm") && 
-  !item.opcion.toLowerCase().includes("kit") &&
-  !item.opcion.includes("3") &&
-  !item.opcion.includes("6")
-);
+    let totalKitsCategoria = conteoKits[item.categoria] || 0;
 
-let aplicarDescuento = false;
+    let precioCat = obtenerPrecio(item.categoria, totalKitsCategoria);
 
-// ✅ aplicar SOLO si es kit o pack
-if(esKit(item.opcion)){
-  aplicarDescuento = true;
-}
+    if(precioCat !== null){
+      precioFinal = precioCat;
 
-// ✅ o si dice 3 o 6 unidades
-// ✅ detectar packs reales (NO medidas)
-let texto = item.opcion.toLowerCase();
+      if(totalKitsCategoria >= 6){
+        mensaje = `Descuento por 6 kits a ${precioFinal} Bs`;
+      }
+      else if(totalKitsCategoria >= 3){
+        mensaje = `Descuento por 3 kits a ${precioFinal} Bs`;
+      }
+    }
 
+  }
 
-let esPack = (
-  texto.includes("3") || texto.includes("6")
-) && (
-  texto.includes("kit") ||
-  texto.includes("kits") ||
-  texto.includes("unidad") ||
-  texto.includes("unidades") ||
-  texto.includes("diseño") ||
-  texto.includes("diseños")
-);
+  let subtotal = precioFinal * cantidadReal;
+  suma += subtotal;
 
-if((esKit(item.opcion) || esPack) && !esSuelto){
-  aplicarDescuento = true;
-}
+  resumenFinal.push({
+    nombre: item.nombre,
+    opcion: item.opcion,
+    cantidad: cantidadReal,
+    subtotal: subtotal
+  });
 
-if(precioCategoria !== null && aplicarDescuento){
-  precioFinal = precioCategoria;
-}
- 
- let subtotal = precioFinal * cantidadReal;
-suma += subtotal;
-resumenFinal.push({
-  nombre: item.nombre,
-  opcion: item.opcion,
-  cantidad: cantidadReal,
-  subtotal: subtotal
-});
+  lista.innerHTML += `
+  <div class="item-carrito">
 
- 
-lista.innerHTML += `
-<div class="item-carrito">
+    <img src="${item.imagen}" class="img-carrito">
 
-  \<img src="${item.imagen}" class="img-carrito">
+    <div class="item-info">
+      <b>${item.nombre}</b><br>
+      ${item.opcion}<br>
+      <small>Total unidades: ${cantidadReal}</small><br>
+      <b>${subtotal} Bs</b><br>
+      <small>${mensaje}</small>
+    </div>
 
-  \<div class="item-info">
-    \<b>${item.nombre}\</b>\<br>
-    ${item.opcion}\<br>
-    \<small>Total unidades: ${cantidadReal}\</small>\<br>
-    <b>${subtotal} Bs</b><br>
-<small>
-${
-  item.categoria === "comida"
-    ? (
-        (conteoComida[item.nombre] || 0) >= 6
-          ? `Descuento por 6 kits a ${precioFinal} Bs`
-          : (conteoComida[item.nombre] || 0) >= 3
-          ? `Descuento por 3 kits a ${precioFinal} Bs`
-          : `Precio normal: ${precioFinal} Bs`
-      )
-    : (
-        (precioCategoria !== null && aplicarDescuento)
-          ? (
-              cantidadCat >= 6
-                ? `Descuento por 6 unidades a ${precioFinal} Bs`
-                : cantidadCat >= 3
-                ? `Descuento por 3 unidades a ${precioFinal} Bs`
-                : `Precio normal: ${precioFinal} Bs`
-            )
-          : `Precio normal: ${precioFinal} Bs`
-      )
-}
-</small>
+    <div class="controles">
+      <button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
+      <span class="cantidad-num">${item.cantidad}</span>
+      <button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
+    </div>
 
-\</div>
-
-  \<div class="controles">
-    \<button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−\</button>
-
-    \<span class="cantidad-num">${item.cantidad}\</span>
-
-    \<button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+\</button>
-  \</div>
-
-\</div>
-
-`;
+  </div>
+  `;
 });
 
 total.innerHTML = `
@@ -1167,6 +1028,7 @@ total.innerHTML = `
 TOTAL: <span>${suma} Bs</span>
 </div>
 `;
+
 }
 let cantidades = {};
 
