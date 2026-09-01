@@ -917,11 +917,19 @@ if(conteoCategorias.hasOwnProperty(categoriaContar)){
   if(esKit(item.opcion)){
     cantidadItem = extraerCantidad(item.opcion);
   }
-  else if(item.opcion){
+ else if(item.opcion){
+
+  // 🔥 CASO ESPECIAL: TANTAWAWAS
+  if(item.categoria === "tantawawas"){
+    let num = extraerCantidad(item.opcion);
+    cantidadItem = num; // siempre usa el número real
+  }
+
+  else{
     let num = extraerCantidad(item.opcion);
     if(num > 1) cantidadItem = num;
   }
-
+}
   conteoCategorias[categoriaContar] =
     (conteoCategorias[categoriaContar] || 0) + cantidadItem;
 }
