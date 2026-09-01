@@ -910,22 +910,20 @@ if(item.categoria === "tantawawas"){
 let cantidadReal = 1;
 
 // 🔥 SOLO CONTAR KITS (no sueltos)
-if(conteoCategorias[categoriaContar] !== undefined){
+if(conteoCategorias.hasOwnProperty(categoriaContar)){
 
   let cantidadItem = 1;
 
-  // si es kit (ej: 3 Kit)
   if(esKit(item.opcion)){
     cantidadItem = extraerCantidad(item.opcion);
   }
-
-  // si dice "3 Unidades" o "3 Diseños"
   else if(item.opcion){
     let num = extraerCantidad(item.opcion);
     if(num > 1) cantidadItem = num;
   }
 
-  conteoCategorias[categoriaContar] += cantidadItem;
+  conteoCategorias[categoriaContar] =
+    (conteoCategorias[categoriaContar] || 0) + cantidadItem;
 }
  
   let cantidadItem = 1;
@@ -1032,9 +1030,11 @@ if(item.categoria === "tantawawas"){
 
 // 🔥 aplicar descuento SOLO si es kit
 // 🔥 aplicar descuento por categoría (kits o unidades)
+let cantidadCat = conteoCategorias[categoriaPrecio] || 0;
+
 let precioCategoria = obtenerPrecioCategoria(
   categoriaPrecio,
-  conteoCategorias[categoriaPrecio]
+  cantidadCat
 );
 
 if(precioCategoria !== null){
