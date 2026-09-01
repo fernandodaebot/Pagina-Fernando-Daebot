@@ -877,7 +877,6 @@ let conteoCategorias = {
   cascos: 0,
   sombreros: 0,
   zapatos: 0,
-  comida: 0,
   cuerpos_planos: 0,
   tantawawas_12: 0,
   tantawawas_9: 0,
@@ -885,8 +884,19 @@ let conteoCategorias = {
  flores: 0,
 galletas: 0
 };
-
+let conteoComida = {};
 carrito.forEach((item)=>{
+ if(item.categoria === "comida"){
+
+  let key = item.nombre;
+
+  let cantidadItem = 1;
+
+  if(item.opcion.includes("3")) cantidadItem = 3;
+  else if(item.opcion.includes("6")) cantidadItem = 6;
+
+  conteoComida[key] = (conteoComida[key] || 0) + cantidadItem;
+}
   let key = item.nombre + "-" + item.opcion;
 
   if(!contador[key]){
@@ -1005,11 +1015,7 @@ if(cat === "frases"){
   }
 
   // 🔴 COMIDA (SALTEÑA + COCA COLA)
-  if(cat === "comida"){
-    if(cantidad >= 6) return 140;
-    if(cantidad >= 3) return 150;
-    return 160;
-  }
+
 
   return null;
 }
@@ -1049,6 +1055,27 @@ let precioCategoria = obtenerPrecioCategoria(
   categoriaPrecio,
   cantidadCat
 );
+ // 🔥 COMIDA SEPARADA POR PRODUCTO
+if(item.categoria === "comida"){
+
+  let cantidadProd = conteoComida[item.nombre] || 0;
+
+  // 🔴 COCA COLA
+  if(item.nombre.toLowerCase().includes("coca")){
+
+    if(cantidadProd >= 6) precioFinal = 45;
+    else if(cantidadProd >= 3) precioFinal = 50;
+    else precioFinal = 60;
+  }
+
+  // 🔴 SALTEÑA
+  else if(item.nombre.toLowerCase().includes("salte")){
+
+    if(cantidadProd >= 6) precioFinal = 80;
+    else if(cantidadProd >= 3) precioFinal = 90;
+    else precioFinal = 100;
+  }
+}
 
 if(precioCategoria !== null){
   precioFinal = precioCategoria;
