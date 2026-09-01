@@ -946,9 +946,10 @@ if(conteoCategorias.hasOwnProperty(categoriaContar)){
 
     let num = extraerCantidad(item.opcion);
 
-    if(num > 1){
-      cantidadItem = num;
-    }
+// 🚫 evitar que "12 cm" cuente como 12 unidades
+if(!item.opcion.includes("cm") && num > 1){
+  cantidadItem = num;
+}
 
   }
 
@@ -1072,7 +1073,17 @@ if(esKit(item.opcion)){
 }
 
 // ✅ o si dice 3 o 6 unidades
-if(item.opcion.includes("3") || item.opcion.includes("6")){
+// ✅ detectar packs reales (NO medidas)
+let esPack = (
+  item.opcion.toLowerCase().includes("3 ") ||
+  item.opcion.toLowerCase().includes("6 ")
+) && (
+  item.opcion.toLowerCase().includes("kit") ||
+  item.opcion.toLowerCase().includes("unidad") ||
+  item.opcion.toLowerCase().includes("diseño")
+);
+
+if((esKit(item.opcion) || esPack) && !esSuelto){
   aplicarDescuento = true;
 }
 
