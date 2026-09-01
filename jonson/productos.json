@@ -91,7 +91,7 @@
 { "nombre": "Coca Cola", "categoria": "comida", "imagen": "jonson/img/comida/coca_cola.png" },
  
   { "nombre": "Cholita", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/cholita.png" },
-  { "nombre": "Cuerpo Hombre", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/cuerpo_hombre.jpg.png" },
+  { "nombre": "Cuerpo Hombre", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/cuerpo_hombre.png" },
   { "nombre": "Cuerpo Mujer", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/cuerpo_mujer.png" },
 
   { "nombre": "Muñeco 1", "categoria": "cuerpos_planos", "imagen": "jonson/img/cuerpos_planos/cuerpo_muñeco_1.png" },
