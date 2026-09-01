@@ -1054,18 +1054,20 @@ lista.innerHTML += `
     \<small>Total unidades: ${cantidadReal}\</small>\<br>
     <b>${subtotal} Bs</b><br>
 <small>
-${esKitItem
-  ? (
-      conteoCategorias[categoriaPrecio] >= 6
-        ? `Descuento por 6 kits a ${precioFinal} Bs`
-        : conteoCategorias[categoriaPrecio] >= 3
-        ? `Descuento por 3 kits a ${precioFinal} Bs`
-        : `Precio normal: ${precioFinal} Bs`
-    )
-  : ""
+${
+  precioCategoria !== null
+    ? (
+        cantidadCat >= 6
+          ? `Descuento por 6 unidades a ${precioFinal} Bs`
+          : cantidadCat >= 3
+          ? `Descuento por 3 unidades a ${precioFinal} Bs`
+          : `Precio normal: ${precioFinal} Bs`
+      )
+    : ""
 }
 </small>
-  \</div>
+
+\</div>
 
   \<div class="controles">
     \<button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−\</button>
