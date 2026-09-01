@@ -820,7 +820,8 @@ categorias[cat].forEach((p, index)=>{
   width="300"
   height="160"
   loading="lazy"
-  decoding="async">
+  decoding="async"
+  ${index < 6 ? 'fetchpriority="high"' : ''}>
   <h3>${p.nombre}</h3>
 `;
 
