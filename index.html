@@ -869,12 +869,27 @@ let suma = 0;
 
 let itemsAgrupados = {};
 let conteoKits = {}; // 🔥 SOLO KITS
-
+let conteoTantawawas = {};
 resumenFinal = [];
 
 // 🔴 AGRUPAR ITEMS
 carrito.forEach(item => {
+// 🟣 CONTAR TANTAWAWAS POR TAMAÑO
+if(item.categoria === "tantawawas"){
 
+  let tamaño = "";
+
+  if(item.opcion.includes("12")) tamaño = "12";
+  if(item.opcion.includes("9")) tamaño = "9";
+
+  let key = item.categoria + "_" + tamaño;
+
+  if(!conteoTantawawas[key]){
+    conteoTantawawas[key] = 0;
+  }
+
+  conteoTantawawas[key] += 1;
+}
   let key = item.nombre + "-" + item.opcion;
 
   if(!itemsAgrupados[key]){
@@ -883,24 +898,24 @@ carrito.forEach(item => {
 
   itemsAgrupados[key].cantidad++;
 
-  // 🔥 CONTAR SOLO KITS
-  let texto = item.opcion.toLowerCase();
+ // 🔥 CONTAR SOLO KITS (CORREGIDO)
+let texto = item.opcion.toLowerCase();
 
-  let esKitReal = (
-    texto.includes("kit")
-  );
+let esKitReal = texto.includes("kit");
 
-  if(esKitReal){
+if(esKitReal){
 
-    let cantidad = extraerCantidad(texto); // 1, 3, 6
+  let cantidad = extraerCantidad(texto);
 
-    if(!conteoKits[item.categoria]){
-      conteoKits[item.categoria] = 0;
-    }
+  // 🔥 clave única por producto + categoría
+  let keyKit = item.categoria + "_" + item.nombre;
 
-    conteoKits[item.categoria] += cantidad;
+  if(!conteoKits[keyKit]){
+    conteoKits[keyKit] = 0;
   }
 
+  conteoKits[keyKit] += cantidad;
+}
 });
 
 
@@ -973,6 +988,37 @@ Object.values(itemsAgrupados).forEach(item => {
 
   let precioFinal = item.precio;
   let mensaje = "Precio normal";
+
+ // 🟣 APLICAR DESCUENTO TANTAWAWAS
+if(item.categoria === "tantawawas"){
+
+  let tamaño = "";
+
+  if(item.opcion.includes("12")) tamaño = "12";
+  if(item.opcion.includes("9")) tamaño = "9";
+
+  let key = item.categoria + "_" + tamaño;
+  let total = conteoTantawawas[key] || 0;
+
+  if(tamaño === "12"){
+    if(total >= 6) precioFinal = 45;
+    else if(total >= 3) precioFinal = 60;
+    else precioFinal = 70;
+  }
+
+  if(tamaño === "9"){
+    if(total >= 6) precioFinal = 35;
+    else if(total >= 3) precioFinal = 50;
+    else precioFinal = 60;
+  }
+
+  if(total >= 6){
+    mensaje = `Descuento por 6 unidades (${tamaño} cm)`;
+  } else if(total >= 3){
+    mensaje = `Descuento por 3 unidades (${tamaño} cm)`;
+  }
+
+}
  // 🔵 DESCUENTO POR UNIDADES (frases y cuerpos)
 if(esUnidadDescuento){
 
@@ -1000,7 +1046,8 @@ if(esUnidadDescuento){
 
   if(esKitReal){
 
-  let totalKitsCategoria = conteoKits[item.categoria] || 0;
+  let keyKit = item.categoria + "_" + item.nombre;
+let totalKitsCategoria = conteoKits[keyKit] || 0;
 
   let precioCat = null;
 
@@ -1032,6 +1079,57 @@ if(esUnidadDescuento){
     }
     else if(totalKitsCategoria >= 3){
       mensaje = `Descuento por 3 kits a ${precioFinal} Bs`;
+    }
+  }
+}
+// 🟣 DESCUENTO POR TANTAWAWAS (POR TAMAÑO)
+if(item.categoria === "tantawawas"){
+
+  let tamaño = "";
+
+  if(item.opcion.includes("12")) tamaño = "12";
+  else if(item.opcion.includes("9")) tamaño = "9";
+
+  let totalPorTamaño = 0;
+
+  Object.values(itemsAgrupados).forEach(i => {
+
+    if(i.categoria === "tantawawas"){
+
+      let tamañoItem = "";
+
+      if(i.opcion.includes("12")) tamañoItem = "12";
+      else if(i.opcion.includes("9")) tamañoItem = "9";
+
+      if(tamañoItem === tamaño){
+        totalPorTamaño += i.cantidad;
+      }
+    }
+
+  });
+
+  let precioTantawawa = null;
+
+  if(tamaño === "12"){
+    if(totalPorTamaño >= 6) precioTantawawa = 45;
+    else if(totalPorTamaño >= 3) precioTantawawa = 60;
+    else precioTantawawa = 70;
+  }
+
+  if(tamaño === "9"){
+    if(totalPorTamaño >= 6) precioTantawawa = 35;
+    else if(totalPorTamaño >= 3) precioTantawawa = 50;
+    else precioTantawawa = 60;
+  }
+
+  if(precioTantawawa !== null){
+    precioFinal = precioTantawawa;
+
+    if(totalPorTamaño >= 6){
+      mensaje = `Descuento por 6 unidades (${tamaño} cm) a ${precioFinal} Bs`;
+    }
+    else if(totalPorTamaño >= 3){
+      mensaje = `Descuento por 3 unidades (${tamaño} cm) a ${precioFinal} Bs`;
     }
   }
 }
