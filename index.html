@@ -1050,11 +1050,15 @@ lista.innerHTML += `
     \<small>Total unidades: ${cantidadReal}\</small>\<br>
     <b>${subtotal} Bs</b><br>
 <small>
-${esKit && conteoCategorias[categoriaPrecio] >= 3
-  ? (conteoCategorias[categoriaPrecio] >= 6
-      ? `Descuento por 6 kits salido a: ${precioFinal} Bs`
-      : `Descuento por 3 kits salido a: ${precioFinal} Bs`)
-  : (esKit ? `Precio normal por kit: ${precioFinal} Bs` : "")
+${esKitItem
+  ? (
+      conteoCategorias[categoriaPrecio] >= 6
+        ? `Descuento por 6 kits a ${precioFinal} Bs`
+        : conteoCategorias[categoriaPrecio] >= 3
+        ? `Descuento por 3 kits a ${precioFinal} Bs`
+        : `Precio normal: ${precioFinal} Bs`
+    )
+  : ""
 }
 </small>
   \</div>
