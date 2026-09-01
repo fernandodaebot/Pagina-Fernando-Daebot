@@ -814,12 +814,12 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
 
    card.innerHTML = `
   <img 
-  src="jonson/img/loading.png"
-  data-src="${p.imagen}" 
+  src="${p.imagen}" 
   class="lazy-img"
   width="300"
   height="160"
-  loading="lazy">
+  loading="lazy"
+  decoding="async">
   <h3>${p.nombre}</h3>
 `;
 
@@ -1526,22 +1526,33 @@ function enviarWhatsApp(){
 
   window.open(url, "_blank");
 }
- function activarLazyLoad(){
+function activarLazyLoad(){
   const lazyImages = document.querySelectorAll(".lazy-img");
 
-  const observer = new IntersectionObserver((entries)=>{
+  const observer = new IntersectionObserver((entries, observer)=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         const img = entry.target;
-        img.src = img.dataset.src;
 
-        // 🔥 si falla imagen
+        if(img.dataset.src){
+          img.src = img.dataset.src;
+        }
+
         img.onerror = () => {
           img.src = "jonson/img/default.png";
         };
 
         observer.unobserve(img);
       }
+    });
+  }, {
+    rootMargin: "200px" // 🔥 carga antes de que aparezca
+  });
+
+  lazyImages.forEach(img=>{
+    observer.observe(img);
+  });
+}
     });
   });
 
