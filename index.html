@@ -926,15 +926,7 @@ if(conteoCategorias.hasOwnProperty(categoriaContar)){
     (conteoCategorias[categoriaContar] || 0) + cantidadItem;
 }
  
-  let cantidadItem = 1;
 
-  // si dice "3 Kit" o "6 Kit"
-let num = extraerCantidad(item.opcion);
-
-  cantidadItem = num;
-
-  conteoCategorias[categoriaContar] += cantidadItem;
-}
 });
 function obtenerPrecioCategoria(cat, cantidad){
  // 🌸 FLORES Y GALLETAS (MISMA LÓGICA)
