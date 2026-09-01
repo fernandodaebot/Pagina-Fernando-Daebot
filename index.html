@@ -1110,15 +1110,17 @@ ${
           ? `Descuento por 3 kits a ${precioFinal} Bs`
           : `Precio normal: ${precioFinal} Bs`
       )
- (precioCategoria !== null && aplicarDescuento)
-    ? (
-        cantidadCat >= 6
-          ? `Descuento por 6 unidades a ${precioFinal} Bs`
-          : cantidadCat >= 3
-          ? `Descuento por 3 unidades a ${precioFinal} Bs`
+    : (
+        (precioCategoria !== null && aplicarDescuento)
+          ? (
+              cantidadCat >= 6
+                ? `Descuento por 6 unidades a ${precioFinal} Bs`
+                : cantidadCat >= 3
+                ? `Descuento por 3 unidades a ${precioFinal} Bs`
+                : `Precio normal: ${precioFinal} Bs`
+            )
           : `Precio normal: ${precioFinal} Bs`
       )
-    : `Precio normal: ${precioFinal} Bs`
 }
 </small>
 
