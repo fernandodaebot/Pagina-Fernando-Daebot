@@ -909,27 +909,38 @@ if(item.categoria === "tantawawas"){
 // calcular cantidad real
 let cantidadReal = 1;
 
-// 🔥 SOLO CONTAR KITS (no sueltos)
+let cantidadItem = 1;
+
+// 🔥 SOLO si la categoría existe
 if(conteoCategorias.hasOwnProperty(categoriaContar)){
 
-  let cantidadItem = 1;
-
-  if(esKit(item.opcion)){
-    cantidadItem = extraerCantidad(item.opcion);
-  }
- else if(item.opcion){
-
-  // 🔥 CASO ESPECIAL: TANTAWAWAS
+  // 🔥 TANTAWAWAS (NO leer "12 cm" como 12 unidades)
   if(item.categoria === "tantawawas"){
-    let num = extraerCantidad(item.opcion);
-    cantidadItem = num; // siempre usa el número real
+
+    if(item.opcion.includes("3")){
+      cantidadItem = 3;
+    }
+    else if(item.opcion.includes("6")){
+      cantidadItem = 6;
+    }
+    else{
+      cantidadItem = 1;
+    }
+
   }
 
+  // 🔥 RESTO DE CATEGORÍAS
   else{
+
     let num = extraerCantidad(item.opcion);
-    if(num > 1) cantidadItem = num;
+
+    if(num > 1){
+      cantidadItem = num;
+    }
+
   }
-}
+
+  // 🔥 SUMAR
   conteoCategorias[categoriaContar] =
     (conteoCategorias[categoriaContar] || 0) + cantidadItem;
 }
