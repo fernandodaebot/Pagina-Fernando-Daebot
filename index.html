@@ -806,7 +806,13 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
     card.className = "card";
 
    card.innerHTML = `
-  <img data-src="${p.imagen}" class="lazy-img" width="300" height="160">
+  <img 
+  src="jonson/img/loading.png"
+  data-src="${p.imagen}" 
+  class="lazy-img"
+  width="300"
+  height="160"
+  loading="lazy">
   <h3>${p.nombre}</h3>
 `;
 
@@ -1336,7 +1342,7 @@ let cantidad = parseInt(contador.dataset.cantidad || 0);
 cantidad++;
 
 // ✅ AQUÍ ESTÁ LA SOLUCIÓN
-let img = document.getElementById("popupImg").src;
+let img = document.getElementById("popupImg")?.src || "";
 
 agregar(nombre, opcion, precio, img, categoria);
 
