@@ -916,6 +916,32 @@ if(esKitReal){
 
   conteoKits[keyKit] += cantidad;
 }
+// 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
+let totalUnidadesPorCategoria = {};
+
+Object.values(itemsAgrupados).forEach(i => {
+
+  if(
+    i.categoria === "frases" ||
+    i.categoria === "cuerpos_planos"
+  ){
+
+    let cantidadRealItem = i.cantidad;
+
+    // 🔥 NUEVA LÓGICA CORRECTA
+    let numero = extraerCantidad(i.opcion);
+
+    if(numero > 1){
+      cantidadRealItem = i.cantidad * numero;
+    }
+
+    if(!totalUnidadesPorCategoria[i.categoria]){
+      totalUnidadesPorCategoria[i.categoria] = 0;
+    }
+
+    totalUnidadesPorCategoria[i.categoria] += cantidadRealItem;
+  }
+
 });
 
 
@@ -1022,13 +1048,7 @@ if(item.categoria === "tantawawas"){
  // 🔵 DESCUENTO POR UNIDADES (frases y cuerpos)
 if(esUnidadDescuento){
 
-  let totalUnidadesCategoria = 0;
-
-  Object.values(itemsAgrupados).forEach(i=>{
-    if(i.categoria === item.categoria){
-      totalUnidadesCategoria += i.cantidad;
-    }
-  });
+  let totalUnidadesCategoria = totalUnidadesPorCategoria[item.categoria] || 0;
 
   let precioUnidad = obtenerPrecio(item.categoria, totalUnidadesCategoria);
 
