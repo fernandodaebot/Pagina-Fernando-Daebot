@@ -715,7 +715,14 @@ fetch("jonson/productos.json")
   mostrarProductos(data);
   activarLazyLoad(); // 🔥 AQUI
 });
-
+// ✅ AQUÍ
+function extraerCantidad(texto){
+  let num = texto.match(/\d+/);
+  return num ? parseInt(num[0]) : 1;
+}
+ function esKit(opcion){
+  return opcion && opcion.toLowerCase().includes("kit");
+}
 function mostrarProductos(lista){
 
 const contenedor = document.getElementById("productos");
@@ -824,6 +831,9 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
   bloque.appendChild(grid);
   contenedor.appendChild(bloque);
 }
+
+
+ 
 }/* 🛒 CARRITO */
 function agregar(nombre, opcion, precio, imagen, categoria){
   carrito.push({nombre, opcion, precio, imagen, categoria});
@@ -902,8 +912,7 @@ let cantidadReal = 1;
 // 🔥 SOLO CONTAR KITS (no sueltos)
 if(
   conteoCategorias[categoriaContar] !== undefined &&
-  item.opcion &&
-  item.opcion.toLowerCase().includes("kit")
+esKit(item.opcion)
 ){
  
   let cantidadItem = 1;
@@ -986,7 +995,7 @@ Object.values(contador).forEach(item => {
 let cantidadReal = item.cantidad;
 
 // si es kit (ej: "3 Kit")
-if(item.opcion && item.opcion.includes("Kit")){
+if(esKit(item.opcion)){
 let num = extraerCantidad(item.opcion);
 cantidadReal = item.cantidad * num;
 }
@@ -994,7 +1003,7 @@ cantidadReal = item.cantidad * num;
 let precioFinal = item.precio;
 
 // 🔥 detectar si es kit
-let esKit = item.opcion && item.opcion.toLowerCase().includes("kit");
+let esKitItem = esKit(item.opcion);
 
 // 🔥 categoría base
 let categoriaPrecio = item.categoria;
@@ -1009,7 +1018,7 @@ if(item.categoria === "tantawawas"){
 }
 
 // 🔥 aplicar descuento SOLO si es kit
-if(esKit){
+if(esKitItem){
 
   let precioCategoria = obtenerPrecioCategoria(
     categoriaPrecio,
