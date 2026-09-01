@@ -1103,7 +1103,15 @@ lista.innerHTML += `
     <b>${subtotal} Bs</b><br>
 <small>
 ${
-  precioCategoria !== null
+  item.categoria === "comida"
+    ? (
+        (conteoComida[item.nombre] || 0) >= 6
+          ? `Descuento por 6 kits a ${precioFinal} Bs`
+          : (conteoComida[item.nombre] || 0) >= 3
+          ? `Descuento por 3 kits a ${precioFinal} Bs`
+          : `Precio normal: ${precioFinal} Bs`
+      )
+    : precioCategoria !== null
     ? (
         cantidadCat >= 6
           ? `Descuento por 6 unidades a ${precioFinal} Bs`
@@ -1275,10 +1283,10 @@ else if(p.categoria === "zapatos"){
   ${crearFila(p,"Alto 3 cm",10)}
   `;
 }
-// 🔴 COMIDA
 else if(p.categoria === "comida"){
 
-  if(p.nombre.toLowerCase().includes("salteña")){
+  // 🔴 PRECIOS INDIVIDUALES
+  if(p.nombre.toLowerCase().includes("salte")){
 
     contenido += `
     <p class="titulo">Precio Salteña</p>
@@ -1288,7 +1296,8 @@ else if(p.categoria === "comida"){
     ${crearFila(p,"6 cm",15)}
     `;
 
-  } else if(p.nombre.toLowerCase().includes("coca")){
+  } 
+  else if(p.nombre.toLowerCase().includes("coca")){
 
     contenido += `
     <p class="titulo">Precio Coca Cola</p>
@@ -1299,14 +1308,30 @@ else if(p.categoria === "comida"){
     `;
   }
 
+  // 🔥 KITS SEPARADOS POR PRODUCTO
   contenido += `
   <hr>
-  <p class="titulo">Kit (Los 6 tamaños)</p>
-
-  ${crearFila(p,"1 Kit",160)}
-  ${crearFila(p,"3 Kits",150)}
-  ${crearFila(p,"6 Kits",140)}
+  <p class="titulo">Kit (Los 3 tamaños)</p>
   `;
+
+  if(p.nombre.toLowerCase().includes("coca")){
+
+    contenido += `
+    ${crearFila(p,"1 Kit",60)}
+    ${crearFila(p,"3 Kits",50)}
+    ${crearFila(p,"6 Kits",45)}
+    `;
+
+  }
+  else if(p.nombre.toLowerCase().includes("salte")){
+
+    contenido += `
+    ${crearFila(p,"1 Kit",100)}
+    ${crearFila(p,"3 Kits",90)}
+    ${crearFila(p,"6 Kits",80)}
+    `;
+  }
+
 }
 // 🔴 CUERPOS PLANOS (FUERA del bloque comida)
 else if(p.categoria === "cuerpos_planos"){
