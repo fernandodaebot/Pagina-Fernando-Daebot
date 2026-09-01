@@ -1064,7 +1064,19 @@ let esSuelto = (
   !item.opcion.includes("6")
 );
 
-if(precioCategoria !== null && !esSuelto){
+let aplicarDescuento = false;
+
+// ✅ aplicar SOLO si es kit o pack
+if(esKit(item.opcion)){
+  aplicarDescuento = true;
+}
+
+// ✅ o si dice 3 o 6 unidades
+if(item.opcion.includes("3") || item.opcion.includes("6")){
+  aplicarDescuento = true;
+}
+
+if(precioCategoria !== null && aplicarDescuento){
   precioFinal = precioCategoria;
 }
  
@@ -1098,7 +1110,7 @@ ${
           ? `Descuento por 3 kits a ${precioFinal} Bs`
           : `Precio normal: ${precioFinal} Bs`
       )
-    : precioCategoria !== null && !esSuelto
+ (precioCategoria !== null && aplicarDescuento)
     ? (
         cantidadCat >= 6
           ? `Descuento por 6 unidades a ${precioFinal} Bs`
@@ -1106,7 +1118,7 @@ ${
           ? `Descuento por 3 unidades a ${precioFinal} Bs`
           : `Precio normal: ${precioFinal} Bs`
       )
-    : ""
+    : `Precio normal: ${precioFinal} Bs`
 }
 </small>
 
