@@ -57,7 +57,7 @@
 { "nombre": "Casco Soldado", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_soldado.png" },
 { "nombre": "Gorra", "categoria": "cascos", "imagen": "jonson/img/cascos/gorra.png" },
 
-  { "nombre": "Cara Bebé", "categoria": "caras", "imagen": "jonson/img/caras/bebe.png" },
+  { "nombre": "Cara Bebé", "categoria": "caras", "imagen": "jonson/img/caras/cara_bebe.png" },
 { "nombre": "Cara Enojada", "categoria": "caras", "imagen": "jonson/img/caras/cara_enojada.png" },
 { "nombre": "Cara Mixta 1", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_1.png" },
 { "nombre": "Cara Mixta 2", "categoria": "caras", "imagen": "jonson/img/caras/cara_mixta_2.png" },
