@@ -808,14 +808,14 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
   let grid = document.createElement("div");
   grid.className = "categoria-grid";
 
-  categorias[cat].forEach(p=>{
+categorias[cat].forEach((p, index)=>{
     let card = document.createElement("div");
     card.className = "card";
 
    card.innerHTML = `
 <img 
-  src="jonson/img/loading.png"
-  data-src="${p.imagen}" 
+  src="${index < 6 ? p.imagen : 'jonson/img/loading.png'}"
+  data-src="${index >= 6 ? p.imagen : ''}" 
   class="lazy-img"
   width="300"
   height="160"
@@ -1547,7 +1547,7 @@ function activarLazyLoad(){
       }
     });
   }, {
-    rootMargin: "500px"
+    rootMargin: "1000px"
   });
 
   lazyImages.forEach(img=>{
