@@ -79,7 +79,7 @@
 
   { "nombre": "Bota", "categoria": "zapatos", "imagen": "jonson/img/zapatos/bota.png" },
 { "nombre": "Tacon", "categoria": "zapatos", "imagen": "jonson/img/zapatos/tacon.png" },
-{ "nombre": "Tenis", "categoria": "zapatos", "imagen": "jonson/img/zapatos/tenis.png" },
+{ "nombre": "Tenis Deportivo", "categoria": "zapatos", "imagen": "jonson/img/zapatos/tenis_deportivo.png" },
 { "nombre": "Zapatilla", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapatilla.png" },
 { "nombre": "Zapato Cholita", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_cholita.png" },
 { "nombre": "Zapato Gato", "categoria": "zapatos", "imagen": "jonson/img/zapatos/zapato_gato.png" },
