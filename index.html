@@ -961,6 +961,10 @@ Object.values(itemsAgrupados).forEach(item => {
   let texto = item.opcion.toLowerCase();
 
   let esKitReal = texto.includes("kit");
+ let esUnidadDescuento = (
+  item.categoria === "frases" ||
+  item.categoria === "cuerpos_planos"
+);
 
   // 🔥 multiplicar kits
   if(esKitReal){
@@ -969,27 +973,68 @@ Object.values(itemsAgrupados).forEach(item => {
 
   let precioFinal = item.precio;
   let mensaje = "Precio normal";
+ // 🔵 DESCUENTO POR UNIDADES (frases y cuerpos)
+if(esUnidadDescuento){
 
-  // 🔥 SOLO KITS TIENEN DESCUENTO
+  let totalUnidadesCategoria = 0;
+
+  Object.values(itemsAgrupados).forEach(i=>{
+    if(i.categoria === item.categoria){
+      totalUnidadesCategoria += i.cantidad;
+    }
+  });
+
+  let precioUnidad = obtenerPrecio(item.categoria, totalUnidadesCategoria);
+
+  if(precioUnidad !== null){
+    precioFinal = precioUnidad;
+
+    if(totalUnidadesCategoria >= 6){
+      mensaje = `Descuento por 6 unidades a ${precioFinal} Bs`;
+    }
+    else if(totalUnidadesCategoria >= 3){
+      mensaje = `Descuento por 3 unidades a ${precioFinal} Bs`;
+    }
+  }
+}
+
   if(esKitReal){
 
-    let totalKitsCategoria = conteoKits[item.categoria] || 0;
+  let totalKitsCategoria = conteoKits[item.categoria] || 0;
 
-    let precioCat = obtenerPrecio(item.categoria, totalKitsCategoria);
+  let precioCat = null;
 
-    if(precioCat !== null){
-      precioFinal = precioCat;
+  // 🔴 CASO ESPECIAL: COMIDA (Coca Cola / Salteña)
+  if(item.categoria === "comida"){
 
-      if(totalKitsCategoria >= 6){
-        mensaje = `Descuento por 6 kits a ${precioFinal} Bs`;
-      }
-      else if(totalKitsCategoria >= 3){
-        mensaje = `Descuento por 3 kits a ${precioFinal} Bs`;
-      }
+    if(item.nombre.toLowerCase().includes("coca")){
+      if(totalKitsCategoria >= 6) precioCat = 45;
+      else if(totalKitsCategoria >= 3) precioCat = 50;
+      else precioCat = 60;
     }
 
+    else if(item.nombre.toLowerCase().includes("salte")){
+      if(totalKitsCategoria >= 6) precioCat = 80;
+      else if(totalKitsCategoria >= 3) precioCat = 90;
+      else precioCat = 100;
+    }
+
+  } else {
+    // 🔵 resto de categorías
+    precioCat = obtenerPrecio(item.categoria, totalKitsCategoria);
   }
 
+  if(precioCat !== null){
+    precioFinal = precioCat;
+
+    if(totalKitsCategoria >= 6){
+      mensaje = `Descuento por 6 kits a ${precioFinal} Bs`;
+    }
+    else if(totalKitsCategoria >= 3){
+      mensaje = `Descuento por 3 kits a ${precioFinal} Bs`;
+    }
+  }
+}
   let subtotal = precioFinal * cantidadReal;
   suma += subtotal;
 
