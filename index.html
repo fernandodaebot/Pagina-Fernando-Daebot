@@ -1055,29 +1055,16 @@ let precioCategoria = obtenerPrecioCategoria(
   categoriaPrecio,
   cantidadCat
 );
- // 🔥 COMIDA SEPARADA POR PRODUCTO
-if(item.categoria === "comida"){
 
-  let cantidadProd = conteoComida[item.nombre] || 0;
+// 🔥 SOLO aplicar descuento si NO es medida suelta
+let esSuelto = (
+  item.opcion.includes("cm") && 
+  !item.opcion.toLowerCase().includes("kit") &&
+  !item.opcion.includes("3") &&
+  !item.opcion.includes("6")
+);
 
-  // 🔴 COCA COLA
-  if(item.nombre.toLowerCase().includes("coca")){
-
-    if(cantidadProd >= 6) precioFinal = 45;
-    else if(cantidadProd >= 3) precioFinal = 50;
-    else precioFinal = 60;
-  }
-
-  // 🔴 SALTEÑA
-  else if(item.nombre.toLowerCase().includes("salte")){
-
-    if(cantidadProd >= 6) precioFinal = 80;
-    else if(cantidadProd >= 3) precioFinal = 90;
-    else precioFinal = 100;
-  }
-}
-
-if(precioCategoria !== null){
+if(precioCategoria !== null && !esSuelto){
   precioFinal = precioCategoria;
 }
  
@@ -1111,7 +1098,7 @@ ${
           ? `Descuento por 3 kits a ${precioFinal} Bs`
           : `Precio normal: ${precioFinal} Bs`
       )
-    : precioCategoria !== null
+    : precioCategoria !== null && !esSuelto
     ? (
         cantidadCat >= 6
           ? `Descuento por 6 unidades a ${precioFinal} Bs`
