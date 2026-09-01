@@ -917,32 +917,7 @@ if(esKitReal){
   conteoKits[keyKit] += cantidad;
 }
 // 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
-let totalUnidadesPorCategoria = {};
 
-Object.values(itemsAgrupados).forEach(i => {
-
-  if(
-    i.categoria === "frases" ||
-    i.categoria === "cuerpos_planos"
-  ){
-
-    let cantidadRealItem = i.cantidad;
-
-    // 🔥 NUEVA LÓGICA CORRECTA
-    let numero = extraerCantidad(i.opcion);
-
-    if(numero > 1){
-      cantidadRealItem = i.cantidad * numero;
-    }
-
-    if(!totalUnidadesPorCategoria[i.categoria]){
-      totalUnidadesPorCategoria[i.categoria] = 0;
-    }
-
-    totalUnidadesPorCategoria[i.categoria] += cantidadRealItem;
-  }
-
-});
 
 
 // 🔴 FUNCIÓN PRECIO POR CATEGORÍA
@@ -1127,6 +1102,32 @@ if(item.categoria === "tantawawas"){
     }
 
   });
+ // 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
+let totalUnidadesPorCategoria = {};
+
+Object.values(itemsAgrupados).forEach(i => {
+
+  if(
+    i.categoria === "frases" ||
+    i.categoria === "cuerpos_planos"
+  ){
+
+    let cantidadRealItem = i.cantidad;
+
+    let numero = extraerCantidad(i.opcion);
+
+    if(numero > 1){
+      cantidadRealItem = i.cantidad * numero;
+    }
+
+    if(!totalUnidadesPorCategoria[i.categoria]){
+      totalUnidadesPorCategoria[i.categoria] = 0;
+    }
+
+    totalUnidadesPorCategoria[i.categoria] += cantidadRealItem;
+  }
+
+});
 
   let precioTantawawa = null;
 
