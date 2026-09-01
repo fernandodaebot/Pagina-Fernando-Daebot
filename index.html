@@ -813,7 +813,7 @@ bloque.id = "cat-" + cat; // 🔥 IMPORTANTE
     card.className = "card";
 
    card.innerHTML = `
- <img 
+<img 
   src="jonson/img/loading.png"
   data-src="${p.imagen}" 
   class="lazy-img"
@@ -1547,14 +1547,7 @@ function activarLazyLoad(){
       }
     });
   }, {
-    rootMargin: "300px" // 🔥 carga antes de aparecer
-  });
-
-  lazyImages.forEach(img=>{
-    observer.observe(img);
-  });
-}
-    });
+    rootMargin: "300px"
   });
 
   lazyImages.forEach(img=>{
