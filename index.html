@@ -1001,12 +1001,19 @@ if(cat === "frases"){
     return 140;
   }
 
-  // 🔴 CARAS / SOMBREROS / CASCOS
-  if(cat === "caras" || cat === "sombreros" || cat === "cascos"){
-    if(cantidad >= 6) return 100;
-    if(cantidad >= 3) return 115;
-    return 130;
-  }
+ // 🔴 CARAS Y SOMBREROS
+if(cat === "caras" || cat === "sombreros"){
+  if(cantidad >= 6) return 100;
+  if(cantidad >= 3) return 115;
+  return 130;
+}
+
+// 🔴 CASCOS (TIENE PRECIO DIFERENTE 🔥)
+if(cat === "cascos"){
+  if(cantidad >= 6) return 120;
+  if(cantidad >= 3) return 130;
+  return 140;
+}
 
   // 🔴 ZAPATOS
   if(cat === "zapatos"){
@@ -1074,13 +1081,20 @@ if(esKit(item.opcion)){
 
 // ✅ o si dice 3 o 6 unidades
 // ✅ detectar packs reales (NO medidas)
+let texto = item.opcion.toLowerCase();
+
+// detectar packs reales (más robusto)
+let texto = item.opcion.toLowerCase();
+
 let esPack = (
-  item.opcion.toLowerCase().includes("3 ") ||
-  item.opcion.toLowerCase().includes("6 ")
+  texto.includes("3") || texto.includes("6")
 ) && (
-  item.opcion.toLowerCase().includes("kit") ||
-  item.opcion.toLowerCase().includes("unidad") ||
-  item.opcion.toLowerCase().includes("diseño")
+  texto.includes("kit") ||
+  texto.includes("kits") ||
+  texto.includes("unidad") ||
+  texto.includes("unidades") ||
+  texto.includes("diseño") ||
+  texto.includes("diseños")
 );
 
 if((esKit(item.opcion) || esPack) && !esSuelto){
