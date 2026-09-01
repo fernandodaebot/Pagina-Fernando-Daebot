@@ -914,29 +914,15 @@ lista.innerHTML = "";
 let suma = 0;
 
 let itemsAgrupados = {};
-let conteoKits = {}; // 🔥 SOLO KITS
+let conteoKits = {};
+let totalUnidadesPorCategoria = {};
 let conteoTantawawas = {};
- let totalUnidadesPorCategoria = {};
+
 resumenFinal = [];
 
-// 🔴 AGRUPAR ITEMS
+// 🔴 1. AGRUPAR ITEMS
 carrito.forEach(item => {
-// 🟣 CONTAR TANTAWAWAS POR TAMAÑO
-if(item.categoria === "tantawawas"){
 
-  let tamaño = "";
-
-  if(item.opcion.includes("12")) tamaño = "12";
-  if(item.opcion.includes("9")) tamaño = "9";
-
-  let key = item.categoria + "_" + tamaño;
-
-  if(!conteoTantawawas[key]){
-    conteoTantawawas[key] = 0;
-  }
-
-  conteoTantawawas[key] += 1;
-}
   let key = item.nombre + "-" + item.opcion;
 
   if(!itemsAgrupados[key]){
@@ -945,168 +931,38 @@ if(item.categoria === "tantawawas"){
 
   itemsAgrupados[key].cantidad++;
 
- // 🔥 CONTAR SOLO KITS (CORREGIDO)
-let texto = item.opcion.toLowerCase();
-
-let esKitReal = texto.includes("kit");
-
-if(esKitReal){
-
-  let cantidad = extraerCantidad(texto);
-
-  // 🔥 clave única por producto + categoría
-  let keyKit = item.categoria + "_" + item.nombre;
-
-  if(!conteoKits[keyKit]){
-    conteoKits[keyKit] = 0;
-  }
-
-  conteoKits[keyKit] += cantidad;
-}
-// 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
-
-
-
-// 🔴 FUNCIÓN PRECIO POR CATEGORÍA
-
-
-
-// 🔴 RENDER
-Object.values(itemsAgrupados).forEach(item => {
-
-  let cantidadReal = item.cantidad;
-
+  // 🔥 CONTAR KITS
   let texto = item.opcion.toLowerCase();
+  if(texto.includes("kit")){
+    let cantidad = extraerCantidad(texto);
+    let keyKit = item.categoria + "_" + item.nombre;
 
-  let esKitReal = texto.includes("kit");
- let esUnidadDescuento = (
-  item.categoria === "frases" ||
-  item.categoria === "cuerpos_planos"
-);
-
-  // 🔥 multiplicar kits
-  if(esKitReal){
-    cantidadReal = item.cantidad * extraerCantidad(texto);
-  }
-
-  let precioFinal = item.precio;
-  let mensaje = "Precio normal";
-
- // 🟣 APLICAR DESCUENTO TANTAWAWAS
-if(item.categoria === "tantawawas"){
-
-  let tamaño = "";
-
-  if(item.opcion.includes("12")) tamaño = "12";
-  if(item.opcion.includes("9")) tamaño = "9";
-
-  let key = item.categoria + "_" + tamaño;
-  let total = conteoTantawawas[key] || 0;
-
-  if(tamaño === "12"){
-    if(total >= 6) precioFinal = 45;
-    else if(total >= 3) precioFinal = 60;
-    else precioFinal = 70;
-  }
-
-  if(tamaño === "9"){
-    if(total >= 6) precioFinal = 35;
-    else if(total >= 3) precioFinal = 50;
-    else precioFinal = 60;
-  }
-
-  if(total >= 6){
-    mensaje = `Descuento por 6 unidades (${tamaño} cm)`;
-  } else if(total >= 3){
-    mensaje = `Descuento por 3 unidades (${tamaño} cm)`;
-  }
-
-}
- // 🔵 DESCUENTO POR UNIDADES (frases y cuerpos)
-if(esUnidadDescuento){
-
-  let totalUnidadesCategoria = totalUnidadesPorCategoria[item.categoria] || 0;
-
-  let precioUnidad = obtenerPrecio(item.categoria, totalUnidadesCategoria);
-
-  if(precioUnidad !== null){
-    precioFinal = precioUnidad;
-
-    if(totalUnidadesCategoria >= 6){
-      mensaje = `Descuento por 6 unidades a ${precioFinal} Bs`;
-    }
-    else if(totalUnidadesCategoria >= 3){
-      mensaje = `Descuento por 3 unidades a ${precioFinal} Bs`;
-    }
-  }
-}
-
-  if(esKitReal){
-
-  let keyKit = item.categoria + "_" + item.nombre;
-let totalKitsCategoria = conteoKits[keyKit] || 0;
-
-  let precioCat = null;
-
-  // 🔴 CASO ESPECIAL: COMIDA (Coca Cola / Salteña)
-  if(item.categoria === "comida"){
-
-    if(item.nombre.toLowerCase().includes("coca")){
-      if(totalKitsCategoria >= 6) precioCat = 45;
-      else if(totalKitsCategoria >= 3) precioCat = 50;
-      else precioCat = 60;
+    if(!conteoKits[keyKit]){
+      conteoKits[keyKit] = 0;
     }
 
-    else if(item.nombre.toLowerCase().includes("salte")){
-      if(totalKitsCategoria >= 6) precioCat = 80;
-      else if(totalKitsCategoria >= 3) precioCat = 90;
-      else precioCat = 100;
-    }
-
-  } else {
-    // 🔵 resto de categorías
-    precioCat = obtenerPrecio(item.categoria, totalKitsCategoria);
+    conteoKits[keyKit] += cantidad;
   }
 
-  if(precioCat !== null){
-    precioFinal = precioCat;
+  // 🟣 TANTAWAWAS POR TAMAÑO
+  if(item.categoria === "tantawawas"){
 
-    if(totalKitsCategoria >= 6){
-      mensaje = `Descuento por 6 kits a ${precioFinal} Bs`;
+    let tamaño = "";
+
+    if(item.opcion.includes("12")) tamaño = "12";
+    else if(item.opcion.includes("9")) tamaño = "9";
+
+    let keyT = item.categoria + "_" + tamaño;
+
+    if(!conteoTantawawas[keyT]){
+      conteoTantawawas[keyT] = 0;
     }
-    else if(totalKitsCategoria >= 3){
-      mensaje = `Descuento por 3 kits a ${precioFinal} Bs`;
-    }
+
+    conteoTantawawas[keyT]++;
   }
-}
-// 🟣 DESCUENTO POR TANTAWAWAS (POR TAMAÑO)
-if(item.categoria === "tantawawas"){
 
-  let tamaño = "";
-
-  if(item.opcion.includes("12")) tamaño = "12";
-  else if(item.opcion.includes("9")) tamaño = "9";
-
-  let totalPorTamaño = 0;
-
-  Object.values(itemsAgrupados).forEach(i => {
-
-    if(i.categoria === "tantawawas"){
-
-      let tamañoItem = "";
-
-      if(i.opcion.includes("12")) tamañoItem = "12";
-      else if(i.opcion.includes("9")) tamañoItem = "9";
-
-      if(tamañoItem === tamaño){
-        totalPorTamaño += i.cantidad;
-      }
-    }
-
-  });
- // 🔴 TOTAL GLOBAL POR CATEGORÍA (UNIDADES)
-
-
+});
+ // 🔴 2. CALCULAR TOTALES POR CATEGORÍA
 Object.values(itemsAgrupados).forEach(i => {
 
   if(
@@ -1114,48 +970,91 @@ Object.values(itemsAgrupados).forEach(i => {
     i.categoria === "cuerpos_planos"
   ){
 
-    let cantidadRealItem = i.cantidad;
+    let cantidadReal = i.cantidad;
 
-    let numero = extraerCantidad(i.opcion);
+    let num = extraerCantidad(i.opcion);
 
-    if(numero > 1){
-      cantidadRealItem = i.cantidad * numero;
+    if(num > 1){
+      cantidadReal = i.cantidad * num;
     }
 
     if(!totalUnidadesPorCategoria[i.categoria]){
       totalUnidadesPorCategoria[i.categoria] = 0;
     }
 
-    totalUnidadesPorCategoria[i.categoria] += cantidadRealItem;
+    totalUnidadesPorCategoria[i.categoria] += cantidadReal;
   }
 
 });
+ // 🔴 3. RENDER FINAL
+Object.values(itemsAgrupados).forEach(item => {
 
-  let precioTantawawa = null;
+  let cantidadReal = item.cantidad;
+  let texto = item.opcion.toLowerCase();
 
-  if(tamaño === "12"){
-    if(totalPorTamaño >= 6) precioTantawawa = 45;
-    else if(totalPorTamaño >= 3) precioTantawawa = 60;
-    else precioTantawawa = 70;
+  // 🔥 kits multiplican
+  if(texto.includes("kit")){
+    cantidadReal = item.cantidad * extraerCantidad(texto);
   }
 
-  if(tamaño === "9"){
-    if(totalPorTamaño >= 6) precioTantawawa = 35;
-    else if(totalPorTamaño >= 3) precioTantawawa = 50;
-    else precioTantawawa = 60;
-  }
+  let precioFinal = item.precio;
+  let mensaje = "";
 
-  if(precioTantawawa !== null){
-    precioFinal = precioTantawawa;
+  // 🔵 DESCUENTO GENERAL
+  let totalCat = totalUnidadesPorCategoria[item.categoria] || 0;
+  let precioCat = obtenerPrecio(item.categoria, totalCat);
 
-    if(totalPorTamaño >= 6){
-      mensaje = `Descuento por 6 unidades (${tamaño} cm) a ${precioFinal} Bs`;
+  if(precioCat !== null){
+    precioFinal = precioCat;
+
+    if(totalCat >= 6){
+      mensaje = `Descuento por 6 unidades`;
+    } else if(totalCat >= 3){
+      mensaje = `Descuento por 3 unidades`;
     }
-    else if(totalPorTamaño >= 3){
-      mensaje = `Descuento por 3 unidades (${tamaño} cm) a ${precioFinal} Bs`;
+  }
+
+  // 🟣 TANTAWAWAWAS
+  if(item.categoria === "tantawawas"){
+
+    let tamaño = "";
+
+    if(item.opcion.includes("12")) tamaño = "12";
+    else if(item.opcion.includes("9")) tamaño = "9";
+
+    let totalT = conteoTantawawas[item.categoria + "_" + tamaño] || 0;
+
+    if(tamaño === "12"){
+      if(totalT >= 6) precioFinal = 45;
+      else if(totalT >= 3) precioFinal = 60;
+      else precioFinal = 70;
+    }
+
+    if(tamaño === "9"){
+      if(totalT >= 6) precioFinal = 35;
+      else if(totalT >= 3) precioFinal = 50;
+      else precioFinal = 60;
     }
   }
-}
+
+  // 🔥 KITS POR CATEGORÍA
+  if(texto.includes("kit")){
+    let keyKit = item.categoria + "_" + item.nombre;
+    let totalK = conteoKits[keyKit] || 0;
+
+    let precioKit = obtenerPrecio(item.categoria, totalK);
+
+    if(precioKit !== null){
+      precioFinal = precioKit;
+
+      if(totalK >= 6){
+        mensaje = `Descuento por 6 kits`;
+      } else if(totalK >= 3){
+        mensaje = `Descuento por 3 kits`;
+      }
+    }
+  }
+
   let subtotal = precioFinal * cantidadReal;
   suma += subtotal;
 
@@ -1188,7 +1087,7 @@ Object.values(itemsAgrupados).forEach(i => {
   </div>
   `;
 });
-
+ // 🔴 TOTAL FINAL
 total.innerHTML = `
 <div class="total-final">
 TOTAL: <span>${suma} Bs</span>
