@@ -1002,13 +1002,13 @@ if(item.categoria === "tantawawas"){
   let total = conteoTantawawas[key] || 0;
 
   if(tamaño === "12"){
-    if(total >= 6) precioFinal = 45;
+    if(total >= 6) precioFinal = 50;
     else if(total >= 3) precioFinal = 60;
     else precioFinal = 70;
   }
 
   if(tamaño === "9"){
-    if(total >= 6) precioFinal = 35;
+    if(total >= 6) precioFinal = 40;
     else if(total >= 3) precioFinal = 50;
     else precioFinal = 60;
   }
@@ -1112,13 +1112,13 @@ if(item.categoria === "tantawawas"){
   let precioTantawawa = null;
 
   if(tamaño === "12"){
-    if(totalPorTamaño >= 6) precioTantawawa = 45;
+    if(totalPorTamaño >= 6) precioTantawawa = 50;
     else if(totalPorTamaño >= 3) precioTantawawa = 60;
     else precioTantawawa = 70;
   }
 
   if(tamaño === "9"){
-    if(totalPorTamaño >= 6) precioTantawawa = 35;
+    if(totalPorTamaño >= 6) precioTantawawa = 40;
     else if(totalPorTamaño >= 3) precioTantawawa = 50;
     else precioTantawawa = 60;
   }
@@ -1385,7 +1385,7 @@ else if(p.categoria === "tantawawas"){
 
   ${crearFila(p,"12 cm",70)}
   ${crearFila(p,"3 Unidades 12 cm",60)}
-  ${crearFila(p,"6 Unidades 12 cm",45)}
+  ${crearFila(p,"6 Unidades 12 cm",50)}
 
   <hr>
 
@@ -1393,7 +1393,7 @@ else if(p.categoria === "tantawawas"){
 
   ${crearFila(p,"9 cm",60)}
   ${crearFila(p,"3 Unidades 9 cm",50)}
-  ${crearFila(p,"6 Unidades 9 cm",35)}
+  ${crearFila(p,"6 Unidades 9 cm",50)}
 
   <p style="font-size:13px; color:#aaa;">
   (Se suman por separado según tamaño)
