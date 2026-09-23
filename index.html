@@ -861,112 +861,472 @@ let contador = {};
 
 function actualizarCarrito(){
 
-let lista = document.getElementById("listaCarrito");
-let total = document.getElementById("total");
+  let lista = document.getElementById("listaCarrito");
+  let total = document.getElementById("total");
 
-lista.innerHTML = "";
-let suma = 0;
+  lista.innerHTML = "";
+  let suma = 0;
 
-let itemsAgrupados = {};
-let conteoKits = {}; // 🔥 SOLO KITS
-let conteoTantawawas = {};
-resumenFinal = [];
+  let itemsAgrupados = {};
+  let conteoKits = {};
+  let conteoTantawawas = {};
 
-// 🔴 AGRUPAR ITEMS
-carrito.forEach(item => {
+  resumenFinal = [];
 
-// 🟣 DESCUENTO POR TANTAWAWAS (POR TAMAÑO)
-if(item.categoria === "tantawawas"){
+  // ==========================================
+  // 1. AGRUPAR LOS PRODUCTOS DEL CARRITO
+  // ==========================================
 
-  let tamaño = "";
+  carrito.forEach(item => {
 
-  if(item.opcion.includes("12")) tamaño = "12";
-  else if(item.opcion.includes("9")) tamaño = "9";
+    let key = item.nombre + "-" + item.opcion;
 
-  let keyTantawawa = item.categoria + "_" + tamaño;
-  let totalPorTamaño = conteoTantawawas[keyTantawawa] || 0;
-
-  // 🔵 CANTIDAD REAL DE ESTE ITEM
-  cantidadReal = item.cantidad;
-
-  if(item.opcion.toLowerCase().includes("unidades")){
-    cantidadReal = item.cantidad * extraerCantidad(item.opcion);
-  }
-
-  // 🔵 PRECIO SEGÚN TOTAL DEL MISMO TAMAÑO
-  if(tamaño === "12"){
-
-    if(totalPorTamaño >= 6){
-      precioFinal = 50;
-      mensaje = `Descuento por 6 unidades (12 cm) a 50 Bs`;
-    }
-    else if(totalPorTamaño >= 3){
-      precioFinal = 60;
-      mensaje = `Descuento por 3 unidades (12 cm) a 60 Bs`;
-    }
-    else{
-      precioFinal = 70;
-      mensaje = "Precio normal";
+    if(!itemsAgrupados[key]){
+      itemsAgrupados[key] = {
+        ...item,
+        cantidad: 0
+      };
     }
 
-  }
+    itemsAgrupados[key].cantidad++;
 
-  else if(tamaño === "9"){
-
-    if(totalPorTamaño >= 6){
-      precioFinal = 40;
-      mensaje = `Descuento por 6 unidades (9 cm) a 40 Bs`;
-    }
-    else if(totalPorTamaño >= 3){
-      precioFinal = 50;
-      mensaje = `Descuento por 3 unidades (9 cm) a 50 Bs`;
-    }
-    else{
-      precioFinal = 60;
-      mensaje = "Precio normal";
-    }
-
-  }
-
-}
-  let subtotal = precioFinal * cantidadReal;
-  suma += subtotal;
-
-  resumenFinal.push({
-    nombre: item.nombre,
-    opcion: item.opcion,
-    cantidad: cantidadReal,
-    subtotal: subtotal
   });
 
-  lista.innerHTML += `
-  <div class="item-carrito">
 
-    <img src="${item.imagen}" class="img-carrito">
+  // ==========================================
+  // 2. CONTAR TANTAWAWAS POR TAMAÑO
+  // 9 CM Y 12 CM SE CUENTAN POR SEPARADO
+  // ==========================================
 
-    <div class="item-info">
-      <b>${item.nombre}</b><br>
-      ${item.opcion}<br>
-      <small>Total unidades: ${cantidadReal}</small><br>
-      <b>${subtotal} Bs</b><br>
-      <small>${mensaje}</small>
+  Object.values(itemsAgrupados).forEach(item => {
+
+    if(item.categoria === "tantawawas"){
+
+      let tamaño = "";
+
+      if(item.opcion.includes("12")){
+        tamaño = "12";
+      }
+      else if(item.opcion.includes("9")){
+        tamaño = "9";
+      }
+
+      if(tamaño !== ""){
+
+        let cantidadReal = item.cantidad;
+
+        // "3 Unidades 12 cm" = 3 unidades
+        // "6 Unidades 12 cm" = 6 unidades
+        if(item.opcion.toLowerCase().includes("unidades")){
+          cantidadReal =
+            item.cantidad * extraerCantidad(item.opcion);
+        }
+
+        if(!conteoTantawawas[tamaño]){
+          conteoTantawawas[tamaño] = 0;
+        }
+
+        conteoTantawawas[tamaño] += cantidadReal;
+      }
+    }
+
+  });
+
+
+  // ==========================================
+  // 3. CONTAR KITS
+  // ==========================================
+
+  Object.values(itemsAgrupados).forEach(item => {
+
+    let texto = item.opcion.toLowerCase();
+
+    if(texto.includes("kit")){
+
+      let cantidadKit =
+        item.cantidad * extraerCantidad(item.opcion);
+
+      let keyKit =
+        item.categoria + "_" + item.nombre;
+
+      if(!conteoKits[keyKit]){
+        conteoKits[keyKit] = 0;
+      }
+
+      conteoKits[keyKit] += cantidadKit;
+    }
+
+  });
+
+
+  // ==========================================
+  // 4. PRECIOS POR CATEGORÍA
+  // ==========================================
+
+  function obtenerPrecio(cat, cantidad){
+
+    if(cat === "flores" || cat === "galletas"){
+      if(cantidad >= 6) return 55;
+      if(cantidad >= 3) return 60;
+      return 65;
+    }
+
+    if(cat === "cuerpos_planos"){
+      if(cantidad >= 6) return 35;
+      if(cantidad >= 3) return 40;
+      return 50;
+    }
+
+    if(cat === "frases"){
+      if(cantidad >= 6) return 40;
+      if(cantidad >= 3) return 45;
+      return 55;
+    }
+
+    if(cat === "alfabetos"){
+      if(cantidad >= 6) return 100;
+      if(cantidad >= 3) return 120;
+      return 140;
+    }
+
+    if(cat === "caras" || cat === "sombreros"){
+      if(cantidad >= 6) return 100;
+      if(cantidad >= 3) return 115;
+      return 130;
+    }
+
+    if(cat === "cascos"){
+      if(cantidad >= 6) return 120;
+      if(cantidad >= 3) return 130;
+      return 140;
+    }
+
+    if(cat === "zapatos"){
+      if(cantidad >= 6) return 43;
+      if(cantidad >= 3) return 50;
+      return 60;
+    }
+
+    return null;
+  }
+
+
+  // ==========================================
+  // 5. CALCULAR Y MOSTRAR CADA PRODUCTO
+  // ==========================================
+
+  Object.values(itemsAgrupados).forEach(item => {
+
+    let cantidadReal = item.cantidad;
+    let precioFinal = item.precio;
+    let mensaje = "Precio normal";
+
+    let texto = item.opcion.toLowerCase();
+    let esKitReal = texto.includes("kit");
+
+
+    // ==========================================
+    // TANTAWAWAS
+    // ==========================================
+
+    if(item.categoria === "tantawawas"){
+
+      let tamaño = "";
+
+      if(item.opcion.includes("12")){
+        tamaño = "12";
+      }
+      else if(item.opcion.includes("9")){
+        tamaño = "9";
+      }
+
+      // Cantidad real del producto
+      if(texto.includes("unidades")){
+        cantidadReal =
+          item.cantidad * extraerCantidad(item.opcion);
+      }
+
+      let totalPorTamaño =
+        conteoTantawawas[tamaño] || 0;
+
+
+      // 12 CM
+      if(tamaño === "12"){
+
+        if(totalPorTamaño >= 6){
+          precioFinal = 50;
+          mensaje =
+            "Descuento por 6 unidades (12 cm) a 50 Bs";
+        }
+
+        else if(totalPorTamaño >= 3){
+          precioFinal = 60;
+          mensaje =
+            "Descuento por 3 unidades (12 cm) a 60 Bs";
+        }
+
+        else{
+          precioFinal = 70;
+          mensaje = "Precio normal";
+        }
+
+      }
+
+
+      // 9 CM
+      else if(tamaño === "9"){
+
+        if(totalPorTamaño >= 6){
+          precioFinal = 40;
+          mensaje =
+            "Descuento por 6 unidades (9 cm) a 40 Bs";
+        }
+
+        else if(totalPorTamaño >= 3){
+          precioFinal = 50;
+          mensaje =
+            "Descuento por 3 unidades (9 cm) a 50 Bs";
+        }
+
+        else{
+          precioFinal = 60;
+          mensaje = "Precio normal";
+        }
+
+      }
+
+    }
+
+
+    // ==========================================
+    // CUERPOS PLANOS / FRASES / ALFABETOS
+    // ==========================================
+
+    else if(
+      item.categoria === "cuerpos_planos" ||
+      item.categoria === "frases" ||
+      item.categoria === "alfabetos"
+    ){
+
+      // Cantidad real de este producto
+      cantidadReal =
+        item.cantidad * extraerCantidad(item.opcion);
+
+
+      // Sumar todos los diseños de la categoría
+      let totalUnidadesCategoria = 0;
+
+      Object.values(itemsAgrupados).forEach(i => {
+
+        if(i.categoria === item.categoria){
+
+          let unidades =
+            i.cantidad * extraerCantidad(i.opcion);
+
+          totalUnidadesCategoria += unidades;
+        }
+
+      });
+
+
+      let precioCategoria =
+        obtenerPrecio(
+          item.categoria,
+          totalUnidadesCategoria
+        );
+
+
+      if(precioCategoria !== null){
+
+        precioFinal = precioCategoria;
+
+        if(totalUnidadesCategoria >= 6){
+
+          mensaje =
+            `Descuento por 6 unidades a ${precioFinal} Bs`;
+
+        }
+
+        else if(totalUnidadesCategoria >= 3){
+
+          mensaje =
+            `Descuento por 3 unidades a ${precioFinal} Bs`;
+
+        }
+
+      }
+
+    }
+
+
+    // ==========================================
+    // KITS
+    // ==========================================
+
+    else if(esKitReal){
+
+      cantidadReal =
+        item.cantidad * extraerCantidad(item.opcion);
+
+      let keyKit =
+        item.categoria + "_" + item.nombre;
+
+      let totalKits =
+        conteoKits[keyKit] || 0;
+
+      let precioCat = null;
+
+
+      // COMIDA
+      if(item.categoria === "comida"){
+
+        if(item.nombre.toLowerCase().includes("coca")){
+
+          if(totalKits >= 6) precioCat = 45;
+          else if(totalKits >= 3) precioCat = 50;
+          else precioCat = 60;
+
+        }
+
+        else if(item.nombre.toLowerCase().includes("salte")){
+
+          if(totalKits >= 6) precioCat = 80;
+          else if(totalKits >= 3) precioCat = 90;
+          else precioCat = 100;
+
+        }
+
+      }
+
+      else{
+
+        precioCat =
+          obtenerPrecio(
+            item.categoria,
+            totalKits
+          );
+
+      }
+
+
+      if(precioCat !== null){
+
+        precioFinal = precioCat;
+
+        if(totalKits >= 6){
+
+          mensaje =
+            `Descuento por 6 kits a ${precioFinal} Bs`;
+
+        }
+
+        else if(totalKits >= 3){
+
+          mensaje =
+            `Descuento por 3 kits a ${precioFinal} Bs`;
+
+        }
+
+      }
+
+    }
+
+
+    // ==========================================
+    // PRODUCTOS NORMALES
+    // ==========================================
+
+    else{
+
+      cantidadReal = item.cantidad;
+      precioFinal = item.precio;
+      mensaje = "Precio normal";
+
+    }
+
+
+    // ==========================================
+    // SUBTOTAL
+    // ==========================================
+
+    let subtotal =
+      precioFinal * cantidadReal;
+
+    suma += subtotal;
+
+
+    resumenFinal.push({
+
+      nombre: item.nombre,
+      opcion: item.opcion,
+      cantidad: cantidadReal,
+      subtotal: subtotal
+
+    });
+
+
+    // ==========================================
+    // MOSTRAR EN CARRITO
+    // ==========================================
+
+    lista.innerHTML += `
+      <div class="item-carrito">
+
+        <img
+          src="${item.imagen}"
+          class="img-carrito">
+
+        <div class="item-info">
+
+          <b>${item.nombre}</b><br>
+
+          ${item.opcion}<br>
+
+          <small>
+            Total unidades: ${cantidadReal}
+          </small><br>
+
+          <b>${subtotal} Bs</b><br>
+
+          <small>${mensaje}</small>
+
+        </div>
+
+        <div class="controles">
+
+          <button
+            class="btn-cantidad"
+            onclick="restarItem('${item.nombre}','${item.opcion}')">
+            −
+          </button>
+
+          <span class="cantidad-num">
+            ${item.cantidad}
+          </span>
+
+          <button
+            class="btn-cantidad"
+            onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">
+            +
+          </button>
+
+        </div>
+
+      </div>
+    `;
+
+  });
+
+
+  // ==========================================
+  // TOTAL FINAL
+  // ==========================================
+
+  total.innerHTML = `
+    <div class="total-final">
+      TOTAL: <span>${suma} Bs</span>
     </div>
-
-    <div class="controles">
-      <button class="btn-cantidad" onclick="restarItem('${item.nombre}','${item.opcion}')">−</button>
-      <span class="cantidad-num">${item.cantidad}</span>
-      <button class="btn-cantidad" onclick="sumarItem('${item.nombre}','${item.opcion}',${item.precio})">+</button>
-    </div>
-
-  </div>
   `;
-});
-
-total.innerHTML = `
-<div class="total-final">
-TOTAL: <span>${suma} Bs</span>
-</div>
-`;
 
 }
 let cantidades = {};
