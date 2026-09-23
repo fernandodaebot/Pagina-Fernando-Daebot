@@ -916,6 +916,13 @@ if(esKitReal){
 
   conteoKits[keyKit] += cantidad;
 }
+
+  if(!conteoKits[keyKit]){
+    conteoKits[keyKit] = 0;
+  }
+
+  conteoKits[keyKit] += cantidad;
+}
 });
 
 
@@ -984,6 +991,14 @@ Object.values(itemsAgrupados).forEach(item => {
 
   // 🔥 multiplicar kits
   if(esKitReal){
+   // 🔵 CONVERTIR PAQUETES DE UNIDADES/DISEÑOS EN CANTIDAD REAL
+if(
+  item.categoria === "alfabetos" ||
+  item.categoria === "frases" ||
+  item.categoria === "cuerpos_planos"
+){
+  cantidadReal = item.cantidad * extraerCantidad(item.opcion);
+}
     cantidadReal = item.cantidad * extraerCantidad(texto);
   }
 
@@ -1020,20 +1035,39 @@ if(item.categoria === "tantawawas"){
   }
 
 }
- // 🔵 DESCUENTO POR UNIDADES (frases y cuerpos)
+// 🔵 DESCUENTO POR UNIDADES
+// cuerpos planos, frases y alfabetos
 if(esUnidadDescuento){
 
   let totalUnidadesCategoria = 0;
 
-  Object.values(itemsAgrupados).forEach(i=>{
-    if(i.categoria === item.categoria){
-      totalUnidadesCategoria += i.cantidad;
-    }
-  });
+  Object.values(itemsAgrupados).forEach(i => {
 
-  let precioUnidad = obtenerPrecio(item.categoria, totalUnidadesCategoria);
+  if(i.categoria === item.categoria){
+
+    let unidadesReales = i.cantidad;
+
+    // 🔥 OPCIONES QUE REPRESENTAN VARIAS UNIDADES
+    if(
+      i.categoria === "alfabetos" ||
+      i.categoria === "frases" ||
+      i.categoria === "cuerpos_planos"
+    ){
+      unidadesReales = i.cantidad * extraerCantidad(i.opcion);
+    }
+
+    totalUnidadesCategoria += unidadesReales;
+  }
+
+});
+ 
+  let precioUnidad = obtenerPrecio(
+    item.categoria,
+    totalUnidadesCategoria
+  );
 
   if(precioUnidad !== null){
+
     precioFinal = precioUnidad;
 
     if(totalUnidadesCategoria >= 6){
@@ -1044,7 +1078,6 @@ if(esUnidadDescuento){
     }
   }
 }
-
   if(esKitReal){
 
   let keyKit = item.categoria + "_" + item.nombre;
