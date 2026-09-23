@@ -1167,81 +1167,78 @@ if(item.categoria === "flores" || item.categoria === "galletas"){
 
 
     // ==========================================
-    // KITS
-    // ==========================================
+// KITS
+// ==========================================
 
-    else if(esKitReal){
+else if(esKitReal){
 
-      cantidadReal =
-        item.cantidad * extraerCantidad(item.opcion);
+  cantidadReal =
+    item.cantidad * extraerCantidad(item.opcion);
 
-      let keyKit =
-        item.categoria + "_" + item.nombre;
+  let keyKit;
 
-      let keyKit;
+  if(item.categoria === "flores" || item.categoria === "galletas"){
+    keyKit = item.categoria;
+  }else{
+    keyKit = item.categoria + "_" + item.nombre;
+  }
 
-if(item.categoria === "flores" || item.categoria === "galletas"){
-  keyKit = item.categoria;
-}else{
-  keyKit = item.categoria + "_" + item.nombre;
-}
+  let totalKits = conteoKits[keyKit] || 0;
 
-      let precioCat = null;
+  let precioCat = null;
 
+  // COMIDA
+  if(item.categoria === "comida"){
 
-      // COMIDA
-      if(item.categoria === "comida"){
+    if(item.nombre.toLowerCase().includes("coca")){
 
-        if(item.nombre.toLowerCase().includes("coca")){
-
-          if(totalKits >= 6) precioCat = 45;
-          else if(totalKits >= 3) precioCat = 50;
-          else precioCat = 60;
-
-        }
-
-        else if(item.nombre.toLowerCase().includes("salte")){
-
-          if(totalKits >= 6) precioCat = 80;
-          else if(totalKits >= 3) precioCat = 90;
-          else precioCat = 100;
-
-        }
-
-      }
-
-      else{
-
-        precioCat =
-          obtenerPrecio(
-            item.categoria,
-            totalKits
-          );
-
-      }
-
-
-      if(precioCat !== null){
-
-        precioFinal = precioCat;
-
-        if(totalKits >= 6){
-
-          mensaje =
-            `Descuento por 6 kits a ${precioFinal} Bs`;
-
-        }
-
-        else if(totalKits >= 3){
-
-          mensaje =
-            `Descuento por 3 kits a ${precioFinal} Bs`;
-
-        }
-
-      }
+      if(totalKits >= 6) precioCat = 45;
+      else if(totalKits >= 3) precioCat = 50;
+      else precioCat = 60;
 
     }
+
+    else if(item.nombre.toLowerCase().includes("salte")){
+
+      if(totalKits >= 6) precioCat = 80;
+      else if(totalKits >= 3) precioCat = 90;
+      else precioCat = 100;
+
+    }
+
+  }
+
+  else{
+
+    precioCat =
+      obtenerPrecio(
+        item.categoria,
+        totalKits
+      );
+
+  }
+
+  if(precioCat !== null){
+
+    precioFinal = precioCat;
+
+    if(totalKits >= 6){
+
+      mensaje =
+        `Descuento por 6 kits a ${precioFinal} Bs`;
+
+    }
+
+    else if(totalKits >= 3){
+
+      mensaje =
+        `Descuento por 3 kits a ${precioFinal} Bs`;
+
+    }
+
+  }
+
+}
 
 
     // ==========================================
