@@ -933,39 +933,67 @@ function actualizarCarrito(){
   });
 
 
-  // ==========================================
-  // 3. CONTAR KITS
-  // ==========================================
+ // ==========================================
+// 3. CONTAR KITS
+// ==========================================
 
-  Object.values(itemsAgrupados).forEach(item => {
+Object.values(itemsAgrupados).forEach(item => {
 
-    let texto = item.opcion.toLowerCase();
+  let texto = item.opcion.toLowerCase();
 
-    if(texto.includes("kit")){
+  if(texto.includes("kit")){
 
-      let cantidadKit =
-        item.cantidad * extraerCantidad(item.opcion);
+    // Convierte:
+    // 1 Kit  = 1
+    // 3 Kits = 3
+    // 6 Kits = 6
+    let cantidadKit =
+      item.cantidad * extraerCantidad(item.opcion);
 
-      let keyKit;
+    let keyKit;
 
-if(item.categoria === "flores" || item.categoria === "galletas"){
-  // Flores y galletas permiten combinar diferentes modelos
-  keyKit = item.categoria;
-}else{
-  // Las demás categorías conservan su funcionamiento actual
-  keyKit = item.categoria + "_" + item.nombre;
-}
+    // ======================================
+    // MÁSCARAS
+    // Cada diseño se cuenta por separado
+    // ======================================
+    if(item.categoria === "mascaras"){
 
-      if(!conteoKits[keyKit]){
-        conteoKits[keyKit] = 0;
-      }
+      keyKit =
+        item.categoria + "_" + item.nombre;
 
-      conteoKits[keyKit] += cantidadKit;
     }
 
-  });
+    // ======================================
+    // COMIDA
+    // Coca Cola y Salteña independientes
+    // ======================================
+    else if(item.categoria === "comida"){
+
+      keyKit =
+        item.categoria + "_" + item.nombre;
+
+    }
+
+    // ======================================
+    // RESTO DE CATEGORÍAS
+    // Se pueden combinar diseños
+    // ======================================
+    else{
+
+      keyKit = item.categoria;
+
+    }
 
 
+    if(!conteoKits[keyKit]){
+      conteoKits[keyKit] = 0;
+    }
+
+    conteoKits[keyKit] += cantidadKit;
+
+  }
+
+});
   // ==========================================
   // 4. PRECIOS POR CATEGORÍA
   // ==========================================
@@ -1166,47 +1194,128 @@ if(item.categoria === "flores" || item.categoria === "galletas"){
     }
 
 
-    // ==========================================
+// ==========================================
 // KITS
 // ==========================================
 
 else if(esKitReal){
 
+  // Cantidad real comprada
+  // 1 Kit  x1 = 1
+  // 3 Kits x1 = 3
+  // 6 Kits x1 = 6
   cantidadReal =
     item.cantidad * extraerCantidad(item.opcion);
 
+
+  // ========================================
+  // CREAR CLAVE PARA BUSCAR TOTAL DE KITS
+  // ========================================
+
   let keyKit;
 
-  if(item.categoria === "flores" || item.categoria === "galletas"){
-    keyKit = item.categoria;
-  }else{
-    keyKit = item.categoria + "_" + item.nombre;
+  // Máscaras: cada diseño independiente
+  if(item.categoria === "mascaras"){
+
+    keyKit =
+      item.categoria + "_" + item.nombre;
+
   }
 
-  let totalKits = conteoKits[keyKit] || 0;
+  // Comida: cada producto independiente
+  else if(item.categoria === "comida"){
+
+    keyKit =
+      item.categoria + "_" + item.nombre;
+
+  }
+
+  // Sombreros, cascos, caras, zapatos,
+  // flores, galletas, etc.
+  // combinan diseños de su categoría
+  else{
+
+    keyKit = item.categoria;
+
+  }
+
+
+  // TOTAL REAL DE KITS
+  let totalKits =
+    conteoKits[keyKit] || 0;
+
 
   let precioCat = null;
 
+
+  // ========================================
+  // MÁSCARAS
+  // Cada máscara tiene precios diferentes
+  // ========================================
+
+  if(item.categoria === "mascaras"){
+
+    let m = preciosMascaras[item.nombre];
+
+    if(m){
+
+      if(totalKits >= 6){
+        precioCat = m.pack6;
+      }
+
+      else if(totalKits >= 3){
+        precioCat = m.pack3;
+      }
+
+      else{
+        precioCat = m.unidad;
+      }
+
+    }
+
+  }
+
+
+  // ========================================
   // COMIDA
-  if(item.categoria === "comida"){
+  // ========================================
+
+  else if(item.categoria === "comida"){
 
     if(item.nombre.toLowerCase().includes("coca")){
 
-      if(totalKits >= 6) precioCat = 45;
-      else if(totalKits >= 3) precioCat = 50;
-      else precioCat = 60;
+      if(totalKits >= 6){
+        precioCat = 45;
+      }
+      else if(totalKits >= 3){
+        precioCat = 50;
+      }
+      else{
+        precioCat = 60;
+      }
 
     }
 
     else if(item.nombre.toLowerCase().includes("salte")){
 
-      if(totalKits >= 6) precioCat = 80;
-      else if(totalKits >= 3) precioCat = 90;
-      else precioCat = 100;
+      if(totalKits >= 6){
+        precioCat = 80;
+      }
+      else if(totalKits >= 3){
+        precioCat = 90;
+      }
+      else{
+        precioCat = 100;
+      }
 
     }
 
   }
+
+
+  // ========================================
+  // RESTO DE CATEGORÍAS CON KITS
+  // ========================================
 
   else{
 
@@ -1217,6 +1326,11 @@ else if(esKitReal){
       );
 
   }
+
+
+  // ========================================
+  // APLICAR PRECIO
+  // ========================================
 
   if(precioCat !== null){
 
@@ -1236,12 +1350,16 @@ else if(esKitReal){
 
     }
 
+    else{
+
+      mensaje = "Precio normal";
+
+    }
+
   }
 
 }
-
-
-    // ==========================================
+ // ==========================================
     // PRODUCTOS NORMALES
     // ==========================================
 
