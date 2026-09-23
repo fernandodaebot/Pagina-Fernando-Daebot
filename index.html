@@ -873,23 +873,38 @@ let conteoTantawawas = {};
 resumenFinal = [];
 
 // 🔴 AGRUPAR ITEMS
+// 🔴 AGRUPAR ITEMS
 carrito.forEach(item => {
-// 🟣 CONTAR TANTAWAWAS POR TAMAÑO
-if(item.categoria === "tantawawas"){
 
-  let tamaño = "";
+  // 🟣 CONTAR TANTAWAWAS POR TAMAÑO
+  if(item.categoria === "tantawawas"){
 
-  if(item.opcion.includes("12")) tamaño = "12";
-  if(item.opcion.includes("9")) tamaño = "9";
+    let tamaño = "";
 
-  let key = item.categoria + "_" + tamaño;
+    if(item.opcion.includes("12")) tamaño = "12";
+    else if(item.opcion.includes("9")) tamaño = "9";
 
-  if(!conteoTantawawas[key]){
-    conteoTantawawas[key] = 0;
+    if(tamaño !== ""){
+
+      let keyTantawawa = item.categoria + "_" + tamaño;
+
+      if(!conteoTantawawas[keyTantawawa]){
+        conteoTantawawas[keyTantawawa] = 0;
+      }
+
+      // Una opción como "3 Unidades 12 cm"
+      // representa realmente 3 unidades.
+      let cantidadTantawawa = 1;
+
+      if(item.opcion.toLowerCase().includes("unidades")){
+        cantidadTantawawa = extraerCantidad(item.opcion);
+      }
+
+      conteoTantawawas[keyTantawawa] += cantidadTantawawa;
+    }
   }
 
-  conteoTantawawas[key] += 1;
-}
+  // 🔵 AGRUPAR PRODUCTOS IGUALES
   let key = item.nombre + "-" + item.opcion;
 
   if(!itemsAgrupados[key]){
@@ -898,31 +913,24 @@ if(item.categoria === "tantawawas"){
 
   itemsAgrupados[key].cantidad++;
 
- // 🔥 CONTAR SOLO KITS (CORREGIDO)
-let texto = item.opcion.toLowerCase();
 
-let esKitReal = texto.includes("kit");
+  // 🔥 CONTAR SOLAMENTE KITS
+  let texto = item.opcion.toLowerCase();
+  let esKitReal = texto.includes("kit");
 
-if(esKitReal){
+  if(esKitReal){
 
-  let cantidad = extraerCantidad(texto);
+    let cantidad = extraerCantidad(texto);
 
-  // 🔥 clave única por producto + categoría
-  let keyKit = item.categoria + "_" + item.nombre;
+    let keyKit = item.categoria + "_" + item.nombre;
 
-  if(!conteoKits[keyKit]){
-    conteoKits[keyKit] = 0;
+    if(!conteoKits[keyKit]){
+      conteoKits[keyKit] = 0;
+    }
+
+    conteoKits[keyKit] += cantidad;
   }
 
-  conteoKits[keyKit] += cantidad;
-}
-
-  if(!conteoKits[keyKit]){
-    conteoKits[keyKit] = 0;
-  }
-
-  conteoKits[keyKit] += cantidad;
-}
 });
 
 
@@ -989,9 +997,12 @@ Object.values(itemsAgrupados).forEach(item => {
   item.categoria === "alfabetos"
 );
 
-  // 🔥 multiplicar kits
-  if(esKitReal){
-   // 🔵 CONVERTIR PAQUETES DE UNIDADES/DISEÑOS EN CANTIDAD REAL
+// 🔥 MULTIPLICAR KITS
+if(esKitReal){
+  cantidadReal = item.cantidad * extraerCantidad(texto);
+}
+
+// 🔵 CONVERTIR PAQUETES DE UNIDADES / DISEÑOS
 if(
   item.categoria === "alfabetos" ||
   item.categoria === "frases" ||
@@ -999,9 +1010,6 @@ if(
 ){
   cantidadReal = item.cantidad * extraerCantidad(item.opcion);
 }
-    cantidadReal = item.cantidad * extraerCantidad(texto);
-  }
-
   let precioFinal = item.precio;
   let mensaje = "Precio normal";
 
