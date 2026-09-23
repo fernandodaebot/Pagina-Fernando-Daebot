@@ -946,8 +946,15 @@ function actualizarCarrito(){
       let cantidadKit =
         item.cantidad * extraerCantidad(item.opcion);
 
-      let keyKit =
-        item.categoria + "_" + item.nombre;
+      let keyKit;
+
+if(item.categoria === "flores" || item.categoria === "galletas"){
+  // Flores y galletas permiten combinar diferentes modelos
+  keyKit = item.categoria;
+}else{
+  // Las demás categorías conservan su funcionamiento actual
+  keyKit = item.categoria + "_" + item.nombre;
+}
 
       if(!conteoKits[keyKit]){
         conteoKits[keyKit] = 0;
@@ -1171,8 +1178,13 @@ function actualizarCarrito(){
       let keyKit =
         item.categoria + "_" + item.nombre;
 
-      let totalKits =
-        conteoKits[keyKit] || 0;
+      let keyKit;
+
+if(item.categoria === "flores" || item.categoria === "galletas"){
+  keyKit = item.categoria;
+}else{
+  keyKit = item.categoria + "_" + item.nombre;
+}
 
       let precioCat = null;
 
@@ -1282,14 +1294,10 @@ function actualizarCarrito(){
 
           ${item.opcion}<br>
 
-          <small>
-            Total unidades: ${cantidadReal}
-          </small><br>
-
-          <b>${subtotal} Bs</b><br>
-
-          <small>${mensaje}</small>
-
+          <small>Total unidades: ${cantidadReal}</small><br>
+<small>Precio por unidad: <b>${precioFinal} Bs</b></small><br>
+<b>Subtotal: ${subtotal} Bs</b><br>
+<small>${mensaje}</small>
         </div>
 
         <div class="controles">
