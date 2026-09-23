@@ -873,7 +873,6 @@ let conteoTantawawas = {};
 resumenFinal = [];
 
 // 🔴 AGRUPAR ITEMS
-// 🔴 AGRUPAR ITEMS
 carrito.forEach(item => {
 
   // 🟣 CONTAR TANTAWAWAS POR TAMAÑO
@@ -892,8 +891,6 @@ carrito.forEach(item => {
         conteoTantawawas[keyTantawawa] = 0;
       }
 
-      // Una opción como "3 Unidades 12 cm"
-      // representa realmente 3 unidades.
       let cantidadTantawawa = 1;
 
       if(item.opcion.toLowerCase().includes("unidades")){
@@ -904,7 +901,7 @@ carrito.forEach(item => {
     }
   }
 
-  // 🔵 AGRUPAR PRODUCTOS IGUALES
+  // 🔵 AGRUPAR PRODUCTOS
   let key = item.nombre + "-" + item.opcion;
 
   if(!itemsAgrupados[key]){
@@ -913,15 +910,13 @@ carrito.forEach(item => {
 
   itemsAgrupados[key].cantidad++;
 
-
-  // 🔥 CONTAR SOLAMENTE KITS
+  // 🔥 CONTAR KITS
   let texto = item.opcion.toLowerCase();
   let esKitReal = texto.includes("kit");
 
   if(esKitReal){
 
     let cantidad = extraerCantidad(texto);
-
     let keyKit = item.categoria + "_" + item.nombre;
 
     if(!conteoKits[keyKit]){
@@ -932,8 +927,6 @@ carrito.forEach(item => {
   }
 
 });
-
-
 // 🔴 FUNCIÓN PRECIO POR CATEGORÍA
 function obtenerPrecio(cat, cantidad){
 
@@ -1010,6 +1003,7 @@ if(
 ){
   cantidadReal = item.cantidad * extraerCantidad(item.opcion);
 }
+
   let precioFinal = item.precio;
   let mensaje = "Precio normal";
 
