@@ -111,9 +111,13 @@
 
   { "nombre": "Tantawawa Caballo", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_caballo.png" },
   { "nombre": "Tantawawa Cruz", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_cruz.png" },
-  { "nombre": "Tantawawa Escalera", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_escalera.png" },
-  { "nombre": "Tantawawa Hombre", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_hombre.png" },
-  { "nombre": "Tantawawa Mujer", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_mujer.png" },
+{ "nombre": "Tantawawa Escalera", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_escalera.png" },
+{ "nombre": "Tantawawa Hombre", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_hombre.png" },
+{ "nombre": "Tantawawa Mujer", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_mujer.png" },
+{ "nombre": "Tantawawa Pan 1", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_pan_1.png" },
+{ "nombre": "Tantawawa Pan 2", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_pan_2.png" },
+{ "nombre": "Tantawawa Pan 3", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_pan_3.png" },
+{ "nombre": "Tantawawa Pan 4", "categoria": "tantawawas", "imagen": "jonson/img/tantawawas/tantawawa_pan_4.png" },
 
   { "nombre": "Chocolate Mamá", "categoria": "frases", "imagen": "jonson/img/frases/chocolate_mama.png" },
   { "nombre": "Chocolate Mordido Mamá", "categoria": "frases", "imagen": "jonson/img/frases/chocolate_mordido_mama.png" },
