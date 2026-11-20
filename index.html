@@ -1718,7 +1718,11 @@ else if(p.categoria === "tantawawas"){
   document.getElementById("popupInfo").innerHTML = contenido;
 }
   
- if(opcion.toLowerCase().includes("kit")){
+ function crearFila(p, opcion, precio){
+
+  let textoPrecio = `${precio} Bs`;
+
+  if(opcion.toLowerCase().includes("kit")){
     let cantidadKits = extraerCantidad(opcion);
 
     if(cantidadKits === 3 || cantidadKits === 6){
