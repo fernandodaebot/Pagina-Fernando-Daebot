@@ -56,6 +56,9 @@
 { "nombre": "Casco Minero", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_minero.png" },
 { "nombre": "Casco Soldado", "categoria": "cascos", "imagen": "jonson/img/cascos/casco_soldado.png" },
 { "nombre": "Gorra", "categoria": "cascos", "imagen": "jonson/img/cascos/gorra.png" },
+{ "nombre": "Sombrero Yessy", "categoria": "cascos", "imagen": "jonson/img/cascos/sombrero_yessi.png" },
+{ "nombre": "Sombrero Doctor", "categoria": "cascos", "imagen": "jonson/img/cascos/sombrero_doctor.png" },
+{ "nombre": "Sombrero Mariachi", "categoria": "cascos", "imagen": "jonson/img/cascos/sombrero_mariachi.png" },
 
   { "nombre": "Cara Bebé", "categoria": "caras", "imagen": "jonson/img/caras/cara_bebe.png" },
 { "nombre": "Cara Enojada", "categoria": "caras", "imagen": "jonson/img/caras/cara_enojada.png" },
