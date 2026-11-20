@@ -1030,11 +1030,11 @@ Object.values(itemsAgrupados).forEach(item => {
       return 130;
     }
 
-    if(cat === "cascos"){
-      if(cantidad >= 6) return 120;
-      if(cantidad >= 3) return 130;
-      return 140;
-    }
+   if(cat === "cascos"){
+  if(cantidad >= 6) return 150;
+  if(cantidad >= 3) return 165;
+  return 180;
+}
 
     if(cat === "zapatos"){
       if(cantidad >= 6) return 43;
@@ -1524,21 +1524,20 @@ else if(p.categoria === "cascos"){
   contenido += `
   <p class="titulo">Precio Por Suelto</p>
 
-  ${crearFila(p,"4 cm",20)}
-  ${crearFila(p,"5 cm",30)}
-  ${crearFila(p,"6 cm",40)}
-  ${crearFila(p,"7 cm",50)}
+  ${crearFila(p,"4 cm",30)}
+  ${crearFila(p,"5.5 cm",40)}
+  ${crearFila(p,"6.5 cm",50)}
+  ${crearFila(p,"7 cm",60)}
 
   <hr>
 
   <p class="titulo">Kit (Los 4 tamaños)</p>
 
-  ${crearFila(p,"1 Kit",140)}
-  ${crearFila(p,"3 Kits",130)}
-  ${crearFila(p,"6 Kits",120)}
+  ${crearFila(p,"1 Kit",180)}
+  ${crearFila(p,"3 Kits",165)}
+  ${crearFila(p,"6 Kits",150)}
   `;
 }
-
 // 🔴 CARAS (AQUÍ VA SEPARADO 🔥)
 else if(p.categoria === "caras"){
 
@@ -1719,18 +1718,25 @@ else if(p.categoria === "tantawawas"){
   document.getElementById("popupInfo").innerHTML = contenido;
 }
   
-function crearFila(p, opcion, precio){
-return `
-<div class="fila">
-  ${opcion} - ${precio} Bs
+ if(opcion.toLowerCase().includes("kit")){
+    let cantidadKits = extraerCantidad(opcion);
 
-  <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio},'${p.categoria}')">Comprar</button>
+    if(cantidadKits === 3 || cantidadKits === 6){
+      textoPrecio += " cada kit";
+    }
+  }
 
-  <span class="contador" style="display:none;" data-cantidad="0"></span>
+  return `
+  <div class="fila">
+    ${opcion} - ${textoPrecio}
 
-  <button class="menos" style="display:none;" onclick="restar(this,'${p.nombre}','${opcion}',${precio})">-</button>
-</div>
-`;
+    <button onclick="sumar(this,'${p.nombre}','${opcion}',${precio},'${p.categoria}')">Comprar</button>
+
+    <span class="contador" style="display:none;" data-cantidad="0"></span>
+
+    <button class="menos" style="display:none;" onclick="restar(this,'${p.nombre}','${opcion}',${precio})">-</button>
+  </div>
+  `;
 }
 function sumar(btn, nombre, opcion, precio, categoria){
 let fila = btn.parentElement;
